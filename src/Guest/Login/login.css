@@ -1,0 +1,65 @@
+.login{
+    background-color: #f3f3f3;
+    height: 100vh;
+    .conatiner{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        .heading{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            .logo{
+position: absolute;
+top: -65px;
+
+border-radius: 100px;
+    height: 80px;
+    background-color: #fff;
+    padding: 20px;
+img{
+   
+    width: 80px;
+}
+            }
+        }
+        
+        .loginCard{
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            .heading{
+                padding: 40px;
+            }
+            .input{
+                padding: 10px;
+            }
+            .button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+             button{
+                color: dodgerblue ;
+                border: 2px solid dodgerblue    ;
+             }
+            }
+            .linkContainer{
+                display: flex;
+                justify-content: center;
+                .link{
+                    
+                    .change{
+                        display: flex;
+                        justify-content: center;
+                        color: aqua;
+                    }
+                }
+                
+                    
+                
+            }
+        }
+    }
+}
