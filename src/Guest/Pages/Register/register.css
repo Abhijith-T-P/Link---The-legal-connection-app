@@ -1,0 +1,74 @@
+.Register {
+  background-color: #f3f3f3;
+
+  .registerconatiner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .heading {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      .logo {
+        position: absolute;
+        top: -85px;
+        border-radius: 10px;
+        height: 80px;
+        background-color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        padding: 20px;
+        img {
+          width: 80px;
+        }
+      }
+    }
+
+    .RegisterCard {
+      background-color: white;
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      .heading {
+        padding: 40px;
+      }
+    }
+    div.input {
+      display: flex;
+      justify-content: space-between;
+    }
+    .inputName {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .input {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      button {
+        color: dodgerblue;
+        border: 2px solid dodgerblue;
+      }
+    }
+    .linkContainer {
+      display: flex;
+      justify-content: center;
+      .link {
+        .change {
+          display: flex;
+          justify-content: center;
+          color: aqua;
+        }
+      }
+    }
+  }
+}

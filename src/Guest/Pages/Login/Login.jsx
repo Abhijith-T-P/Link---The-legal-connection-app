@@ -2,6 +2,7 @@ import React from "react";
 import "./login.css";
 import { Button, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
 
 const Login = () => {
   return (
@@ -10,7 +11,7 @@ const Login = () => {
         <div className="loginCard">
           <div className="heading">
             <div className="logo">
-              <img src="https://seeklogo.com/images/M/minimalist-leaf-logo-AA0BE382CD-seeklogo.com.png" alt="logo" />
+              <img src={logo} alt="logo" />
             </div>
             <Typography variant="h3"> Login</Typography>
           </div>
@@ -32,18 +33,19 @@ const Login = () => {
               />
             </div>
             <div className="button">
-              
               <Button variant="outlined">Login</Button>
             </div>
             <div className="linkContainer">
-
-            <div className="link">
-              
-              <Typography variant="subtitle2">
-                Dont have an account
-              </Typography>{" "}
-              <div className="change"><span><Link to="../UserRegister">Join Now</Link>  </span> </div>
-            </div>
+              <div className="link">
+                <Typography variant="subtitle2">
+                  Dont have an account
+                </Typography>{" "}
+                <div className="change">
+                  <span>
+                    <Link to="../UserRegister">Join Now</Link>{" "}
+                  </span>{" "}
+                </div>
+              </div>
             </div>
           </div>
         </div>

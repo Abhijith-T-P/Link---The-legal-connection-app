@@ -1,5 +1,6 @@
-import React from "react";
-import "./register.css";
+import React, { useEffect, useState } from "react";
+import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
+
 import {
   Button,
   FormControl,
@@ -15,21 +16,26 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "styled-components";
+import "./register.css";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../../config/Firebase";
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
   height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
+  overflow: "hidden",
+  position: "absolute",
   bottom: 0,
   left: 0,
-  whiteSpace: 'nowrap',
+  whiteSpace: "nowrap",
   width: 1,
 });
 
 const Register = () => {
   const [cleared, setCleared] = React.useState(false);
+  const [showdistrict, setShowDistrict] = useState([]);
+  const [showplace, setShowPlace] = useState([]);
 
   React.useEffect(() => {
     if (cleared) {
@@ -61,15 +67,49 @@ const Register = () => {
 
   const handleDistrictChange = (event) => {
     setDistrict(event.target.value);
+    fetchPlace(event.target.value);
   };
+
+  const fetchPlace = async (Id) => {
+    const placeRef = collection(db, "Place");
+
+    // Create a query against the collection.
+    const q =  query(placeRef, where("District", "==", Id ));
+
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc, key) => ({
+      id: key + 1,
+      placeId: doc.id,
+      ...doc.data(),
+    }));
+    setShowPlace(data);
+    console.log(data);
+
+  };
+
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "districts"));
+    const data = querySnapshot.docs.map((doc, key) => ({
+      id: key + 1,
+      districtId: doc.id,
+      ...doc.data(),
+    }));
+    setShowDistrict(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="Register">
-      <div className="conatiner">
+      <div className="registerconatiner">
         <div className="RegisterCard">
           <div className="heading">
             <div className="logo">
               <img
-                src="https://seeklogo.com/images/M/minimalist-leaf-logo-AA0BE382CD-seeklogo.com.png"
+                src={logo}
                 alt="logo"
               />
             </div>
@@ -181,7 +221,9 @@ const Register = () => {
                   label="district"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value="District">District</MenuItem>
+                  {showdistrict.map((dist, key) => (
+                    <MenuItem value={dist.districtId}>{dist.district}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
@@ -196,8 +238,9 @@ const Register = () => {
                   label="Place"
                 >
                   <MenuItem value=""></MenuItem>
-                  <MenuItem value="Male">Place</MenuItem>
-                </Select>
+                  {showplace.map((pla, key) => (
+                    <MenuItem value={pla.placeId}>{pla.Place}</MenuItem>
+                  ))}                </Select>
               </FormControl>
             </div>
             <div className="input">
@@ -246,9 +289,7 @@ const Register = () => {
               />
             </div>
 
-            <div className="otherLogin">
-              
-            </div>
+            <div className="otherLogin"></div>
             <div className="button">
               <Button variant="outlined">Register</Button>
             </div>

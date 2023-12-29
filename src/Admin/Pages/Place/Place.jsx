@@ -39,8 +39,44 @@ const Place = () => {
       ...doc.data(),
     }));
     setShowDistrict(data);
-    console.log(data);
+    // console.log(data);
   };
+
+  const showPlace = async () => {
+    try {
+      const districtQuerySnapshot = await getDocs(collection(db, "districts"));
+      const districtData = districtQuerySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      console.log(districtData);
+
+      const placesnapshot = await getDocs(collection(db, "Place"));
+      const placeData = placesnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      console.log(placeData);
+
+      const joinData = placeData
+        .map((place) => ({
+          ...place,
+          DistrictInfo: districtData.find(
+            (district) => district.id === place.District
+          ),
+        }))
+        .filter(
+          (place) => place.DistrictInfo && place.DistrictInfo.district
+        )
+        setDispayData(joinData);
+        console.log(joinData);
+    } 
+    catch (error) {
+      console.error("Error fetching data:", error)
+    }
+  }
 
   const insPlace = async () => {
     try {
@@ -50,21 +86,14 @@ const Place = () => {
       });
       alert(`${placevalue} inserted`);
       setPlacevalue("");
+      showPlace();
+
     } catch (error) {
       console.error(error);
     }
   };
 
-  const showPlace = async () => {
-    const dispalayData = await getDocs(palcedb);
-    const filterdData = dispalayData.docs.map((doc, key) => ({
-      ...doc.data(),
-      ID: doc.id,
-    }));
-    setDispayData(filterdData);
-
-    console.log(filterdData);
-  };
+ 
 
   return (
     <div className="Place">
@@ -86,7 +115,7 @@ const Place = () => {
                   onChange={(e) => setDistrict(e.target.value)}
                 >
                   {showdistrict.map((doc, key) => (
-                    <MenuItem value={doc.district}>{doc.district}</MenuItem>
+                    <MenuItem value={doc.districtId}>{doc.district}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -133,7 +162,7 @@ const Place = () => {
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell align="center">{row.Place}</TableCell>
-                    <TableCell align="center">{row.District}</TableCell>
+                    <TableCell align="center">{row.DistrictInfo.district}</TableCell>
                     <TableCell align="center">Update</TableCell>
                     <TableCell align="center">Delete</TableCell>
                   </TableRow>

@@ -9,6 +9,7 @@ import Casetype from "../CaseType/Casetype";
 import District from "../District/District";
 import Jurisdiction from "../Jurisdiction/Jurisdiction";
 import Place from "../Place/Place";
+import Subcategory from "../Subcategory/Subcategory";
 
 const Home = () => {
   return (
@@ -23,7 +24,7 @@ const Home = () => {
             <Route path="/District" element={<District />} />
             <Route path="/Jurisdiction" element={<Jurisdiction />} />
             <Route path="/Place" element={<Place />} />
-          
+            <Route path="/Subcategory" element={<Subcategory />} />
           </Routes>
         </div>
       </div>

@@ -1,12 +1,13 @@
 .Register{
     background-color: #f3f3f3;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 80px;
     
     .conatiner{
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         .heading{
             position: relative;
             display: flex;
@@ -18,8 +19,6 @@ top: -80px;
 border-radius: 100px;
     height: 80px;
     background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
-
     padding: 20px;
 img{
    
@@ -32,29 +31,22 @@ img{
             background-color: white;
             border-radius: 20px;
             padding: 30px;
-            position: relative;
-             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
             .heading{
                 padding: 40px;
             }
             
            
            }
-           div.input{
-            display: flex;
-            justify-content: space-between;
-           }
-           .inputName{
-               display: flex;
-               justify-content: center;
-               align-items: center;
-           }
             .input{
                 padding: 10px;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-               
+                .inputName{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
             .button{
                 display: flex;

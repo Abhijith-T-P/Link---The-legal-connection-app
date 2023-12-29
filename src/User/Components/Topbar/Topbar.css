@@ -1,4 +1,4 @@
-.AdminTopbar {
+.Topbar {
   background-color: #ffffff;
 
   .container {
@@ -35,7 +35,7 @@
         align-items: center;
         padding-left: 40px;
         img{
-          width: 100px;
+          width: 30px;
         }
       }
       nav {
@@ -54,6 +54,7 @@
   }
   .containerBottom{
     display: flex;
+    border-top: 0.5px solid #e1e2de ;
     nav{
         ul{
             display: flex;
@@ -62,6 +63,24 @@
                 padding: 10px 15px;
             }
         }
+    }
+  }
+}
+.UserContainer{
+   background-color: #e1e2de;
+   padding: 10px;
+   border-radius: 10px;
+  .User  {
+    display: flex;
+    .logo{
+      display: flex;justify-content: center;align-items: center;
+      padding-left: 10px;
+    }
+    img{
+      
+      border-radius: 100px;
+      height: 60px;
+      width: 60px;
     }
   }
 }
