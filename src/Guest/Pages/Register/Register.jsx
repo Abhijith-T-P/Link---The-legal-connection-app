@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
+import { storage } from "../../../config/Firebase";
 
 import {
   Button,
@@ -17,8 +18,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "styled-components";
 import "./register.css";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -36,6 +38,8 @@ const Register = () => {
   const [cleared, setCleared] = React.useState(false);
   const [showdistrict, setShowDistrict] = useState([]);
   const [showplace, setShowPlace] = useState([]);
+  const [photo, setPhoto] = useState([]);
+  const [adharpic, setAdharpic] = useState([]);
 
   React.useEffect(() => {
     if (cleared) {
@@ -48,11 +52,6 @@ const Register = () => {
     return () => {};
   }, [cleared]);
 
-  const [code, setCode] = React.useState("");
-
-  const handleChange = (event) => {
-    setCode(event.target.value);
-  };
   const [gender, setGender] = React.useState("");
 
   const handleGenderChange = (event) => {
@@ -74,7 +73,7 @@ const Register = () => {
     const placeRef = collection(db, "Place");
 
     // Create a query against the collection.
-    const q =  query(placeRef, where("District", "==", Id ));
+    const q = query(placeRef, where("District", "==", Id));
 
     const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc, key) => ({
@@ -84,7 +83,6 @@ const Register = () => {
     }));
     setShowPlace(data);
     console.log(data);
-
   };
 
   const fetchData = async () => {
@@ -102,16 +100,42 @@ const Register = () => {
     fetchData();
   }, []);
 
+  const handleSubmit = async () => {
+    const photometadata = {
+      contentType: photo.type,
+    };
+
+    // Upload file and metadata to the object 'images/mountains.jpg'
+    const storageRef = ref(storage, "images/" + photo.name);
+    await uploadBytesResumable(storageRef, photo, photometadata); //ref,file varialbe,file type
+
+    const url = await getDownloadURL(storageRef); //creating url for image
+
+    
+    console.log(url);
+    
+    const adhatMeatdata = {
+      contentType: adharpic.type,
+    };
+    
+    const AdharStorageRef = ref(storage, "Adhar/" + adharpic.name);
+    await uploadBytesResumable(AdharStorageRef, adharpic, adhatMeatdata); 
+    const adharUrl = await getDownloadURL(AdharStorageRef);
+    console.log(adharUrl);
+    
+    await addDoc(collection(db, "photo"), {
+      url,
+      adharUrl,
+    });
+  };
+  
   return (
     <div className="Register">
       <div className="registerconatiner">
         <div className="RegisterCard">
           <div className="heading">
             <div className="logo">
-              <img
-                src={logo}
-                alt="logo"
-              />
+              <img src={logo} alt="logo" />
             </div>
             <Typography variant="h3">User Register</Typography>
           </div>
@@ -139,28 +163,9 @@ const Register = () => {
               />
             </div>
             <div className="input">
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 75 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  Country
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={code}
-                  onChange={handleChange}
-                  label="Country"
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>+91</MenuItem>
-                  <MenuItem value={20}>+1</MenuItem>
-                  <MenuItem value={30}>+6</MenuItem>
-                </Select>
-              </FormControl>
               <TextField
                 id="standard-basic"
-                label="Phone .... "
+                label="Phone number .... "
                 variant="standard"
                 type="number"
                 style={{ width: "100%" }}
@@ -198,7 +203,6 @@ const Register = () => {
                   onChange={handleGenderChange}
                   label="Gender"
                 >
-                  <MenuItem value=""></MenuItem>
                   <MenuItem value="Male">Male</MenuItem>
                   <MenuItem value="Female">Female</MenuItem>
                   <MenuItem value="Other">Other</MenuItem>
@@ -220,7 +224,6 @@ const Register = () => {
                   onChange={handleDistrictChange}
                   label="district"
                 >
-                  <MenuItem value=""></MenuItem>
                   {showdistrict.map((dist, key) => (
                     <MenuItem value={dist.districtId}>{dist.district}</MenuItem>
                   ))}
@@ -237,10 +240,10 @@ const Register = () => {
                   onChange={handlePlaceChange}
                   label="Place"
                 >
-                  <MenuItem value=""></MenuItem>
                   {showplace.map((pla, key) => (
                     <MenuItem value={pla.placeId}>{pla.Place}</MenuItem>
-                  ))}                </Select>
+                  ))}{" "}
+                </Select>
               </FormControl>
             </div>
             <div className="input">
@@ -259,11 +262,15 @@ const Register = () => {
                 startIcon={<CloudUploadIcon />}
               >
                 Upload your Photo
-                <VisuallyHiddenInput type="file" />
+                <VisuallyHiddenInput
+                  type="file"
+                  onChange={(event) => setPhoto(event.target.files[0])}
+                />
               </Button>
               <Button
                 component="label"
                 variant="contained"
+                onChange={(event) => setAdharpic(event.target.files[0])}
                 startIcon={<CloudUploadIcon />}
               >
                 Upload Adhar
@@ -291,7 +298,9 @@ const Register = () => {
 
             <div className="otherLogin"></div>
             <div className="button">
-              <Button variant="outlined">Register</Button>
+              <Button variant="outlined" onClick={handleSubmit}>
+                Register
+              </Button>
             </div>
             <div className="linkContainer">
               <div className="link">

@@ -39,7 +39,7 @@ const Place = () => {
       ...doc.data(),
     }));
     setShowDistrict(data);
-    // console.log(data);
+    
   };
 
   const showPlace = async () => {
@@ -78,6 +78,8 @@ const Place = () => {
     }
   }
 
+
+//Ading data
   const insPlace = async () => {
     try {
       await addDoc(palcedb, {

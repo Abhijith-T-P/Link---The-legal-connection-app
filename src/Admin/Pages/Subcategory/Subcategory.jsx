@@ -30,16 +30,22 @@ const Subcategory = () => {
   const subCat = collection(db, "lawyerSubCategory");
   const [category, setCategory] = useState("");
   const [subCatVal, setSubCatVal] = useState("");
-  const [dispalaySubLaw, setDispalySubLaw] = useState([]);
-  const [dispalyData, setDispalyData] = useState([]);
+  const [displaySubLaw, setDisplaySubLaw] = useState([]);
+  const [displayData, setDisplayData] = useState([]);
 
+  useEffect(() => {
+    showCategory();
+    showLawyerSub();
+  }, []);
+
+  // Getting category
   const showCategory = async () => {
     const data = await getDocs(Cat);
-    const filtereData = data.docs.map((doc, key) => ({
+    const filteredData = data.docs.map((doc) => ({
       ...doc.data(),
       ID: doc.id,
     }));
-    setDispalyData(filtereData);
+    setDisplayData(filteredData);
     showLawyerSub();
   };
 
@@ -49,10 +55,10 @@ const Subcategory = () => {
         SubCategory: subCatVal,
         Category: category,
       });
-      alert(`${subCatVal} inserted Succesfulley`);
+      alert(`${subCatVal} inserted successfully`);
       showLawyerSub();
       setCategory("");
-      setSubCatVal("  ");
+      setSubCatVal("");
     } catch (error) {
       console.error(error);
     }
@@ -60,24 +66,77 @@ const Subcategory = () => {
 
   const showLawyerSub = async () => {
     const subLawyerData = await getDocs(subCat);
-    const filteredSubLawyer = subLawyerData.docs.map((doc, key) => ({
+    const filteredSubLawyer = subLawyerData.docs.map((doc) => ({
       ...doc.data(),
-      ID: doc.id,
+      SubID: doc.id,
     }));
-    setDispalySubLaw(filteredSubLawyer);
-    setSubCatVal("");
+    console.log( filteredSubLawyer);
+
+    const lawCat = await getDocs(Cat);
+    const filteredLawCat = lawCat.docs.map((doc) => ({
+      ...doc.data(),
+      catID: doc.id,
+    }));
+    console.log(filteredLawCat);
+
+    const joinData = filteredSubLawyer.map((maintable) =>
+      ({
+        ...maintable,
+        idSubCheck: filteredLawCat.find(
+          (collection) => collection.catID === maintable.Category
+          ),
+        })).filter(
+        
+        (collection) =>
+        collection.idSubCheck && collection.idSubCheck.categoryName
+    );
+    console.log( joinData);
+    setDisplaySubLaw(joinData);
+
   };
 
-  const deletevalue = async (id) => {
+  // // Getting subcategory
+  // const showLawyerSub = async () => {
+  //   try {
+  //     const subLawyerData = await getDocs(subCat);
+  //     const filteredSubLawyer = subLawyerData.docs.map((doc) => ({
+  //       ...doc.data(),
+  //       subID: doc.id,
+  //     }));
+  //     console.log( filteredSubLawyer);
+
+  //     const lawCat = await getDocs(Cat);
+  //     const filteredCat = lawCat.docs.map((doc) => ({
+  //       ...doc.data(),
+  //       catID: doc.id,
+  //     }));
+
+  //     const joinData = filteredSubLawyer
+  //     .map((subCatdat) => ({
+  //       ...subCatdat,
+  //       CatInfo: filteredCat.find(
+  //         (catDat) => catDat.catID === subCatdat.Category
+  //       ),
+  //     }))
+  //     .filter(
+  //       (subCatdat) => subCatdat.CatInfo && subCatdat.CatInfo.categoryName
+  //     )
+
+  //     setDisplaySubLaw(joinData);
+  //     console.log(joinData);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  // Adding data to collection
+
+  const deleteValue = async (id) => {
     await deleteDoc(doc(subCat, id));
     showLawyerSub();
     alert("Deleted");
   };
 
-  useEffect(() => {
-    showCategory();
-    showLawyerSub();
-  }, []);
   return (
     <div className="Subcategory">
       <div className="wrapper">
@@ -96,8 +155,10 @@ const Subcategory = () => {
                   label="Category"
                   onChange={(event) => setCategory(event.target.value)}
                 >
-                  {dispalyData.map((doc, key) => (
-                    <MenuItem value={doc.ID}>{doc.categoryName} </MenuItem>
+                  {displayData.map((doc) => (
+                    <MenuItem key={doc.ID} value={doc.ID}>
+                      {doc.categoryName}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -130,29 +191,27 @@ const Subcategory = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Sl .No</TableCell>
-                <TableCell align="center">LawyerSubcategory</TableCell>
+                <TableCell align="center">Lawyer Subcategory</TableCell>
                 <TableCell align="center">Category</TableCell>
                 <TableCell align="center">Action</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {dispalaySubLaw.map((row, index) => (
-                <TableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row" align="center">
-                    {index + 1}
-                  </TableCell>
+              {displaySubLaw.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell align="center">{index + 1}</TableCell>
                   <TableCell align="center">{row.SubCategory}</TableCell>
-                  <TableCell align="center">{row.Category}</TableCell>
+                  <TableCell align="center">
+                    {row.idSubCheck.categoryName}
+                  </TableCell>
                   <TableCell align="center">
                     <Button variant="outlined">Update</Button>
                   </TableCell>
                   <TableCell align="center">
                     <Button
                       variant="outlined"
-                      onClick={() => deletevalue(row.ID)}
+                      onClick={() => deleteValue(row.ID)}
                     >
                       Delete
                     </Button>
