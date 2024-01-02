@@ -3,8 +3,8 @@ import "./Home.css";
 
 import Topbar from "../../Components/Topbar/Topbar";
 import { Route, Routes } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
 
-import Dashboard from "./Dashboard/Dashboard";
 
 
 const Home = () => {

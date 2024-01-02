@@ -10,8 +10,8 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/Login" element={<Login />} />
-        <Route path="/UserRegister" element={<Register />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="/LawyerRegister" element={<LawyerRegister />} />
 
       </Routes>

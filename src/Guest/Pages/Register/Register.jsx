@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
-import { storage } from "../../../config/Firebase";
+import { storage, auth, db } from "../../../config/Firebase";
 
 import {
   Button,
@@ -18,9 +18,17 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "styled-components";
 import "./register.css";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../../config/Firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -41,6 +49,18 @@ const Register = () => {
   const [photo, setPhoto] = useState([]);
   const [adharpic, setAdharpic] = useState([]);
 
+  const [gender, setGender] = useState("");
+  const [district, setDistrict] = useState("");
+  const [place, setPlace] = useState("");
+  const [dob, setDob] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+
   React.useEffect(() => {
     if (cleared) {
       const timeout = setTimeout(() => {
@@ -52,17 +72,13 @@ const Register = () => {
     return () => {};
   }, [cleared]);
 
-  const [gender, setGender] = React.useState("");
-
   const handleGenderChange = (event) => {
     setGender(event.target.value);
   };
-  const [place, setPlace] = React.useState("");
 
   const handlePlaceChange = (event) => {
     setPlace(event.target.value);
   };
-  const [district, setDistrict] = React.useState("");
 
   const handleDistrictChange = (event) => {
     setDistrict(event.target.value);
@@ -101,36 +117,58 @@ const Register = () => {
   }, []);
 
   const handleSubmit = async () => {
-    const photometadata = {
-      contentType: photo.type,
-    };
+    try {
+      console.log(email);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+       
+      );
+      const user = userCredential.user.uid;
+      console.log(user);
+      console.log(userCredential);
 
-    // Upload file and metadata to the object 'images/mountains.jpg'
-    const storageRef = ref(storage, "images/" + photo.name);
-    await uploadBytesResumable(storageRef, photo, photometadata); //ref,file varialbe,file type
+      const photometadata = {
+        contentType: photo.type,
+      };
+      const adhatMeatdata = {
+        contentType: adharpic.type,
+      };
 
-    const url = await getDownloadURL(storageRef); //creating url for image
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      const storageRef = ref(storage, "images/" + photo.name);
+      await uploadBytesResumable(storageRef, photo, photometadata); //ref,file varialbe,file type
 
-    
-    console.log(url);
-    
-    const adhatMeatdata = {
-      contentType: adharpic.type,
-    };
-    
-    const AdharStorageRef = ref(storage, "Adhar/" + adharpic.name);
-    await uploadBytesResumable(AdharStorageRef, adharpic, adhatMeatdata); 
-    const adharUrl = await getDownloadURL(AdharStorageRef);
-    console.log(adharUrl);
-    
-    await addDoc(collection(db, "photo"), {
-      url,
-      adharUrl,
-    });
+      const url = await getDownloadURL(storageRef); //creating url for image
+
+      const AdharStorageRef = ref(storage, "Adhar/" + adharpic.name);
+      await uploadBytesResumable(AdharStorageRef, adharpic, adhatMeatdata);
+      const adharUrl = await getDownloadURL(AdharStorageRef);
+
+      await setDoc(doc(db, "collection_user", user), {
+        user_photo : url,
+        user_adhar:adharUrl,
+        user_name:fname + " " + lname,
+        user_email:email,
+        user_mobile:mobile,
+        user_address:address,
+        user_gender:gender,
+        user_place:place,
+        user_dob:dob,
+      });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+      alert(errorCode);
+    }
   };
-  
+
   return (
     <div className="Register">
+      
       <div className="registerconatiner">
         <div className="RegisterCard">
           <div className="heading">
@@ -144,6 +182,7 @@ const Register = () => {
               <TextField
                 id="standard-basic"
                 label="First name "
+                onChange={(event) => setFname(event.target.value)}
                 variant="standard"
                 type="text"
                 className="name"
@@ -157,6 +196,7 @@ const Register = () => {
               <TextField
                 className="name"
                 id="standard-basic"
+                onChange={(event) => setLname(event.target.value)}
                 label="Last name "
                 variant="standard"
                 type="text"
@@ -166,6 +206,7 @@ const Register = () => {
               <TextField
                 id="standard-basic"
                 label="Phone number .... "
+                onChange={(e) => setMobile(e.target.value)}
                 variant="standard"
                 type="number"
                 style={{ width: "100%" }}
@@ -175,6 +216,7 @@ const Register = () => {
               <TextField
                 id="standard-basic"
                 label="Eamil address .... "
+                onChange={(e) => setEmail(e.target.value)}
                 variant="standard"
                 type="email"
                 style={{ width: "100%" }}
@@ -187,6 +229,7 @@ const Register = () => {
                 multiline
                 rows={4}
                 placeholder="Your Address...."
+                onChange={(e) => setAddress(e.target.value)}
                 variant="standard"
                 style={{ width: "100%" }}
               />
@@ -194,13 +237,13 @@ const Register = () => {
             <div className="input">
               <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
                 <InputLabel id="demo-simple-select-standard-label">
-                  Gnder
+                  Gender
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
                   value={gender}
-                  onChange={handleGenderChange}
+                  onChange={(handleGenderChange)}
                   label="Gender"
                 >
                   <MenuItem value="Male">Male</MenuItem>
@@ -208,10 +251,20 @@ const Register = () => {
                   <MenuItem value="Other">Other</MenuItem>
                 </Select>
               </FormControl>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker />
-              </LocalizationProvider>
+              
+              <TextField
+                id="standard-multiline-static"
+            label="."
+                type="date"
+              
+
+                onChange={(e) => setDob(e.target.value)}
+                variant="standard"
+                style={{ width: "100%" }}
+              />
+
             </div>
+            
             <div className="input">
               <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
                 <InputLabel id="demo-simple-select-standard-label">
@@ -246,17 +299,10 @@ const Register = () => {
                 </Select>
               </FormControl>
             </div>
-            <div className="input">
-              <TextField
-                id="standard-basic"
-                label="Adhar number .... "
-                variant="standard"
-                type="number"
-                style={{ width: "100%" }}
-              />
-            </div>
+
             <div className="input">
               <Button
+                sx={{ m: 1, Width: " 80%" }}
                 component="label"
                 variant="contained"
                 startIcon={<CloudUploadIcon />}
@@ -273,14 +319,15 @@ const Register = () => {
                 onChange={(event) => setAdharpic(event.target.files[0])}
                 startIcon={<CloudUploadIcon />}
               >
-                Upload Adhar
+                Upload ID proof
                 <VisuallyHiddenInput type="file" />
               </Button>
             </div>
             <div className="input">
               <TextField
                 id="standard-basic"
-                label="Confirm password...."
+                label="password...."
+                onChange={(e) => setPassword(e.target.value)}
                 variant="standard"
                 type="password"
                 style={{ width: "100%" }}
@@ -290,6 +337,7 @@ const Register = () => {
               <TextField
                 id="standard-basic"
                 label="Confirm password...."
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 variant="standard"
                 type="password"
                 style={{ width: "100%" }}
@@ -309,7 +357,7 @@ const Register = () => {
                 </Typography>
                 <div className="change">
                   <span>
-                    <Link to="../Login">Login</Link>{" "}
+                    <Link to="../">Login</Link>{" "}
                   </span>
                 </div>
               </div>

@@ -1,64 +1,64 @@
 .login {
-  background-color: #f3f3f3;
   height: 100vh;
-  .conatiner {
+  display: flex;
+  justify-content: center;
+  color:white;
+  
+  align-items: center;
+  .loginCard {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    .heading {
-      position: relative;
+    border-radius: 15px;
+    box-shadow: -2px 9px 53px 7px rgba(0,0,0,0.35);
+
+    .right {
+      padding: 60px 30px;
+      background-color: dodgerblue;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
       display: flex;
-      justify-content: center;
-      .logo {
-        position: absolute;
-        top: -85px;
-
-        border-radius: 10px;
-        height: 80px;
-        background-color: #fff;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-        padding: 20px;
-        img {
-          width: 80px;
-        }
-      }
+      align-items: center;
+     h4{
+      font-size: 38px;
+     }
     }
-
-    .loginCard {
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-      padding: 30px;
-      .heading {
-        padding: 40px;
-      }
+    .left {
+      padding: 60px 30px;
+      background-color: #e0e0e0;
+      
+      display: flex;
+      border-start-end-radius: 15px;
+      border-end-end-radius: 15px;
+      
+      
       .input {
-        padding: 10px;
-      }
-      .button {
         display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 20px;
-        button {
-          color: dodgerblue;
-          border: 2px solid dodgerblue;
-        }
+        
       }
-      .linkContainer {
+      .linkContainer{
         display: flex;
         justify-content: center;
-        .link {
-          .change {
-            display: flex;
-            justify-content: center;
-            color: aqua;
+        position: relative;
+        .link{
+          font-size: larger;
+          display: flex;
+          color: #000;
+          
+          a{
+            color: dodgerblue ;
+            font-size: small;
+            text-decoration: none;
+            position: relative;
+            bottom: 5px;
           }
         }
       }
     }
+  
   }
+}
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
 }

@@ -1,0 +1,53 @@
+.Dashboard {
+  .hero {
+    height: 610px;
+    padding: 0px 255px;
+    display: flex;
+    align-items: center;
+
+    .left {
+      width: 40vw;
+      
+      display: flex;
+      justify-content: center;
+      .heroText {
+        font-weight: 900;
+        font: 2.4rem 'Poppins', sans-serif;
+        padding: 40px;
+      }
+    }
+    .right {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  main {
+    .services {
+      padding: 0 225px;
+      background-color: rgba(30, 143, 255, 0.415);
+
+      .service {
+        width: 50%;
+        height: 40vh;
+        display: inline-block;
+        .sItem {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          background-color: antiquewhite;
+          margin: 20px;
+          padding: 20px;
+          
+        }
+      }
+    }
+  }
+}

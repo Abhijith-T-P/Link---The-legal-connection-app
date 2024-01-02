@@ -10,12 +10,17 @@ const Topbar = () => {
       <div className="container">
         <div className="items">
           <div className="logo">
-            <img src="https://seeklogo.com/images/M/minimalist-leaf-logo-AA0BE382CD-seeklogo.com.png" alt="logo" />
+            <img src= "" alt="logo" />
+          </div>
+          <div className="mid">
+          <div className="containerBottom">
+        
+      </div>
           </div>
           <nav>
             <div className="nav"><Link to="/Product">Product</Link>  </div>
             <div className="nav"><Link to="/">Home</Link> </div>
-            <div className="nav">Home</div>
+            <div className="nav"><Link to="/">Home</Link> </div>
           </nav>
         </div>
         <div className="UserContainer">
@@ -33,16 +38,7 @@ const Topbar = () => {
           </div>
         </div>
       </div>
-      <div className="containerBottom">
-        <nav>
-          <ul>
-            <li>Dashboard</li>
-            <li>User</li>
-            <li>Police</li>
-            <li>Lawyer</li>
-          </ul>
-        </nav>
-      </div>
+      
     </div>
   );
 };

@@ -53,10 +53,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 18px;
+      
       button {
         color: dodgerblue;
         border: 2px solid dodgerblue;
+      }
+      Button{
+        margin: 10px;
       }
     }
     .linkContainer {

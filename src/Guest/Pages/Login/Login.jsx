@@ -2,20 +2,19 @@ import React from "react";
 import "./login.css";
 import { Button, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
 
 const Login = () => {
   return (
     <div className="login">
-      <div className="conatiner">
-        <div className="loginCard">
-          <div className="heading">
-            <div className="logo">
-              <img src={logo} alt="logo" />
-            </div>
-            <Typography variant="h3"> Login</Typography>
+      <div className="loginCard">
+        <div className="right">
+          <div className="welcome">
+            <Typography variant="h4">Welcome to</Typography>
+            <Typography variant="h1"> LINK</Typography>
           </div>
-          <div className="content">
+        </div>
+        <div className="left">
+          <div className="leftContainer">
             <div className="input">
               <TextField
                 id="standard-basic"
@@ -38,11 +37,11 @@ const Login = () => {
             <div className="linkContainer">
               <div className="link">
                 <Typography variant="subtitle2">
-                  Dont have an account
+                  Dont have an account .
                 </Typography>{" "}
                 <div className="change">
                   <span>
-                    <Link to="../UserRegister">Join Now</Link>{" "}
+                    <Link to="../Register">Join Now</Link>{" "}
                   </span>{" "}
                 </div>
               </div>
