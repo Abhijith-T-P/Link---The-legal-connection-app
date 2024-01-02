@@ -167,17 +167,12 @@ const Register = () => {
   };
 
   return (
-    <div className="Register">
-      
-      <div className="registerconatiner">
-        <div className="RegisterCard">
-          <div className="heading">
-            <div className="logo">
-              <img src={logo} alt="logo" />
+    
+          <div className="reg">
+          <div className="RegisteContent">
+            <div className="heading">
+              <Typography variant="h2">Register</Typography>
             </div>
-            <Typography variant="h3">User Register</Typography>
-          </div>
-          <div className="content">
             <div className="inputName">
               <TextField
                 id="standard-basic"
@@ -198,6 +193,9 @@ const Register = () => {
                 id="standard-basic"
                 onChange={(event) => setLname(event.target.value)}
                 label="Last name "
+                style={{
+                  width:"50%"
+                }}
                 variant="standard"
                 type="text"
               />
@@ -350,6 +348,7 @@ const Register = () => {
                 Register
               </Button>
             </div>
+          </div>
             <div className="linkContainer">
               <div className="link">
                 <Typography variant="subtitle2">
@@ -363,9 +362,6 @@ const Register = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
   );
 };
 

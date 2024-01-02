@@ -31,7 +31,7 @@ const LawyerRegister = () => {
     setAge(event.target.value);
   };
   return (
-    <div className="Register">
+    <div className="lRegister">
       <div className="conatiner">
         <div className="RegisterCard">
           <div className="heading">

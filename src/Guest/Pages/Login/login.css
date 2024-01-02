@@ -1,64 +1,49 @@
-.login {
-  height: 100vh;
+.mainlogin {
+  height: 100%;
   display: flex;
-  justify-content: center;
-  color:white;
-  
-  align-items: center;
-  .loginCard {
-    display: flex;
-    border-radius: 15px;
-    box-shadow: -2px 9px 53px 7px rgba(0,0,0,0.35);
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
 
-    .right {
-      padding: 60px 30px;
-      background-color: dodgerblue;
-      border-top-left-radius: 15px;
-      border-bottom-left-radius: 15px;
+  .leftContainer {
+
+
+    .button {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    
+    }
+.h1input{
+  display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      font-weight: 900;
+}
+    .input {
       display: flex;
       align-items: center;
-     h4{
-      font-size: 38px;
-     }
+      justify-content: center;
+      padding: 10px;
     }
-    .left {
-      padding: 60px 30px;
-      background-color: #e0e0e0;
-      
-      display: flex;
-      border-start-end-radius: 15px;
-      border-end-end-radius: 15px;
-      
-      
-      .input {
-        display: flex;
-        justify-content: center;
-        
-      }
-      .linkContainer{
-        display: flex;
-        justify-content: center;
-        position: relative;
-        .link{
-          font-size: larger;
-          display: flex;
-          color: #000;
-          
-          a{
-            color: dodgerblue ;
-            font-size: small;
-            text-decoration: none;
-            position: relative;
-            bottom: 5px;
-          }
+
+    .link {
+      padding: 20px;display: flex;
+      justify-content: center;
+      a{
+        text-decoration: none;
+        color: dodgerblue;
+        font-size: 18px;
+        padding: 4px;
+        &:hover{
+          background-color: rgba(127, 255, 212, 0.35);
+          border-radius: 5px;
+          color: rgb(0, 128, 255);
         }
       }
+      h6{
+        font-size: 18px;
+      }
     }
-  
   }
-}
-.button {
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-}
