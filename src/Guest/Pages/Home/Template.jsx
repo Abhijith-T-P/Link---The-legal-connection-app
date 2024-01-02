@@ -4,6 +4,8 @@ import "./Template.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import LawyerRegister from "../LawyerRegister/LawyerRegister";
+import PoliceStationRegister from "../StationRegister/StationRegister";
 
 const LoginTemplate = () => {
   // Add your state and other logic here if needed
@@ -24,6 +26,8 @@ Great to see you .......             </Typography>
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/r" element={<Register />} />
+              <Route path="/l" element={<LawyerRegister />} />
+              <Route path="/p" element={<PoliceStationRegister />} />
             </Routes>
           </div>
         </div>

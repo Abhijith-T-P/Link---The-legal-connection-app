@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
 import { storage, auth, db } from "../../../config/Firebase";
 
 import {
@@ -12,14 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "styled-components";
 import "./register.css";
 import {
-  addDoc,
   collection,
   doc,
   getDocs,
