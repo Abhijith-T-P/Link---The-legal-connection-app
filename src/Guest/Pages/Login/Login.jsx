@@ -17,7 +17,9 @@ const Login = () => {
         email,
         password,
       );
-      const id = userCredential.user.id;
+      const id = userCredential.user.uid;
+
+      console.log( id);
       const docRefUser = doc(db, "collection_user", id);
       const docSnapUser = await getDoc(docRefUser);
 
@@ -27,7 +29,7 @@ const Login = () => {
       const docRefLawyer = doc(db, "lawyer_collection", id);
       const docSnapLawyer = await getDoc(docRefLawyer);
 
-      const docRefPS = doc(db, "collection_user", id);
+      const docRefPS = doc(db, "police_station_collection", id);
       const docSnapPS = await getDoc(docRefPS);
 
       sessionStorage.setItem("SessionId", id);
@@ -41,11 +43,11 @@ const Login = () => {
         // navigate("../../../User/");
       }
       else if (docSnapPS.exists()) {
-        // navigate("../../../User/");
+        navigate("../../police");
       }
       else{
         return;
-      }
+     }
 
       // sessionStorage.setItem("userId", user)
       // navigate('../../../User/')
@@ -70,7 +72,7 @@ const Login = () => {
       const docRefLawyer = doc(db, "lawyer_collection", id);
       const docSnapLawyer = await getDoc(docRefLawyer);
 
-      const docRefPS = doc(db, "collection_user", id);
+      const docRefPS = doc(db, "police_station_collection", id);
       const docSnapPS = await getDoc(docRefPS);
 
       if (docSnapUser.exists()) {
@@ -84,6 +86,8 @@ const Login = () => {
       }
       else if (docSnapPS.exists()) {
         // navigate("../../../User/");
+        navigate("../../police");
+
       }
       else{
         return;

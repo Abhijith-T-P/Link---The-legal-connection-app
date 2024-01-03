@@ -4,26 +4,21 @@ import "./Home.css";
 import Topbar from "../../Components/Topbar/Topbar";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
-import PermitRequestForm from "../PermitRequestForm/PermitRequestForm";
-import Footer from "../../../PoliceStation/Components/Footer/Footer";
-import EmergencyRequestPage from "../EmergencyRequestPage/EmergencyRequestPage";
+import Footer from "../../Components/Footer/Footer";
+import CaseDashboard from "../CaseDashboard/CaseDashboard";
 
 
 const Home = () => {
   
   return (
     <div>
-
-
     <div className="Home">
       <div className="Container">
         <Topbar />
         <div className="content">
           <Routes>
-          <Route path="/" element={<Dashboard />} />
-            <Route path="/permit" element={<PermitRequestForm />} />
-            <Route path="/EmergencyRequest" element={<EmergencyRequestPage />} />
-
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/CaseDashboard" element={<CaseDashboard />} />
           </Routes>
         </div>
       </div>

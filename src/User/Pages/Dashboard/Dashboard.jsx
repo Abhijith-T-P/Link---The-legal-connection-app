@@ -170,10 +170,7 @@ const Dashboard = () => {
           </p>
         </div>
       </article>
-      <footer>
-        about us disclaimer privacy policy terms of use copyright © 2021 . All
-        rights reserved. back to top
-      </footer>
+      
     </div>
   );
 };

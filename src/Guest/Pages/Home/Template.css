@@ -25,13 +25,16 @@
         border-top-left-radius: 15px;
         border-bottom-left-radius: 15px;
         .tregisterText {
+          color: #333;
           h1 {
             font-size: 140px;
+            color: #333;
           }
           h6 {
             font-size: 15px;
             font-family: "Roboto Mono", monospace;
             display: flex;justify-content: center;
+            color: #333;
           }
         }
       }

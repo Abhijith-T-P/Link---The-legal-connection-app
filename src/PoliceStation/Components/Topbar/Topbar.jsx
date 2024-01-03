@@ -9,27 +9,27 @@ const Topbar = () => {
 
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
-  const userData = async () => {
-    const id = sessionStorage.getItem("SessionId");
-    console.log(id);
-    const docRef = doc(db, "collection_user", id);
-    const docSnapUser = await getDoc(docRef);
-    const userData = {
-      ...docSnapUser.data(),
-      id: docSnapUser.id,
-    };
-    setUser(userData);
-  };
+  // const userData = async () => {
+  //   const id = sessionStorage.getItem("SessionId");
+  //   console.log(id);
+  //   const docRef = doc(db, "collection_user", id);
+  //   const docSnapUser = await getDoc(docRef);
+  //   const userData = {
+  //     ...docSnapUser.data(),
+  //     id: docSnapUser.id,
+  //   };
+  //   setUser(userData);
+  // };
 
-  const Logout = () => {
-    //clear sessionid
-    sessionStorage.removeItem("SessionId");
-    navigate("../../Login");
-  };
+  // const Logout = () => {
+  //   //clear sessionid
+  //   sessionStorage.removeItem("SessionId");
+  //   navigate("../../Login");
+  // };
 
-  useEffect(() => {
-    userData();
-  }, []);
+  // useEffect(() => {
+  //   userData();
+  // }, []);
   return (
     <div className="Topbar">
       <div className="container">
@@ -57,10 +57,10 @@ const Topbar = () => {
             <div className="Detail">
               <div className="userName">
                 <Typography variant="subtitle1">{user.user_name}</Typography>
-                <Typography variant="subtitle2">User</Typography>
+                <Typography variant="subtitle2">Police</Typography>
               </div>
             </div>
-            <div className="logo" onClick={Logout}>
+            <div className="logo" >
               <img src="https://source.unsplash.com/random" alt="logo" />
             </div>
           </div>
