@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Paper,
   Table,
@@ -29,13 +30,16 @@ const District = () => {
   const [selectedId, setSelectedId] = useState(null);
   const dist = collection(db, "districts");
 
-  const addDistrict = async () => {
+  const addDistrict = async (e) => {
+    e.preventDefault();
     if (selectedId) {
       const upadteRef = doc(dist, selectedId);
       await updateDoc(upadteRef, {
         district: district,
       });
       fetchData();
+      setDistrict("");
+    
     } else {
       const docRef = await addDoc(collection(db, "districts"), {
         district,
@@ -44,6 +48,8 @@ const District = () => {
       setDistrict("");
       console.log("Document written with ID: ", docRef.id);
     }
+    setSelectedId(null);
+
   };
 
   const UpdateData = async (id) => {
@@ -51,7 +57,8 @@ const District = () => {
     const docSnap = await getDoc(docRef);
     const docData = docSnap.data();
     setSelectedId(id);
-    setSelectedId(null);
+    setDistrict("");
+  
     setDistrict(docData.district);
     console.log(docData);
   };
@@ -81,7 +88,7 @@ const District = () => {
   };
 
   return (
-    <div className="District">
+    <Box className="District" component={"form"} on onSubmit={addDistrict}> 
       <div className="wrapper">
         <Typography variant="h3" className="h1">
           District
@@ -102,7 +109,7 @@ const District = () => {
                 variant="outlined"
                 type="submit"
                 className="btn"
-                onClick={addDistrict}
+                
               >
                 Submit
               </Button>
@@ -153,7 +160,7 @@ const District = () => {
           </Table>
         </TableContainer>
       </div>
-    </div>
+    </Box>
   );
 };
 

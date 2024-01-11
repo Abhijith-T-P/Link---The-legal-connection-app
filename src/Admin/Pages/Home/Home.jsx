@@ -17,22 +17,13 @@ const Home = () => {
   return (
     <div className="Home">
       <div className="Container">
-        <Topbar />
+      
         <div className="content">
           <Routes>
-            <Route path="/" element={<Test />} />
-            <Route path="/Category" element={<Category />} />
-            <Route path="/CaseType" element={<Casetype />} />
-            <Route path="/District" element={<District />} />
-            <Route path="/Jurisdiction" element={<Jurisdiction />} />
-            <Route path="/Place" element={<Place />} />
-            <Route path="/Subcategory" element={<Subcategory />} />
-            <Route path="/Subjr" element={<SubJurisdiction />} />
-            <Route path="/File" element={<FileUplaod />} />
+            
           </Routes>
         </div>
       </div>
-      <Sidebar />
     </div>
   );
 };

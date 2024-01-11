@@ -1,61 +1,43 @@
 import React from "react";
+import img1 from "../../assets/icon/newcase.png";
+import img2 from "../../assets/icon/openCase.png";
+import img3 from "../../assets/icon/closedCase.png";
 import "./CaseDashboard.css";
+import { Link } from "react-router-dom";
 
 const CaseDashboard = () => {
   return (
     <div className="CaseDashboard">
       <div class="dashboard">
         <div class="service">
+          <Link to= "./">
+
           <div class="card-client">
             <div class="service-picture">
-              <img src="ser1.jpg" alt="Service 1" />
+              <img src= {img1} alt="Service 1" />
             </div>
             <p class="name-client">New Case</p>
           </div>
+          </Link>
         </div>
 
         <div class="service">
+        <Link to= "../ExistingCase">
           <div class="card-client">
             <div class="service-picture">
-              <img src="ser2.jpg" alt="Service 2" />
+              <img src={img2} alt="Service 2" />
             </div>
             <p class="name-client">Existing Case</p>
           </div>
+        </ Link>
         </div>
 
         <div class="service">
           <div class="card-client">
             <div class="service-picture">
-              <img src="ser3.jpg" alt="Service 3" />
+              <img src={img3} alt="Service 3" />
             </div>
-            <p class="name-client">Service Three</p>
-          </div>
-        </div>
-
-        <div class="service">
-          <div class="card-client">
-            <div class="service-picture">
-              <img src="ser4.jpg" alt="Service 4" />
-            </div>
-            <p class="name-client">Service Four</p>
-          </div>
-        </div>
-
-        <div class="service">
-          <div class="card-client">
-            <div class="service-picture">
-              <img src="ser5.jpg" alt="Service 5" />
-            </div>
-            <p class="name-client">Service Five</p>
-          </div>
-        </div>
-
-        <div class="service">
-          <div class="card-client">
-            <div class="service-picture">
-              <img src="ser6.jpg" alt="Service 6" />
-            </div>
-            <p class="name-client">Service Six</p>
+            <p class="name-client">Closed case</p>
           </div>
         </div>
       </div>

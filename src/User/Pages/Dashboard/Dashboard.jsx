@@ -1,5 +1,6 @@
 import "./dashboard.css";
-import hbg1 from "../../../Assets/background/signing.jpeg";
+import hbg1 from "../../assets/images/bgu1.mp4";
+
 import ser1 from "../../assets/icon/alert-em.png";
 import ser2 from "../../assets/icon/pasport.png";
 import ser3 from "../../assets/icon/fileCase.png";
@@ -10,8 +11,11 @@ import ser7 from "../../assets/icon/permit.png";
 import ser8 from "../../assets/icon/calender.png";
 import ser9 from "../../assets/icon/policeStation.png";
 import { Typography } from "@mui/material";
+import { Link, Route, Routes } from "react-router-dom";
+import EmergencyRequestPage from "../EmergencyRequestPage/EmergencyRequestPage"; 
 
 const Dashboard = () => {
+ 
   return (
     <div className="Dashboard">
       <div className="hero">
@@ -23,12 +27,14 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="right">
-          <img src={hbg1} alt="sliding img" />
+          <video src={hbg1} autoplay="autoplay" muted="muted" loop="loop"  ></video>
         </div>
       </div>
       <main>
         <div className="services">
-          {/* <Typography variant="h3">service</Typography> */}
+          
+          <Link to ="./ReportMissingPersonPage">
+
           <div className="service">
             <div class="card-client">
               <div class="Service-picture">
@@ -37,7 +43,10 @@ const Dashboard = () => {
               <p class="name-client"> Missing person</p>
             </div>
           </div>
+          </Link>
           <div className="service">
+            <Link to= "./PoliceComplaintPage">
+
             <div className="sTitle"></div>
             <div class="card-client">
               <div class="Service-picture">
@@ -45,55 +54,79 @@ const Dashboard = () => {
               </div>
               <p class="name-client"> Submit a complaint</p>
             </div>
+            </Link>
           </div>
           <div className="service">
+            <Link to = "./FinePaymentPage">
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser4} alt="img" />
               </div>
-              <p class="name-client"> Pay fine</p>
+              <p class="name-client"> fine</p>
             </div>
+            </Link>
           </div>
           <div className="service">
+            <Link to="./LawyerPage">
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser5} alt="img" />
               </div>
-              <p class="name-client"> Connect with Lawyer</p>
+              <p class="name-client"> Lawyer</p>
             </div>
+            </Link>
           </div>
           <div className="service">
+          <Link to="./PassportVerificationDates">
+
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser2} alt="img" />
               </div>
               <p class="name-client"> Pasport verification</p>
             </div>
+          </Link>
           </div>
           <div className="service">
+            <Link to ="./PermitRequestForm">
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser7} alt="img" />
               </div>
               <p class="name-client"> Permit Request</p>
             </div>
+            </Link>
           </div>
           <div className="service">
+          <Link to ="./UpcomingEvents">
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser8} alt="img" />
               </div>
+              
               <p class="name-client"> Upcoming events</p>
             </div>
+            </Link>
+
           </div>
           <div className="service">
+          <Link to ="./PoliceStationSearch">
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser9} alt="img" />
               </div>
               <p class="name-client"> Nearest Station </p>
             </div>
+            </Link>
           </div>
+          <Link to ="./EmergencyRequest">
+
           <div className="service">
             <div class="card-client">
               <div class="Service-picture">
@@ -102,6 +135,7 @@ const Dashboard = () => {
               <p class="name-client"> Emergency Request</p>
             </div>
           </div>
+          </Link>
         </div>
       </main>
       <article>

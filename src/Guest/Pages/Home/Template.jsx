@@ -19,7 +19,8 @@ const LoginTemplate = () => {
               <Typography variant="h3">Welcome to</Typography>
               <Typography variant="h1">Link</Typography>
               <Typography variant="subtitle1">
-Great to see you .......             </Typography>
+                Great to see you .......{" "}
+              </Typography>
             </div>
           </div>
           <div className="registerRight">

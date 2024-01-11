@@ -35,20 +35,20 @@ const Topbar = () => {
       <div className="container">
         <div className="items">
           <div className="logo">
-            <img src="" alt="logo" />
+            <h1>Link</h1>
           </div>
           <div className="mid">
             <div className="containerBottom"></div>
           </div>
           <nav>
             <div className="nav">
-              <Link to="/Product">Product</Link>{" "}
+              <Link to="./PolicePage">POLICE</Link>{" "}
             </div>
             <div className="nav">
-              <Link to="/">Home</Link>{" "}
+              <Link to="">LAWYER</Link>{" "}
             </div>
             <div className="nav">
-              <Link to="/">Home</Link>{" "}
+              <Link to="">Home</Link>{" "}
             </div>
           </nav>
         </div>

@@ -4,6 +4,7 @@ import Admin from "./Admin/App";
 import Guest from "./Guest/App";
 import User from "./User/App";
 import Police from "./PoliceStation/App";
+import Lawyer from "./Lawyer/App";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/*" element={<Guest />} />
         <Route path="/User/*" element={<User />} />
         <Route path="/police/*" element={<Police />} />
+        <Route path="/Lawyer/*" element={<Lawyer />} />
       </Routes>
     </div>
   );

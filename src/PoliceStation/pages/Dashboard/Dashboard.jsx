@@ -1,5 +1,6 @@
 import "./dashboard.css";
 import hbg1 from "../../assets/images/police.jpg";
+import bgp1 from "../../assets/images/policebg.mp4";
 import ser1 from "../../assets/icon/alert-em.png";
 import ser2 from "../../assets/icon/pasport.png";
 import ser3 from "../../assets/icon/fileCase.png";
@@ -15,9 +16,7 @@ import CaseDashboard from "../CaseDashboard/CaseDashboard";
 
 
 const Dashboard = () => {
-  <Routes>
-    <Route path="./CaseDashboard "  element={<CaseDashboard/>}/>
-  </Routes>
+ 
   return (
     <div className="Dashboard">
       <div className="hero">
@@ -29,7 +28,11 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="right">
-          <img src={hbg1} alt="sliding img" />
+        <video src={bgp1} type="video/mp4" playsinline="playsinline" autoPlay muted loop
+  style={{
+    
+  }}
+></video>
         </div>
       </div>
       <main>
@@ -47,7 +50,8 @@ const Dashboard = () => {
           </Link>
          
          
-          
+          <Link to="./Passport">
+
           <div className="service">
             <div class="card-client">
               <div class="Service-picture">
@@ -56,13 +60,17 @@ const Dashboard = () => {
               <p class="name-client"> Pasport verification</p>
             </div>
           </div>
+          </Link>
           <div className="service">
+          <Link to="./PermitApprovalPage">
+
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser7} alt="img" />
               </div>
               <p class="name-client"> Permit Request</p>
             </div>
+          </Link>
           </div>
           <div className="service">
             <div class="card-client">
@@ -72,7 +80,8 @@ const Dashboard = () => {
               <p class="name-client"> Upcoming events</p>
             </div>
           </div>
-          
+          <Link to="./PoliceEmergencyRequestsPage">
+
           <div className="service">
             <div class="card-client">
               <div class="Service-picture">
@@ -81,6 +90,7 @@ const Dashboard = () => {
               <p class="name-client"> Emergency Request</p>
             </div>
           </div>
+          </Link>
         </div>
       </main>
       
