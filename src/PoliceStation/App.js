@@ -34,7 +34,7 @@ const App = () => {
           <Route path="/PermitApprovalPage" element={<PermitApprovalPage />} />
           <Route path="/PoliceEmergencyRequestsPage"element={<PoliceEmergencyRequestsPage />} />
           <Route path="/ExistingCase"element={<ExistingCase />} />
-          <Route path="/ViewCase"element={<ViewCase />} />
+          <Route path="/ViewCase/:id"element={<ViewCase />} />
           
         </Routes>
       </div>

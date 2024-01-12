@@ -1,45 +1,44 @@
-import { collection, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
-import { db } from '../../../config/Firebase';
-import { Typography } from '@mui/material';
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../../../config/Firebase";
+import { Typography } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
 
 const ViewCase = () => {
-    const [caseDisp, setCaseDisp] = useState([]);
+  const { id } = useParams();
+  console.log(id);
+  const [caseDisp, setCaseDisp] = useState([]);
 
-    const dispaly = async () => {
-      const data = await getDocs(collection(db, "PoliceComplaint"));
-      const filteredData = data.docs.map((doc, key) => ({
-        ...doc.data(),
-        id: doc.id,
-        timestamp: doc.data().timestamp.toDate(), // Convert timestamp to JavaScript Date object
-      }));
-      console.log(filteredData);
-      setCaseDisp(filteredData);
-    };
-  
-    useEffect(() => {
-      dispaly();
-    }, []);
-  
+  const dispaly = async () => {
+    const data = await getDoc(doc(db, "PoliceComplaint", id));
+
+    console.log(data.data());
+    setCaseDisp(data.data());
+  };
+
+  useEffect(() => {
+    dispaly();
+  }, []);
+
   return (
-    <div className='ViewCase'>
-<Typography variant='h2' >Case View</Typography>
+    <div className="ViewCase">
+      <Typography variant="h2">Case View</Typography>
 
-<div className="caseVieContainer">
-    {caseDisp.map((row,key)=>(
-
-        <div className="CaseContainer">
-        <div className="Name">Complainte name : {row.complainantName} </div>
-        <div className="type">Type : </div>
-        <div className="number">Number : {row.contactNumber} </div>
-        <div className="description">Description : {row.complaintDescription} </div>
-        <div className="date">Date : {row.timestamp.toDateString()} </div>
-        <div className="img">Document link : {row.documentURLs} </div>
+      <div className="caseVieContainer">
+          <div className="CaseContainer">
+            <div className="Name">Complainte name : {caseDisp.complainantName} </div>
+            <div className="type">Type : </div>
+            <div className="number">Number : {caseDisp.contactNumber} </div>
+            <div className="description">
+              Description : {caseDisp.complaintDescription}{" "}
+            </div>
+            {/* <div className="date">Date : {caseDisp.timestamp.toDateString()} </div> */}
+            <div className="img">Document link : {caseDisp.documentURLs} </div>
+            <Link to ={caseDisp.documentURLs} >Click</Link>
+          </div>
+      </div>
     </div>
-        ))}
-</div>
-    </div>
-  )
-}
+  );
+};
 
-export default ViewCase
+export default ViewCase;

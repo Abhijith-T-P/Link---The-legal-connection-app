@@ -50,8 +50,6 @@ const Place = () => {
         ...doc.data(),
       }));
 
-      console.log(districtData);
-
       const placesnapshot = await getDocs(collection(db, "Place"));
       const placeData = placesnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -70,6 +68,7 @@ const Place = () => {
         .filter(
           (place) => place.DistrictInfo && place.DistrictInfo.district
         )
+        
         setDispayData(joinData);
         console.log(joinData);
     } 

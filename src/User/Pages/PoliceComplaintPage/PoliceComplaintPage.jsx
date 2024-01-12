@@ -43,6 +43,7 @@ const PoliceComplaintPage = () => {
         complainantName,
         contactNumber,
         documentURLs,
+        vStatus:0,
         complaintDescription,
         timestamp: new Date(),
       });

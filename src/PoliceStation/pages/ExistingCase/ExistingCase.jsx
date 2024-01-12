@@ -37,7 +37,7 @@ const ExistingCase = () => {
             Complaint date : {row.timestamp.toDateString()}{" "}
           </div>
           <div className="viewbtn">
-            <Link to ="../ViewCase">
+            <Link to ={`../ViewCase/${row.id}`}>
             <Button variant="contained" >View</Button>
             </Link>
           </div>

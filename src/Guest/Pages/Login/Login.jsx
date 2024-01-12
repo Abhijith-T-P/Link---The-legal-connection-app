@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
-import { Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../../config/Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -100,7 +100,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="mainlogin">
+    <Box className="mainlogin">
       <div className="leftContainer">
         <div className="h1input">
           <Typography variant="h1">Login</Typography>
@@ -109,6 +109,7 @@ const Login = () => {
           <TextField
             id="standard-basic"
             label="Username/Email"
+            required
             variant="standard"
             type="text"
             onChange={(event) => setEmail(event.target.value)}
@@ -139,7 +140,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

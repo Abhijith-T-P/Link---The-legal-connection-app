@@ -16,6 +16,7 @@ import "./App.css"
 import Casetype from "./Pages/CaseType/Casetype";
 import Place from "./Pages/Place/Place";
 import Permit from "./Pages/Permit/Permit";
+import SubCaseType from "./Pages/SubCaseType/SubCaseType";
 
 
 const App = () => {
@@ -39,7 +40,8 @@ const App = () => {
             <Route path="/Subjr" element={<SubJurisdiction />} />
             <Route path="/File" element={<FileUplaod />} />
             <Route path="/Permit" element={<Permit />} />
-        
+            <Route path="/SubCaseType" element={<SubCaseType />} />
+            
       </Routes>
     </div>
     </div>
