@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   FormControl,
@@ -12,6 +12,8 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import "./RegisterCaseForm.css";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../../config/Firebase";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -26,39 +28,81 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const generateCaseNumber = () => {
-  // Generate a 6-digit random number as a case number
   return Math.floor(100000 + Math.random() * 900000);
 };
 
 const RegisterCaseForm = () => {
   const [caseTitle, setCaseTitle] = useState("");
   const [caseType, setCaseType] = useState("");
+  const [subCaseType, setSubCaseType] = useState("");
   const [caseDescription, setCaseDescription] = useState("");
+  const [catData, setCatData] = useState([]); // Initialize as an empty array
+  const [subCatData, setSubCatData] = useState([]);
   const [caseFile, setCaseFile] = useState(null);
   const [generatedCaseNumber, setGeneratedCaseNumber] = useState(null);
 
   const handleCaseTypeChange = (event) => {
     setCaseType(event.target.value);
   };
+  const handleSubCaseTypeChange = (event) => {
+    setSubCaseType(event.target.value);
+  };
 
   const handleFileChange = (event) => {
     setCaseFile(event.target.files[0]);
   };
 
+  const category = async () => {
+    const category = await getDocs(collection(db, "CaseType"));
+    const filteredCat = category.docs.map((doc, key) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    setCatData(filteredCat);
+    subCategory();
+  };
+
+  const subCategory = async () => {
+    try {
+      if (caseType) {
+        const subCategoryCollection = collection(db, "SubCaseType");
+        const q = query(
+          subCategoryCollection,
+          where("CaseCategory", "==", caseType)
+        );
+        const filteredSubCategory = await getDocs(q);
+
+        const filteredSubCat = filteredSubCategory.docs.map((doc, key) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+        console.log(filteredSubCat);
+        setSubCatData(filteredSubCat);
+      } else {
+        console.error("Case Type is not set");
+      }
+    } catch (error) {
+      console.error("Error fetching subcategories:", error);
+    }
+  };
+
   const handleSubmit = () => {
-    // Generate a 6-digit case number
     const caseNumber = generateCaseNumber();
     setGeneratedCaseNumber(caseNumber);
 
-    // Perform actions on form submission
     console.log("Submitting case registration form...");
     console.log("Case Number:", caseNumber);
     console.log("Case Title:", caseTitle);
-    console.log("Case Type:", caseType);
+    console.log("Subcase Type:", subCaseType);
     console.log("Case Description:", caseDescription);
     console.log("Case File:", caseFile);
-    // You can add logic to send this data to a backend, etc.
   };
+
+  useEffect(() => {
+    category();
+  }, [caseType]);
 
   return (
     <div className="register-case-form">
@@ -68,23 +112,42 @@ const RegisterCaseForm = () => {
         label="Case Title"
         variant="outlined"
         fullWidth
+        required
         margin="normal"
         onChange={(e) => setCaseTitle(e.target.value)}
       />
 
-      <FormControl variant="outlined" fullWidth margin="normal">
+      <FormControl variant="outlined" fullWidth required margin="normal">
         <InputLabel id="case-type-label">Case Type</InputLabel>
         <Select
           labelId="case-type-label"
           id="case-type-select"
           value={caseType}
           onChange={handleCaseTypeChange}
-          label="Case Type"
+          label="CaseType"
         >
-          <MenuItem value="Criminal">Criminal</MenuItem>
-          <MenuItem value="Civil">Civil</MenuItem>
-          <MenuItem value="Family">Family</MenuItem>
-          {/* Add more case types as needed */}
+          {catData.map((row, key) => (
+            <MenuItem value={row.id} key={key}>
+              {row.CaseType}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <FormControl variant="outlined" fullWidth required margin="normal">
+        <InputLabel id="sub-category-label">Sub Category</InputLabel>
+        <Select
+          labelId="sub-category-label"
+          id="sub-category-select"
+          value={subCaseType}
+          onChange={handleSubCaseTypeChange}
+          label="Sub Category"
+        >
+          {subCatData.map((row, key) => (
+            <MenuItem value={row.id} key={key}>
+              {row.SubCaseCategory}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
@@ -92,6 +155,7 @@ const RegisterCaseForm = () => {
         label="Case Description"
         variant="outlined"
         fullWidth
+        required
         multiline
         rows={4}
         margin="normal"
@@ -127,11 +191,7 @@ const RegisterCaseForm = () => {
         </Typography>
       )}
 
-      <div className="link-container">
-        <Typography variant="subtitle2">
-          Already have an account? <Link to="/login">Login</Link>
-        </Typography>
-      </div>
+  
     </div>
   );
 };

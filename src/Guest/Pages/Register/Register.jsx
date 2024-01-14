@@ -117,8 +117,7 @@ const Register = () => {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password,
-       
+        password
       );
       const user = userCredential.user.uid;
       console.log(user);
@@ -142,15 +141,15 @@ const Register = () => {
       const adharUrl = await getDownloadURL(AdharStorageRef);
 
       await setDoc(doc(db, "collection_user", user), {
-        user_photo : url,
-        user_adhar:adharUrl,
-        user_name:fname + " " + lname,
-        user_email:email,
-        user_mobile:mobile,
-        user_address:address,
-        user_gender:gender,
-        user_place:place,
-        user_dob:dob,
+        user_photo: url,
+        user_adhar: adharUrl,
+        user_name: fname + " " + lname,
+        user_email: email,
+        user_mobile: mobile,
+        user_address: address,
+        user_gender: gender,
+        user_place: place,
+        user_dob: dob,
       });
     } catch (error) {
       const errorCode = error.code;
@@ -162,201 +161,195 @@ const Register = () => {
   };
 
   return (
-    
-          <div className="reg">
-          <div className="RegisteContent">
-            <div className="heading">
-              <Typography variant="h2">Register</Typography>
-            </div>
-            <div className="inputName">
-              <TextField
-                id="standard-basic"
-                label="First name "
-                onChange={(event) => setFname(event.target.value)}
-                variant="standard"
-                type="text"
-                className="name"
-                style={{
-                  paddingRight: "10px",
-                  width: "45%",
-                  justifyContent: "flex-end",
-                }}
-              />
+    <div className="reg">
+      <div className="RegisteContent">
+        <div className="heading">
+          <Typography variant="h2">Register</Typography>
+        </div>
+        <div className="inputName">
+          <TextField
+            id="standard-basic"
+            label="First name "
+            onChange={(event) => setFname(event.target.value)}
+            variant="standard"
+            type="text"
+            className="name"
+            style={{
+              paddingRight: "10px",
+              width: "45%",
+              justifyContent: "flex-end",
+            }}
+          />
 
-              <TextField
-                className="name"
-                id="standard-basic"
-                onChange={(event) => setLname(event.target.value)}
-                label="Last name "
-                style={{
-                  width:"50%"
-                }}
-                variant="standard"
-                type="text"
-              />
-            </div>
-            <div className="input">
-              <TextField
-                id="standard-basic"
-                label="Phone number .... "
-                onChange={(e) => setMobile(e.target.value)}
-                variant="standard"
-                type="number"
-                style={{ width: "100%" }}
-              />
-            </div>
-            <div className="input">
-              <TextField
-                id="standard-basic"
-                label="Eamil address .... "
-                onChange={(e) => setEmail(e.target.value)}
-                variant="standard"
-                type="email"
-                style={{ width: "100%" }}
-              />
-            </div>
-            <div className="input">
-              <TextField
-                id="standard-multiline-static"
-                label="Addresss"
-                multiline
-                rows={4}
-                placeholder="Your Address...."
-                onChange={(e) => setAddress(e.target.value)}
-                variant="standard"
-                style={{ width: "100%" }}
-              />
-            </div>
-            <div className="input">
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  Gender
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={gender}
-                  onChange={(handleGenderChange)}
-                  label="Gender"
-                >
-                  <MenuItem value="Male">Male</MenuItem>
-                  <MenuItem value="Female">Female</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
-                </Select>
-              </FormControl>
-              
-              <TextField
-                id="standard-multiline-static"
+          <TextField
+            className="name"
+            id="standard-basic"
+            onChange={(event) => setLname(event.target.value)}
+            label="Last name "
+            style={{
+              width: "50%",
+            }}
+            variant="standard"
+            type="text"
+          />
+        </div>
+        <div className="input">
+          <TextField
+            id="standard-basic"
+            label="Phone number .... "
+            onChange={(e) => setMobile(e.target.value)}
+            variant="standard"
+            type="number"
+            style={{ width: "100%" }}
+          />
+        </div>
+        <div className="input">
+          <TextField
+            id="standard-basic"
+            label="Eamil address .... "
+            onChange={(e) => setEmail(e.target.value)}
+            variant="standard"
+            type="email"
+            style={{ width: "100%" }}
+          />
+        </div>
+        <div className="input">
+          <TextField
+            id="standard-multiline-static"
+            label="Addresss"
+            multiline
+            rows={4}
+            placeholder="Your Address...."
+            onChange={(e) => setAddress(e.target.value)}
+            variant="standard"
+            style={{ width: "100%" }}
+          />
+        </div>
+        <div className="input">
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Gender
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={gender}
+              onChange={handleGenderChange}
+              label="Gender"
+            >
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            id="standard-multiline-static"
             label="."
-                type="date"
-              
+            type="date"
+            onChange={(e) => setDob(e.target.value)}
+            variant="standard"
+            style={{ width: "100%" }}
+          />
+        </div>
 
-                onChange={(e) => setDob(e.target.value)}
-                variant="standard"
-                style={{ width: "100%" }}
-              />
+        <div className="input">
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              District
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={district}
+              onChange={handleDistrictChange}
+              label="district"
+            >
+              {showdistrict.map((dist, key) => (
+                <MenuItem value={dist.districtId}>{dist.district}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
+            <InputLabel id="demo-simple-select-standard-label">
+              Place
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={place}
+              onChange={handlePlaceChange}
+              label="Place"
+            >
+              {showplace.map((pla, key) => (
+                <MenuItem value={pla.placeId}>{pla.Place}</MenuItem>
+              ))}{" "}
+            </Select>
+          </FormControl>
+        </div>
 
-            </div>
-            
-            <div className="input">
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  District
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={district}
-                  onChange={handleDistrictChange}
-                  label="district"
-                >
-                  {showdistrict.map((dist, key) => (
-                    <MenuItem value={dist.districtId}>{dist.district}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
-                <InputLabel id="demo-simple-select-standard-label">
-                  Place
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={place}
-                  onChange={handlePlaceChange}
-                  label="Place"
-                >
-                  {showplace.map((pla, key) => (
-                    <MenuItem value={pla.placeId}>{pla.Place}</MenuItem>
-                  ))}{" "}
-                </Select>
-              </FormControl>
-            </div>
+        <div className="input">
+          <Button
+            sx={{ m: 1, Width: " 80%" }}
+            component="label"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+          >
+            Upload your Photo
+            <VisuallyHiddenInput
+              type="file"
+              onChange={(event) => setPhoto(event.target.files[0])}
+            />
+          </Button>
+          <Button
+            component="label"
+            variant="contained"
+            onChange={(event) => setAdharpic(event.target.files[0])}
+            startIcon={<CloudUploadIcon />}
+          >
+            Upload ID proof
+            <VisuallyHiddenInput type="file" />
+          </Button>
+        </div>
+        <div className="input">
+          <TextField
+            id="standard-basic"
+            label="password...."
+            onChange={(e) => setPassword(e.target.value)}
+            variant="standard"
+            type="password"
+            style={{ width: "100%" }}
+          />
+        </div>
+        <div className="input">
+          <TextField
+            id="standard-basic"
+            label="Confirm password...."
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            variant="standard"
+            type="password"
+            style={{ width: "100%" }}
+          />
+        </div>
 
-            <div className="input">
-              <Button
-                sx={{ m: 1, Width: " 80%" }}
-                component="label"
-                variant="contained"
-                startIcon={<CloudUploadIcon />}
-              >
-                Upload your Photo
-                <VisuallyHiddenInput
-                  type="file"
-                  onChange={(event) => setPhoto(event.target.files[0])}
-                />
-              </Button>
-              <Button
-                component="label"
-                variant="contained"
-                onChange={(event) => setAdharpic(event.target.files[0])}
-                startIcon={<CloudUploadIcon />}
-              >
-                Upload ID proof
-                <VisuallyHiddenInput type="file" />
-              </Button>
-            </div>
-            <div className="input">
-              <TextField
-                id="standard-basic"
-                label="password...."
-                onChange={(e) => setPassword(e.target.value)}
-                variant="standard"
-                type="password"
-                style={{ width: "100%" }}
-              />
-            </div>
-            <div className="input">
-              <TextField
-                id="standard-basic"
-                label="Confirm password...."
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                variant="standard"
-                type="password"
-                style={{ width: "100%" }}
-              />
-            </div>
-
-            <div className="otherLogin"></div>
-            <div className="button">
-              <Button variant="outlined" onClick={handleSubmit}>
-                Register
-              </Button>
-            </div>
+        <div className="otherLogin"></div>
+        <div className="button">
+          <Button variant="outlined" onClick={handleSubmit}>
+            Register
+          </Button>
+        </div>
+      </div>
+      <div className="linkContainer">
+        <div className="link">
+          <Typography variant="subtitle2">Already have an account</Typography>
+          <div className="change">
+            <span>
+              <Link to="../">Login</Link>{" "}
+            </span>
           </div>
-            <div className="linkContainer">
-              <div className="link">
-                <Typography variant="subtitle2">
-                  Already have an account
-                </Typography>
-                <div className="change">
-                  <span>
-                    <Link to="../">Login</Link>{" "}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -18,6 +18,7 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -45,8 +46,6 @@ const SubCaseType = () => {
           CaseCategory: caseCat,
           SubCaseCategory: subCaseCat,
         });
-      
-      
       } else {
         await addDoc(dbSubCase, {
           CaseCategory: caseCat,
@@ -77,31 +76,32 @@ const SubCaseType = () => {
 
   const showSubCaseCat = async () => {
     try {
-        const CatData = await getDocs(collection(db, "CaseType"));
-        const filteredCatData = CatData.docs.map((doc, key) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-
+      const CatData = await getDocs(collection(db, "CaseType"));
+      const filteredCatData = CatData.docs.map((doc, key) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
 
       const querySnapshot = await getDocs(dbSubCase);
       const dispData = querySnapshot.docs.map((doc, key) => ({
         CategortId: doc.id,
         ...doc.data(),
-
       }));
       console.log(dispData);
       console.log(filteredCatData);
-      const joinData = dispData.map((subcategory) => ({
-        ...subcategory,
-        CaseInfo : filteredCatData.find((category)=>category.id === subcategory.CaseCategory),
-      }))
-      .filter((subcategory)=>subcategory.CaseInfo && subcategory.CaseInfo.id)
-
+      const joinData = dispData
+        .map((subcategory) => ({
+          ...subcategory,
+          CaseInfo: filteredCatData.find(
+            (category) => category.id === subcategory.CaseCategory
+          ),
+        }))
+        .filter(
+          (subcategory) => subcategory.CaseInfo && subcategory.CaseInfo.id
+        );
 
       setDispayData(joinData);
       console.log(joinData);
-      
     } catch (error) {
       console.error(error);
     }
@@ -114,11 +114,13 @@ const SubCaseType = () => {
     setCaseCat(docData.CaseCategory);
     setSubCaseCat(docData.SubCaseCategory);
     console.log(docData);
- setUpdateId(id);
+    setUpdateId(id);
   };
 
-  const Delete = () => {
-    console.log("Delete");
+  const Delete = async (id) => {
+    console.log("Delete : " + id);
+    await deleteDoc(doc(dbSubCase, id));
+    showSubCaseCat();
   };
 
   useEffect(() => {
@@ -175,22 +177,21 @@ const SubCaseType = () => {
             <TableHead>
               <TableRow>
                 <TableCell>#</TableCell>
-                <TableCell align="right">Category ID</TableCell>
+                <TableCell align="right"> ID</TableCell>
                 <TableCell align="right">Case Category</TableCell>
                 <TableCell align="right">Sub Case Category</TableCell>
                 <TableCell align="right">Action</TableCell>
                 <TableCell align="right"></TableCell>
+        
               </TableRow>
             </TableHead>
             <TableBody>
               {dispayData.map((row, key) => (
                 <TableRow key={key}>
-                  <TableCell component="th" scope="row">
-                    {row.id}
-                  </TableCell>
+                 
+                  <TableCell align="right">{key + 1}</TableCell>
                   <TableCell align="right">{row.CategortId}</TableCell>
-                  <TableCell align="right">{row.CaseInfo.CaseType
-}</TableCell>
+                  <TableCell align="right">{row.CaseInfo.CaseType}</TableCell>
                   <TableCell align="right">{row.SubCaseCategory}</TableCell>
                   <TableCell align="right">
                     <Button
@@ -204,7 +205,7 @@ const SubCaseType = () => {
                     <Button
                       variant="outlined"
                       color="error"
-                      onClick={Delete}
+                      onClick={() => Delete(row.CategortId)}
                       startIcon={<DeleteIcon />}
                     >
                       Delete
