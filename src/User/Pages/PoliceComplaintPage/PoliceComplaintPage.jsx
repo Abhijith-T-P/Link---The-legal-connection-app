@@ -7,7 +7,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
 
 
-import "./PoliceComplaintPage.css"
+import "./PoliceComplaintPage.css";
 const PoliceComplaintPage = () => {
   const [complainantName, setComplainantName] = useState("");
   const [contactNumber, setContactNumber] = useState("");

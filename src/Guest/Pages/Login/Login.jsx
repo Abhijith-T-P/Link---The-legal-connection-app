@@ -15,11 +15,11 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password,
+        password
       );
       const id = userCredential.user.uid;
 
-      console.log( id);
+      console.log(id);
       const docRefUser = doc(db, "collection_user", id);
       const docSnapUser = await getDoc(docRefUser);
 
@@ -35,19 +35,15 @@ const Login = () => {
       sessionStorage.setItem("SessionId", id);
       if (docSnapUser.exists()) {
         navigate("../../../User/");
-      } 
-      else if (docSnapAdmin.exists()) {
-        // navigate("../../../User/");
-      }
-      else if (docSnapLawyer.exists()) {
-        // navigate("../../../User/");
-      }
-      else if (docSnapPS.exists()) {
+      } else if (docSnapAdmin.exists()) {
+        navigate("../../../Admin/");
+      } else if (docSnapLawyer.exists()) {
+        navigate("../../../Lawyer/");
+      } else if (docSnapPS.exists()) {
         navigate("../../police");
-      }
-      else{
+      } else {
         return;
-     }
+      }
 
       // sessionStorage.setItem("userId", user)
       // navigate('../../../User/')
@@ -77,19 +73,13 @@ const Login = () => {
 
       if (docSnapUser.exists()) {
         navigate("../../../User/");
-      } 
-      else if (docSnapAdmin.exists()) {
-        // navigate("../../../User/");
-      }
-      else if (docSnapLawyer.exists()) {
-        // navigate("../../../User/");
-      }
-      else if (docSnapPS.exists()) {
-        // navigate("../../../User/");
+      } else if (docSnapAdmin.exists()) {
+        navigate("../../../Admin/");
+      } else if (docSnapLawyer.exists()) {
+        navigate("../../../Lawyer/");
+      } else if (docSnapPS.exists()) {
         navigate("../../police");
-
-      }
-      else{
+      } else {
         return;
       }
     }

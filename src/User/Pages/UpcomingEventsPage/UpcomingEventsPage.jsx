@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-
+import "../mainpadding.css"
 const UpcomingEventsPage = () => {
   const [upcomingEvents, setUpcomingEvents] = useState([
     // Assume you have a list of upcoming events
@@ -21,7 +21,7 @@ const UpcomingEventsPage = () => {
   }, []); // Empty dependency array to ensure useEffect runs once on component mount
 
   return (
-    <div className="UpcomingEventsPage">
+    <div className="maincontainer">
       <Typography variant="h4">Upcoming Events</Typography>
 
       {upcomingEvents.length > 0 ? (

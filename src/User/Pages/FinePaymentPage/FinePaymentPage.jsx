@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { db } from "../../../config/Firebase";
-
+import './FinePayment.css';
 
 const FinePaymentPage = () => {
   const [fineAmount, setFineAmount] = useState("");
@@ -37,7 +37,7 @@ const FinePaymentPage = () => {
   };
 
   return (
-    <div>
+    <div className="payfinecontainer">
       <Typography variant="h4">Pay Fine</Typography>
 
       <TextField

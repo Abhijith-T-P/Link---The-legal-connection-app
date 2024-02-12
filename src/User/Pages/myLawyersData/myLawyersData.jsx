@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import "../mainpadding.css"
 // Mock data for demonstration purposes
 const myLawyersData = [
   { id: 1, name: "My Lawyer 1", specialization: "Criminal Defense" },
@@ -25,7 +25,7 @@ const MyLawyersPage = () => {
   };
 
   return (
-    <div className="MyLawyersPage">
+    <div className="maincontainer">
       <Typography variant="h4">My Lawyers</Typography>
 
       <div className="my-lawyers-list">

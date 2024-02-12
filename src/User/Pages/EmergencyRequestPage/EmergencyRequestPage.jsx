@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
+import "../mainpadding.css"
 
 
 const EmergencyRequestPage = () => {
@@ -40,7 +41,7 @@ const EmergencyRequestPage = () => {
   };
 
   return (
-    <div>
+    <div className="maincontainer ">
       <Typography variant="h4">Emergency Request</Typography>
 
       <FormControl fullWidth margin="normal">

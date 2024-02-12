@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { db } from "../../../config/Firebase";
-
+import "../mainpadding.css"
 const PassportVerificationDates = () => {
   const [verificationDates, setVerificationDates] = useState([]);
 
@@ -23,7 +23,7 @@ const PassportVerificationDates = () => {
   }, []);
 
   return (
-    <div>
+    <div className="maincontainer">
       <Typography variant="h4">Passport Verification Visit Dates</Typography>
 
       {verificationDates.length === 0 ? (

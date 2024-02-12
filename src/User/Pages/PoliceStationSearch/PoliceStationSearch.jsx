@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 
 import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { db } from "../../../config/Firebase";
+import "../mainpadding.css"
 
 const PoliceStationSearch = () => {
   const [districts, setDistricts] = useState([]);
@@ -59,7 +60,7 @@ const PoliceStationSearch = () => {
   }, []);
 
   return (
-    <div>
+    <div className="maincontainer">
       <Typography variant="h4">Search Police Station</Typography>
 
       <FormControl fullWidth margin="normal">
