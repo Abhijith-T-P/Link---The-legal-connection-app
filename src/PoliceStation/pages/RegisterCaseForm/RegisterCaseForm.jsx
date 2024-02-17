@@ -105,7 +105,7 @@ const RegisterCaseForm = () => {
   }, [caseType]);
 
   return (
-    <div className="register-case-form">
+    <div className="register-case-form" style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Register a Case</Typography>
 
       <TextField

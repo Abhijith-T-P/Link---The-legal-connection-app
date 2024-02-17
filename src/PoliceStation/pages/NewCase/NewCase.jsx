@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -10,38 +10,66 @@ import {
   Typography,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-
 import { db, storage } from "../../../config/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
-import "./PoliceComplaintPage.css";
-
-const PoliceComplaintPage = () => {
+const NewCase = () => {
   const [complainantName, setComplainantName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [complaintDescription, setComplaintDescription] = useState("");
   const [documents, setDocuments] = useState(null);
+  const [showCasetypes, setShowCasetypes] = useState([]);
   const [caseCategory, setCaseCategory] = useState("");
-  const [subCaseCategory, setSubCaseCategory] = useState("");
-  const [showCaseCategory, setShowCaseCategory] = useState([]);
-  const [displaySubcat, setDisplaySubcat] = useState([]);
+  const [subCaseCategory, setSubCaseCategory] = useState(""); // State for selected sub case category
+const [displaySubcat ,setDispalySubcat] = useState([]);
+  useEffect(() => {
+    getCaseCat();
+    handleCaseCategoryChange();
+    
+  }, [caseCategory]);
+
+  const getCaseCat = async () => {
+    try {
+      const data = await getDocs(collection(db, "CaseType"));
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      setShowCasetypes(filteredData);
+      console.log(filteredData);
+
+      const getSubCat = await getDocs(collection(db, "SubCaseType"));
+      const filteredSubCat = getSubCat.docs.map((doc) => ({
+        SubcatId: doc.id,
+        ...doc.data(),
+      }));
+      console.log("subCat: " , filteredSubCat);
+   
+
+    // const joinData = filteredData.map((category)=>({
+    //  ...category,
+    //  subcategory:filteredSubCat.find((subcategory)=>subcategory.CaseCategory === category.id)
+    // }))
+    
+    //  setDispalySubcat(joinData);
+    // console.log("Joindata:",joinData);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleFileChange = (event) => {
     setDocuments(event.target.files[0]);
   };
-
-  useEffect(() => {
-    getCaseCat();
-    handleCaseCategoryChange();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       var documentURLs = "";
-      // Upload documents to storage
       if (documents) {
         const documentMetadata = {
           contentType: documents.type,
@@ -54,17 +82,18 @@ const PoliceComplaintPage = () => {
         await uploadBytesResumable(fileStorageRef, documents, documentMetadata);
         documentURLs = await getDownloadURL(fileStorageRef);
       }
-      // Add police complaint to the database
+
       await addDoc(collection(db, "PoliceComplaint"), {
         complainantName,
         contactNumber,
         documentURLs,
         vStatus: 0,
         complaintDescription,
+        caseCategory,
+        subCaseCategory, // Add sub case category to the document
         timestamp: new Date(),
       });
 
-      // Reset form after submission
       setComplainantName("");
       setContactNumber("");
       setComplaintDescription("");
@@ -77,43 +106,29 @@ const PoliceComplaintPage = () => {
     }
   };
 
-  const getCaseCat = async () => {
-    try {
-      const CaseCat = await getDocs(collection(db, "CaseType"));
-      const filteredCat = CaseCat.docs.map((docs) => ({
-        id: docs.id,
-        ...docs.data(),
-      }));
-      setShowCaseCategory(filteredCat);
-    } catch (error) {
-      console.error("Error fetching case categories:", error.message);
-    }
-  };
-
   const handleCaseCategoryChange = async () => {
-    try {
-      console.log(caseCategory);
-
-      const querysub = query(
-        collection(db, "SubCaseType"),
-        where("CaseCategory", "==", caseCategory)
-      );
-      const data = await getDocs(querysub);
-      const datamapped = data.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setDisplaySubcat(datamapped);
-    } catch (error) {
-      console.error("Error fetching sub-case categories:", error.message);
-    }
+ 
+   console.log(caseCategory);
+    const querysub = query(collection(db,"SubCaseType"),where("CaseCategory","==",caseCategory))
+    const data = await getDocs(querysub)
+     const datamapped = data.docs.map((doc)=>({
+      id:doc.id,
+      ...doc.data(),
+     }))
+     console.log(datamapped)
+     setDispalySubcat(datamapped)
   };
+
+  // const handleSubCaseCategoryChange = (event) => {
+  //   setSubCaseCategory(event.target.value);
+  // };
 
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
-      className="PoliceComplaintContainer"
+      className="NewCaseContainer"
+      style={{ padding: "10px 220px" }}
     >
       <div className="complaintitem">
         <Typography variant="h4">File a Police Complaint</Typography>
@@ -145,12 +160,9 @@ const PoliceComplaintPage = () => {
             id="case-category"
             value={caseCategory}
             label="Case Category"
-            onChange={(e) => {
-              setCaseCategory(e.target.value);
-              handleCaseCategoryChange();
-            }}
+            onChange={(e)=>{setCaseCategory(e.target.value);handleCaseCategoryChange()}}
           >
-            {showCaseCategory.map((row, key) => (
+            {showCasetypes.map((row,key) => (
               <MenuItem key={key} value={row.id}>
                 {row.CaseType}
               </MenuItem>
@@ -167,12 +179,10 @@ const PoliceComplaintPage = () => {
             id="sub-case-category"
             value={subCaseCategory}
             label="Sub Case Category"
-            onChange={(e) => setSubCaseCategory(e.target.value)}
+            onChange={(e)=>setSubCaseCategory(e.target.value)}
           >
-            {displaySubcat.map((row, key) => (
-              <MenuItem key={key} value={row.id}>
-                {row.SubCaseCategory}
-              </MenuItem>
+            {displaySubcat.map((row,key)=>(
+              <MenuItem key={key} value = {row.id}>{row.SubCaseCategory}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -195,21 +205,11 @@ const PoliceComplaintPage = () => {
           type="file"
           onChange={handleFileChange}
         />
-
-        <Button variant="contained" color="primary" type="submit">
-          File Complaint
-        </Button>
-      </div>
-      <div className="upload">
         <label htmlFor="document-upload">
           <Button
             required
             component="span"
             variant="contained"
-            sx={{
-              width: 300,
-              height: 70,
-            }}
             startIcon={<CloudUploadIcon />}
             margin="normal"
           >
@@ -217,8 +217,13 @@ const PoliceComplaintPage = () => {
           </Button>
         </label>
       </div>
+      <div className="upload">
+        <Button variant="contained" color="primary" type="submit">
+          File Complaint
+        </Button>
+      </div>
     </Box>
   );
 };
 
-export default PoliceComplaintPage;
+export default NewCase;

@@ -48,7 +48,7 @@ const LawyerAppointmentsPage = ({ lawyerId }) => {
   );
 
   return (
-    <div className="LawyerAppointmentsPage">
+    <div className="LawyerAppointmentsPage"style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Appointments</Typography>
 
       {appointments.length > 0 ? (

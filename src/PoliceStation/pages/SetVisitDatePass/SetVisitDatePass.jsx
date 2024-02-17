@@ -46,7 +46,7 @@ const SetVisitDatePass = () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Set Visit Date for Passport Verification</Typography>
 
       <FormControl fullWidth margin="normal">

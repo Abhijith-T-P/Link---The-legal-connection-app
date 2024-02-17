@@ -23,7 +23,7 @@ const PoliceEmergencyRequestsPage = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Emergency Requests</Typography>
 
       {emergencyRequests.length > 0 ? (

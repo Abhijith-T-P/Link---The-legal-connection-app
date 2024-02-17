@@ -27,7 +27,7 @@ const LawyerAcceptDeclineCasePage = () => {
   };
 
   return (
-    <div className="LawyerAcceptDeclineCasePage">
+<div className="LawyerAcceptDeclineCasePage" style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Pending Cases</Typography>
 
       {pendingCases.length > 0 ? (

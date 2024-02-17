@@ -10,7 +10,7 @@ const CaseDashboard = () => {
     <div className="CaseDashboard">
       <div class="dashboard">
         <div class="service">
-          <Link to= "./">
+          <Link to= "../NewCase">
 
           <div class="card-client">
             <div class="service-picture">

@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {  doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../../config/Firebase";
 import { Typography } from "@mui/material";
@@ -21,7 +21,7 @@ const ViewCase = () => {
   }, []);
 
   return (
-    <div className="ViewCase">
+    <div className="ViewCase" style={{ padding: "10px 220px" }}>
       <Typography variant="h2">Case View</Typography>
 
       <div className="caseVieContainer">

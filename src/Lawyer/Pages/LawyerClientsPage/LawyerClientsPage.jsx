@@ -25,7 +25,7 @@ const LawyerClientsPage = ({ lawyerId }) => {
   ];
 
   return (
-    <div className="LawyerClientsPage">
+    <div className="LawyerClientsPage"style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Your Clients</Typography>
 
       {clients.length > 0 ? (

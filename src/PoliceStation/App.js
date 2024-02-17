@@ -15,6 +15,7 @@ import PoliceEmergencyRequestsPage from "./pages/PoliceEmergencyRequestsPage/Pol
 import "./App.css";
 import ExistingCase from "./pages/ExistingCase/ExistingCase";
 import ViewCase from "./pages/ViewCase/ViewCase";
+import NewCase from "./pages/NewCase/NewCase";
 const App = () => {
   return (
     <div className="app">
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/PoliceEmergencyRequestsPage"element={<PoliceEmergencyRequestsPage />} />
           <Route path="/ExistingCase"element={<ExistingCase />} />
           <Route path="/ViewCase/:id"element={<ViewCase />} />
+          <Route path="NewCase"element={<NewCase />} />
           
         </Routes>
       </div>

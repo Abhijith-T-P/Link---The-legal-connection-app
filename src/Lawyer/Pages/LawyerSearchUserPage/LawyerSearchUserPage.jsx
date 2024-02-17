@@ -36,7 +36,7 @@ const LawyerSearchUserPage = () => {
   };
 
   return (
-    <div className="LawyerSearchUserPage">
+    <div className="LawyerSearchUserPage"style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Search Users</Typography>
 
       <TextField

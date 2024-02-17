@@ -24,7 +24,7 @@ const LawyerAcceptedCasesPage = ({ lawyerId }) => {
   ];
 
   return (
-    <div className="LawyerAcceptedCasesPage">
+    <div className="LawyerAcceptedCasesPage" style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Accepted Cases</Typography>
 
       {acceptedCases.length > 0 ? (

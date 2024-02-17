@@ -48,7 +48,7 @@ const SearchCases = () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "10px 220px" }}>
       <SearchContainer>
         <Typography variant="h4">Search Registered Cases</Typography>
 

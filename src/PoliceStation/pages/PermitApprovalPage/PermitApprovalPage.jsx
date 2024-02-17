@@ -45,7 +45,7 @@ const PermitApprovalPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Permit Approval</Typography>
 
       {permitRequests.length === 0 ? (

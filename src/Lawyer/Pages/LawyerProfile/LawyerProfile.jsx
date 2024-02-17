@@ -35,7 +35,7 @@ const LawyerProfile = () => {
   };
 
   return (
-    <div className="LawyerProfile">
+    <div className="LawyerProfile"style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Lawyer Profile</Typography>
 
       {/* Photo Upload */}
