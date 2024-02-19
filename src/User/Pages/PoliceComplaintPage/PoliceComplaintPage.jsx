@@ -32,8 +32,8 @@ const PoliceComplaintPage = () => {
   };
 
   useEffect(() => {
-    getCaseCat();
     handleCaseCategoryChange();
+    getCaseCat();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -55,7 +55,9 @@ const PoliceComplaintPage = () => {
         documentURLs = await getDownloadURL(fileStorageRef);
       }
       // Add police complaint to the database
+      const uid = sessionStorage.getItem("SessionId");
       await addDoc(collection(db, "PoliceComplaint"), {
+        UserID: uid,
         complainantName,
         contactNumber,
         documentURLs,
@@ -88,6 +90,7 @@ const PoliceComplaintPage = () => {
     } catch (error) {
       console.error("Error fetching case categories:", error.message);
     }
+    handleCaseCategoryChange();
   };
 
   const handleCaseCategoryChange = async () => {

@@ -82,8 +82,10 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
         await uploadBytesResumable(fileStorageRef, documents, documentMetadata);
         documentURLs = await getDownloadURL(fileStorageRef);
       }
+      const uid = sessionStorage.getItem("SessionId");
 
       await addDoc(collection(db, "PoliceComplaint"), {
+        Pid: uid,
         complainantName,
         contactNumber,
         documentURLs,

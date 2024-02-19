@@ -90,7 +90,7 @@ const Login = () => {
   }, []);
 
   return (
-    <Box className="mainlogin">
+    <Box className="mainlogin" component="form" onClick={handleLogin}>
       <div className="leftContainer">
         <div className="h1input">
           <Typography variant="h1">Login</Typography>
@@ -115,7 +115,7 @@ const Login = () => {
           />
         </div>
         <div className="button">
-          <Button variant="outlined" onClick={handleLogin}>
+          <Button variant="outlined" type="button">
             Login
           </Button>
         </div>
