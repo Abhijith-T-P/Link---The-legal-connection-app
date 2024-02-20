@@ -229,3 +229,4 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
 };
 
 export default NewCase;
+

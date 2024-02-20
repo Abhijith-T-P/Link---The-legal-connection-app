@@ -32,9 +32,59 @@ const PoliceComplaintPage = () => {
   };
 
   useEffect(() => {
-    handleCaseCategoryChange();
-    getCaseCat();
+    const fetchData = async () => {
+      await getCaseCat();
+      // handleCaseCategoryChange();
+    };
+    fetchData();
   }, []);
+  
+
+  const getCaseCat = async () => {
+    try {
+      const CaseCat = await getDocs(collection(db, "CaseType"));
+      const filteredCat = CaseCat.docs.map((docs) => ({
+        id: docs.id,
+        ...docs.data(),
+      }));
+      setShowCaseCategory(filteredCat);
+      getSubCat();
+    } catch (error) {
+      console.error("Error fetching case categories:", error.message);
+    }
+  };
+
+  
+const getSubCat= async ()=>{
+  const SubCat =await getDocs (collection(db, "SubCaseType"));
+  const filteredSubCat = SubCat.docs.map((subcat)=>({
+    ...subcat.data(),
+    CID:subcat.id,
+  }))
+  setDisplaySubcat(filteredSubCat);
+  console.log("Subcat:",filteredSubCat);
+}
+
+  // const handleCaseCategoryChange = async () => {
+  //   try {
+
+  //     console.log(caseCategory);
+
+  //     const querysub = await query(
+  //       collection(db, "SubCaseType"),
+  //       where("CaseCategory", "==", caseCategory)
+  //     );
+  //     const data = await getDocs(querysub);
+  //     const datamapped = data.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setDisplaySubcat(datamapped);
+  //   } catch (error) {
+  //     console.error("Error fetching sub-case categories:", error.message);
+  //   }
+  // };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,40 +128,6 @@ const PoliceComplaintPage = () => {
       alert("Error filing police complaint. Please try again.");
     }
   };
-
-  const getCaseCat = async () => {
-    try {
-      const CaseCat = await getDocs(collection(db, "CaseType"));
-      const filteredCat = CaseCat.docs.map((docs) => ({
-        id: docs.id,
-        ...docs.data(),
-      }));
-      setShowCaseCategory(filteredCat);
-    } catch (error) {
-      console.error("Error fetching case categories:", error.message);
-    }
-    handleCaseCategoryChange();
-  };
-
-  const handleCaseCategoryChange = async () => {
-    try {
-      console.log(caseCategory);
-
-      const querysub = query(
-        collection(db, "SubCaseType"),
-        where("CaseCategory", "==", caseCategory)
-      );
-      const data = await getDocs(querysub);
-      const datamapped = data.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setDisplaySubcat(datamapped);
-    } catch (error) {
-      console.error("Error fetching sub-case categories:", error.message);
-    }
-  };
-
   return (
     <Box
       component="form"
@@ -150,7 +166,8 @@ const PoliceComplaintPage = () => {
             label="Case Category"
             onChange={(e) => {
               setCaseCategory(e.target.value);
-              handleCaseCategoryChange();
+              // handleCaseCategoryChange();
+              
             }}
           >
             {showCaseCategory.map((row, key) => (
@@ -168,6 +185,7 @@ const PoliceComplaintPage = () => {
           <Select
             labelId="sub-case-category-label"
             id="sub-case-category"
+            
             value={subCaseCategory}
             label="Sub Case Category"
             onChange={(e) => setSubCaseCategory(e.target.value)}
