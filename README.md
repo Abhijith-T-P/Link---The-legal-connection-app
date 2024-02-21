@@ -3,6 +3,9 @@
 **Comprehensive Legal Interaction Platform - Web App**
 
 
+App Link : https://github.com/Abhijith-T-P/Link-Flutter-app
+
+
 **Key Features:**
 - **User Authentication:** Secure login and registration for users.
 - **Case Management:** Real-time access to legal case information, status updates, and document uploads.
