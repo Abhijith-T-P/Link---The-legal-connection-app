@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/*" element={<LoginTemplate />} />
+        <Route path="/Login" element={<LoginTemplate />} />
       
         
 

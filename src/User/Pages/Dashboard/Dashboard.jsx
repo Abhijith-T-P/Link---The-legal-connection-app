@@ -140,68 +140,40 @@ const Dashboard = () => {
       </main>
       <article>
         <div className="articleHeading">
-          <Typography variant="h3">Articles</Typography>
+          <Typography variant="h2">Empowering Legal Interactions: Navigating the Digital Frontier
+</Typography>
         </div>
         <div className="articleContent">
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem
-            voluptatem facilis id doloremque doloribus magnam corrupti eaque
-            cumque repellat in maxime voluptas nemo aliquam, aspernatur rem
-            voluptatum fuga fugiat consequuntur quas harum beatae numquam.
-            Exercitationem harum corporis similique voluptate enim quo
-            dignissimos velit numquam reprehenderit nesciunt soluta culpa esse,
-            eum facere odit ut molestias obcaecati eaque est! Aliquam possimus
-            accusamus quas maiores cupiditate doloremque illum alias ullam
-            expedita amet fugiat commodi pariatur facilis blanditiis, minima
-            consequatur quae delectus eos laborum asperiores, magni molestiae.
-            Quibusdam, fugiat? Quod atque pariatur excepturi modi earum, hic
-            voluptatum dignissimos, asperiores eaque minima veniam, recusandae
-            reprehenderit.
+          In today's fast-paced world, the landscape of legal interactions is evolving at a rapid pace. From seeking legal advice to managing complex cases, individuals and businesses alike require efficient and accessible solutions to navigate the intricacies of the legal system. This is where the Comprehensive Legal Interaction Platform steps in, offering a revolutionary approach to legal services that bridges the gap between users, legal professionals, and law enforcement agencies.
           </p>
+          <h4>Streamlined Access to Legal Services</h4>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-            molestias totam sint suscipit veniam explicabo velit cumque
-            dignissimos recusandae, officia expedita quia, mollitia iusto eaque
-            voluptatum saepe voluptatem qui assumenda aspernatur ipsa. Corrupti
-            cupiditate similique laborum, earum odio commodi saepe eius a quidem
-            dolores hic laudantium perferendis doloribus veniam voluptatum rem
-            in beatae eveniet minus at nam sit qui exercitationem maxime? Est
-            omnis vel quos libero maiores id corporis commodi aliquid nobis
-            doloribus. Aspernatur, error repellat, impedit facere consequuntur
-            autem suscipit maiores eveniet officia quasi, provident ut expedita
-            reprehenderit? Iste aperiam nostrum asperiores ea perspiciatis
-            temporibus hic expedita. Nam explicabo dicta quae, inventore rem
-            repudiandae adipisci sint dolor temporibus! Cupiditate, tempore
-            porro laudantium nobis vitae ab itaque adipisci quia accusamus
-            eligendi ipsa id reiciendis. Soluta aut, autem vero, quos distinctio
-            iusto architecto tempore ullam sequi libero a, reprehenderit maxime
-            ratione voluptate nemo? Ipsa assumenda animi magnam dolor similique
-            ullam vero distinctio quod, illum maiores natus reiciendis voluptate
-            quam quos tempore recusandae. Vel quia, optio qui quos eligendi
-            atque aliquam? Aperiam, asperiores quisquam praesentium, sapiente
-            optio, quos ratione quod eos velit dolor mollitia impedit. A
-            blanditiis quos quidem doloribus amet, laboriosam fugit ea expedita
-            iure accusamus adipisci dicta, iste natus fuga.
+          Gone are the days of cumbersome paperwork and endless queues at legal offices. With our platform, users can access a wide range of legal services with just a few clicks. Whether it's consulting with experienced lawyers, filing legal documents, or tracking case statuses, our intuitive interface puts the power of legal assistance directly into the hands of our users.
+
           </p>
+          <h4>Enhanced Collaboration and Communication
+</h4>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
-            similique cumque ipsam autem ut commodi quae consequatur quo, dicta
-            adipisci dolore id esse quam quos aliquid accusantium eligendi
-            repellendus delectus libero. Totam blanditiis officia asperiores sed
-            eos, temporibus dolorem beatae nisi hic repellat repudiandae,
-            adipisci vitae omnis perspiciatis soluta non illo sunt a, in quae
-            ipsa. Praesentium, incidunt id? Soluta nesciunt nisi unde laboriosam
-            nulla quae consequuntur quos culpa eius, modi facere excepturi in
-            est reiciendis quo illo ab voluptatem! Voluptate, accusantium beatae
-            veritatis fugit molestiae saepe, libero nam dolores omnis, neque
-            animi facilis est laborum. Saepe esse nemo accusantium, unde, neque
-            eum aspernatur sunt voluptas consequatur, natus dolorum. Vero ipsum
-            harum animi, minima voluptatibus rerum ducimus ad fugiat culpa
-            debitis doloremque aliquid quos aliquam cumque dolor. Porro illo
-            doloremque dolorem atque reprehenderit molestiae sit, dolor odio
-            totam asperiores, veniam et ullam quod libero distinctio cum nam,
-            sunt laboriosam blanditiis?
+          Effective communication is the cornerstone of successful legal interactions. Our platform facilitates seamless collaboration between users, lawyers, and law enforcement agencies, ensuring that everyone involved in a case remains informed and engaged throughout the legal process. From real-time updates to secure messaging features, we prioritize transparency and efficiency in every aspect of legal communication.
           </p>
+          <h4>Privacy, Security, and Compliance
+</h4>
+<p>
+
+At the heart of our platform lies a commitment to safeguarding the privacy and security of our users' data. We adhere to strict industry standards and compliance regulations to ensure that sensitive information remains confidential and protected at all times. With robust encryption protocols and comprehensive privacy controls, users can trust that their legal affairs are in safe hands.
+</p>
+<h4>
+Empowering Individuals and Businesses
+
+</h4>
+<p>Whether you're an individual seeking legal advice or a business navigating complex legal matters, the Comprehensive Legal Interaction Platform is here to empower you every step of the way. Our user-centric approach, combined with cutting-edge technology and expert legal guidance, ensures that you have the resources and support you need to achieve your legal objectives efficiently and effectively.</p>
+<h4>
+Join Us on the Legal Journey
+
+</h4>
+<p>Embark on a new era of legal interactions with the Comprehensive Legal Interaction Platform. Discover a world of possibilities where legal assistance is just a click away, and where navigating the complexities of the legal system is easier and more accessible than ever before. Join us on this transformative journey and experience the future of legal services today.
+</p>
         </div>
       </article>
       

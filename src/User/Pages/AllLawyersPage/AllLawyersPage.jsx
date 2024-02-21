@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import "../mainpadding.css"
-// Mock data for demonstration purposes
-const lawyersData = [
-  { id: 1, name: "Lawyer 1", specialization: "Criminal Defense" },
-  { id: 2, name: "Lawyer 2", specialization: "Family Law" },
-  { id: 3, name: "Lawyer 3", specialization: "Civil Litigation" },
-  // Add more lawyers as needed
-];
+import law1 from "../../assets/icon/mylawyer.png";
+
+
 
 const AllLawyersPage = () => {
-  const [lawyers, setLawyers] = useState([]);
-
-  useEffect(() => {
-    // Fetch lawyers data from your backend or data source
-    // For demonstration, using mock data
-    setLawyers(lawyersData);
-  }, []);
+  
 
   return (
     <div className="maincontainer">
       <Typography variant="h4">All Lawyers</Typography>
 
-      <div className="lawyers-list">
-        {lawyers.map((lawyer) => (
-          <Link to={`/lawyer-details/${lawyer.id}`} key={lawyer.id}>
-            <div className="lawyer">
-              <Typography variant="subtitle1">{lawyer.name}</Typography>
-              <Typography variant="body2">{lawyer.specialization}</Typography>
+      <Grid container spacing={2}>
+        <Grid itemxs={12} md={6} lg={4}>
+          <div className="finebody">
+            <div className="fineHeading">
+              <Typography variant="h6">Abhith Saji</Typography>
             </div>
-          </Link>
-        ))}
-      </div>
+
+            <div className="fineContainer">
+              <div className="fineImg">
+                <img src={law1} alt="fine img" />
+              </div>
+
+              <Typography variant="h6">Criminal</Typography>
+              <Typography variant="subtitle1">MA,LLB</Typography>
+              <Typography variant="subtitle1">ID : 123456789</Typography>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  // onClick={handleSubmit}
+                >
+                  request
+                </Button>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

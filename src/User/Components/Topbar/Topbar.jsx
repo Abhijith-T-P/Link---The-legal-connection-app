@@ -42,14 +42,16 @@ const Topbar = () => {
           </div>
           <nav>
             <div className="nav">
-              <Link to="./PolicePage">POLICE</Link>{" "}
+              <Link to="./PolicePage">POLICE</Link>
             </div>
             <div className="nav">
-              <Link to="">LAWYER</Link>{" "}
+              <Link to="">LAWYER</Link>
             </div>
             <div className="nav">
-              <Link to="">Home</Link>{" "}
+              <Link to="">Home</Link>
             </div>
+                     
+                     njuhhhhhh
           </nav>
         </div>
         <div className="UserContainer">

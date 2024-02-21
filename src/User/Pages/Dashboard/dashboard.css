@@ -78,9 +78,11 @@
 
 .Dashboard .articleContent {
   text-align: justify;
-  padding: 50px;
+  padding: 20px;
 }
-
+article p {
+  padding: 20px 0px;
+}
 .card-client {
   background: aquamarine;
   width: 13rem;

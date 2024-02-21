@@ -1,7 +1,19 @@
 import React, { useState } from "react";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { db } from "../../../config/Firebase";
-import './FinePayment.css';
+import "./FinePayment.css";
+
+import img1 from "../../assets/icon/Fine/redLight.png";
+import img2 from "../../assets/icon/Fine/OverSpeed.png";
+import img3 from "../../assets/icon/Fine/NoParking.png";
+import img4 from "../../assets/icon/Fine/helmet.png";
+import img5 from "../../assets/icon/Fine/WrecklessDriving.png";
+import img6 from "../../assets/icon/Fine/Littering.png";
+import img7 from "../../assets/icon/Fine/NoMask.png";
+import img8 from "../../assets/icon/Fine/NoSmoking.png";
+import img9 from "../../assets/icon/Fine/NoAlcohol.png";
+import img10 from "../../assets/icon/Fine/Noise.png";
+
 
 const FinePaymentPage = () => {
   const [fineAmount, setFineAmount] = useState("");
@@ -37,57 +49,295 @@ const FinePaymentPage = () => {
   };
 
   return (
-    <div className="payfinecontainer">
-      <Typography variant="h4">Pay Fine</Typography>
-
-      <TextField
-        label="Fine Amount"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={fineAmount}
-        onChange={(e) => setFineAmount(e.target.value)}
-      />
-
-      <TextField
-        label="Payment Method"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={paymentMethod}
-        onChange={(e) => setPaymentMethod(e.target.value)}
-      />
-
-      <TextField
-        label="Card Number"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={cardNumber}
-        onChange={(e) => setCardNumber(e.target.value)}
-      />
-
-      <TextField
-        label="Expiry Date"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={expiryDate}
-        onChange={(e) => setExpiryDate(e.target.value)}
-      />
-
-      <TextField
-        label="CVC"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={cvc}
-        onChange={(e) => setCvc(e.target.value)}
-      />
-
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
-        Pay Fine
-      </Button>
+    <div className="payfinecontainer" style={{ padding: "10px 220px " }}>
+      <div className="heading">
+        <Typography variant="h4">Pay Fine</Typography>
+      </div>
+      <div className="fines">
+        <Grid container spacing={2}>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Traffic</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img1} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Red light</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Traffic</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img2} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Overspeed</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4} >
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Traffic</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img3} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Parking</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Traffic</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img4} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">No Helmet/Seatbelt </Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Traffic</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img5} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">rekless driving</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Environmental Violations</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img6} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Littering</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Health and Safety Violations</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img7} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">No mask</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Health and Safety Violations</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img8} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Smotking</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Civil offense</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img9} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Drinking</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          <Grid itemxs={12} md={6} lg={4}>
+            <div className="finebody">
+              <div className="fineHeading">
+                <Typography variant="h6">Civil offense</Typography>
+                <Typography variant="h6">25-11-2024</Typography>
+              </div>
+              <div className="circle">
+                <div className="leftCircle"></div>
+                <div className="rightCircle"></div>
+              </div>
+              <div className="fineContainer">
+                <div className="fineImg">
+                  <img src={img10} alt="fine img" />
+                </div>
+                
+                <Typography variant="h6">Noise Pollution</Typography>
+                <Typography variant="subtitle1">Detail</Typography>
+                <Typography variant="subtitle1">Amount :</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                >
+                  Pay Fine
+                </Button>
+              </div>
+            </div>
+          </Grid>
+          
+        </Grid>
+      </div>
     </div>
   );
 };
