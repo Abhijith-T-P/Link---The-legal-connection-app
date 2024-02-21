@@ -23,8 +23,12 @@ const EmergencyRequestPage = () => {
 
   const handleSubmit = async () => {
     try {
+      const uid = sessionStorage.getItem("SessionId");
+
       // Add the emergency request to the database
       const emergencyRequestRef = await addDoc(collection(db, "emergencyRequests"), {
+        UserID: uid,
+
         emergencyType,
         emergencyDescription,
         status: "pending", // You can set an initial status like "pending"

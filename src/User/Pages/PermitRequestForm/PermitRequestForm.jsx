@@ -40,8 +40,12 @@ const PermitRequestForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const uid = sessionStorage.getItem("SessionId");
+
       // Add the permit request to the database
       const permitRequestRef = await addDoc(collection(db, "permitRequests"), {
+        UserID: uid,
+
         permitType,
         applicantName,
         applicantNumber,

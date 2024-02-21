@@ -40,9 +40,11 @@ const ReportMissingPersonPage = () => {
 
       // Get the download URL of the uploaded photo
       const photoURL = await getDownloadURL(fileStorageRef);
+      const uid = sessionStorage.getItem("SessionId");
 
       // Add missing person report to the database
       await addDoc(collection(db,"MissingPerson"),{
+        UserID: uid,
         missingPersonName,
         phone,
         age,
