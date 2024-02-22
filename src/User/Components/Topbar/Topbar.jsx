@@ -42,7 +42,7 @@ const Topbar = () => {
           </div>
           <nav>
           <div className="nav">
-              <Link to="">My Cases</Link>
+              <Link to="./MyCasesPage">My Cases</Link>
             </div>
             <div className="nav">
               <Link to="./PolicePage">POLICE</Link>

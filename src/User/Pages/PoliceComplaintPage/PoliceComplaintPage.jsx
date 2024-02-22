@@ -13,9 +13,10 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import { db, storage } from "../../../config/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
 import "./PoliceComplaintPage.css";
+import PhoneInput from "react-phone-number-input";
 
 const PoliceComplaintPage = () => {
   const [complainantName, setComplainantName] = useState("");
@@ -26,7 +27,6 @@ const PoliceComplaintPage = () => {
   const [subCaseCategory, setSubCaseCategory] = useState("");
   const [showCaseCategory, setShowCaseCategory] = useState([]);
   const [displaySubcat, setDisplaySubcat] = useState([]);
-
   const handleFileChange = (event) => {
     setDocuments(event.target.files[0]);
   };
@@ -38,7 +38,6 @@ const PoliceComplaintPage = () => {
     };
     fetchData();
   }, []);
-  
 
   const getCaseCat = async () => {
     try {
@@ -54,16 +53,15 @@ const PoliceComplaintPage = () => {
     }
   };
 
-  
-const getSubCat= async ()=>{
-  const SubCat =await getDocs (collection(db, "SubCaseType"));
-  const filteredSubCat = SubCat.docs.map((subcat)=>({
-    ...subcat.data(),
-    CID:subcat.id,
-  }))
-  setDisplaySubcat(filteredSubCat);
-  console.log("Subcat:",filteredSubCat);
-}
+  const getSubCat = async () => {
+    const SubCat = await getDocs(collection(db, "SubCaseType"));
+    const filteredSubCat = SubCat.docs.map((subcat) => ({
+      ...subcat.data(),
+      CID: subcat.id,
+    }));
+    setDisplaySubcat(filteredSubCat);
+    console.log("Subcat:", filteredSubCat);
+  };
 
   // const handleCaseCategoryChange = async () => {
   //   try {
@@ -84,7 +82,6 @@ const getSubCat= async ()=>{
   //     console.error("Error fetching sub-case categories:", error.message);
   //   }
   // };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -147,14 +144,11 @@ const getSubCat= async ()=>{
           onChange={(e) => setComplainantName(e.target.value)}
         />
 
-        <TextField
-          label="Contact Number"
-          variant="outlined"
-          fullWidth
-          type="number"
-          margin="normal"
+        <PhoneInput
+          placeholder="enter phone number"
+          defaultCountry="IN"
           value={contactNumber}
-          onChange={(e) => setContactNumber(e.target.value)}
+          onChange={setContactNumber}
         />
 
         <FormControl fullWidth>
@@ -166,8 +160,6 @@ const getSubCat= async ()=>{
             label="Case Category"
             onChange={(e) => {
               setCaseCategory(e.target.value);
-              // handleCaseCategoryChange();
-              
             }}
           >
             {showCaseCategory.map((row, key) => (
@@ -178,14 +170,13 @@ const getSubCat= async ()=>{
           </Select>
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth style={{ marginTop: "10px" }}>
           <InputLabel id="sub-case-category-label">
             Sub Case Category
           </InputLabel>
           <Select
             labelId="sub-case-category-label"
             id="sub-case-category"
-            
             value={subCaseCategory}
             label="Sub Case Category"
             onChange={(e) => setSubCaseCategory(e.target.value)}

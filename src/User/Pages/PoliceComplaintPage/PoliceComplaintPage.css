@@ -13,3 +13,23 @@
     justify-content: center;
     align-items: center;
 }
+.PhoneInput,
+.PhoneInputCountry{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+.PhoneInput{
+    padding-bottom: 10px;
+    justify-content: end;
+    
+}
+.PhoneInputCountryIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.PhoneInputCountryIconImg{
+    width: 80px;
+    
+}

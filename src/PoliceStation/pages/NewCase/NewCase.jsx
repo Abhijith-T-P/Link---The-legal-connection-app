@@ -13,6 +13,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { db, storage } from "../../../config/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import PhoneInput from "react-phone-number-input";
 
 const NewCase = () => {
   const [complainantName, setComplainantName] = useState("");
@@ -23,6 +24,7 @@ const NewCase = () => {
   const [caseCategory, setCaseCategory] = useState("");
   const [subCaseCategory, setSubCaseCategory] = useState(""); // State for selected sub case category
 const [displaySubcat ,setDispalySubcat] = useState([]);
+
   useEffect(() => {
     getCaseCat();
     handleCaseCategoryChange();
@@ -145,16 +147,12 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
           onChange={(e) => setComplainantName(e.target.value)}
         />
 
-        <TextField
-          label="Contact Number"
-          variant="outlined"
-          fullWidth
-          type="number"
-          margin="normal"
+<PhoneInput
+          placeholder="enter phone number"
+          defaultCountry="IN"
           value={contactNumber}
-          onChange={(e) => setContactNumber(e.target.value)}
+          onChange={setContactNumber}
         />
-
         <FormControl fullWidth>
           <InputLabel id="case-category-label">Case Category</InputLabel>
           <Select
@@ -172,7 +170,7 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
           </Select>
         </FormControl>
 
-        <FormControl fullWidth>
+        <FormControl fullWidth style={{paddingTop: "10px"}}>
           <InputLabel id="sub-case-category-label">
             Sub Case Category
           </InputLabel>
