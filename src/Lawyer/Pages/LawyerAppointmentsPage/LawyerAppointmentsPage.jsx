@@ -5,8 +5,9 @@ import {
   ListItem,
   ListItemText,
   Button,
+  Grid,
 } from "@mui/material";
-
+import "./LawyerAppointmentsPage.css";
 const LawyerAppointmentsPage = ({ lawyerId }) => {
   // Assume you have a function to fetch the lawyer's appointments
   const fetchAppointments = async () => {
@@ -48,10 +49,12 @@ const LawyerAppointmentsPage = ({ lawyerId }) => {
   );
 
   return (
-    <div className="LawyerAppointmentsPage"style={{ padding: "10px 220px" }}>
-      <Typography variant="h4">Appointments</Typography>
+    <div className="LawyerAppointmentsPage" style={{ padding: "10px 220px" }}>
+      <div className="Title">
+        <Typography variant="h4">Appointments</Typography>
+      </div>
 
-      {appointments.length > 0 ? (
+      {/* {appointments.length > 0 ? (
         <List>
           {appointments.map((appointment) => (
             <ListItem key={appointment.appointmentId}>
@@ -92,7 +95,105 @@ const LawyerAppointmentsPage = ({ lawyerId }) => {
             ))}
           </List>
         </div>
-      )}
+      )} */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="appoinment-container">
+            <div className="appoinment-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <div className="appoinment-button">
+                <div className="acccept">
+                  <Button variant="contained" color="primary">
+                    Accept
+                  </Button>
+                </div>
+                <div className="reject">
+                  <Button variant="contained" color="secondary">
+                    Reject
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="appoinment-container">
+            <div className="appoinment-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <div className="appoinment-button">
+                <div className="acccept">
+                  <Button variant="contained" color="primary">
+                    Accept
+                  </Button>
+                </div>
+                <div className="reject">
+                  <Button variant="contained" color="secondary">
+                    Reject
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="appoinment-container">
+            <div className="appoinment-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <div className="appoinment-button">
+                <div className="acccept">
+                  <Button variant="contained" color="primary">
+                    Accept
+                  </Button>
+                </div>
+                <div className="reject">
+                  <Button variant="contained" color="secondary">
+                    Reject
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="appoinment-container">
+            <div className="appoinment-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+              <div className="appoinment-button">
+                <div className="acccept">
+                  <Button variant="contained" color="primary">
+                    Accept
+                  </Button>
+                </div>
+                <div className="reject">
+                  <Button variant="contained" color="secondary">
+                    Reject
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

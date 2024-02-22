@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Typography, List, ListItem, ListItemText } from "@mui/material";
-
+import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
+import "./LawyerAcceptedCasesPage.css";
 const LawyerAcceptedCasesPage = ({ lawyerId }) => {
   // Assume you have a function to fetch the lawyer's accepted cases
   const fetchAcceptedCases = async () => {
@@ -24,10 +24,13 @@ const LawyerAcceptedCasesPage = ({ lawyerId }) => {
   ];
 
   return (
-    <div className="LawyerAcceptedCasesPage" style={{ padding: "10px 220px" }}>
-      <Typography variant="h4">Accepted Cases</Typography>
+    <div className="LawyerAcceptedCasesPage" style={{ padding: "10px 220px" ,paddingBottom:"50px" }}>
+      <div className="Title">
 
-      {acceptedCases.length > 0 ? (
+      <Typography variant="h4">Accepted Cases</Typography>
+      </div>
+
+      {/* {acceptedCases.length > 0 ? (
         <List>
           {acceptedCases.map((caseItem) => (
             <ListItem key={caseItem.caseId}>
@@ -37,7 +40,53 @@ const LawyerAcceptedCasesPage = ({ lawyerId }) => {
         </List>
       ) : (
         <Typography variant="subtitle1">No accepted cases available.</Typography>
-      )}
+      )} */}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="acepted-cases">
+            <div className="acepted-cases-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="acepted-cases">
+            <div className="acepted-cases-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="acepted-cases">
+            <div className="acepted-cases-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <div className="acepted-cases">
+            <div className="acepted-cases-list">
+              <Typography variant="h6">Client Name</Typography>
+              <Typography variant="subtitle1">Case ID : 123456789</Typography>
+              <Typography variant="subtitle1">Category</Typography>
+              <Typography variant="subtitle1">Subcategory</Typography>
+              <Typography variant="subtitle1">View more</Typography>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

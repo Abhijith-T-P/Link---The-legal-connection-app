@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Typography, List, ListItem, ListItemText } from "@mui/material";
+import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
+import "./LawyerClientsPage.css";
 import { Link } from "react-router-dom";
 
 const LawyerClientsPage = ({ lawyerId }) => {
@@ -16,29 +17,97 @@ const LawyerClientsPage = ({ lawyerId }) => {
     fetchLawyerClients();
   }, []);
 
-  // Assume clients is an array of client objects with properties like clientId and clientName
-  const clients = [
-    { clientId: 1, clientName: "Client 1" },
-    { clientId: 2, clientName: "Client 2" },
-    { clientId: 3, clientName: "Client 3" },
-    // Add more clients as needed
-  ];
-
   return (
-    <div className="LawyerClientsPage"style={{ padding: "10px 220px" }}>
+    <div className="LawyerClientsPage" style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Your Clients</Typography>
-
-      {clients.length > 0 ? (
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} lg={4}>
+        {/* {clients.length > 0 ? ( */}
         <List>
-          {clients.map((client) => (
-            <ListItem key={client.clientId}>
-              <ListItemText primary={client.clientName} />
-            </ListItem>
-          ))}
+          <div className="clientsContainer">
+            <div className="client-list">
+              <div className="client-img">
+                <img src="ds" alt="img" />
+              </div>
+              <div className="client-detail">
+                <Typography variant="h6">Client Name</Typography>
+                <Typography variant="subtitle1">ID :1234567</Typography>
+                <Typography variant="subtitle1">
+                  Phone : +91 9876543210
+                </Typography>
+                <Typography variant="subtitle1">Email : </Typography>
+                <Typography variant="subtitle1">Address : </Typography>
+              </div>
+            </div>
+          </div>
         </List>
-      ) : (
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+        {/* {clients.length > 0 ? ( */}
+        <List>
+          <div className="clientsContainer">
+            <div className="client-list">
+              <div className="client-img">
+                <img src="ds" alt="img" />
+              </div>
+              <div className="client-detail">
+                <Typography variant="h6">Client Name</Typography>
+                <Typography variant="subtitle1">ID :1234567</Typography>
+                <Typography variant="subtitle1">
+                  Phone : +91 9876543210
+                </Typography>
+                <Typography variant="subtitle1">Email : </Typography>
+                <Typography variant="subtitle1">Address : </Typography>
+              </div>
+            </div>
+          </div>
+        </List>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+        {/* {clients.length > 0 ? ( */}
+        <List>
+          <div className="clientsContainer">
+            <div className="client-list">
+              <div className="client-img">
+                <img src="ds" alt="img" />
+              </div>
+              <div className="client-detail">
+                <Typography variant="h6">Client Name</Typography>
+                <Typography variant="subtitle1">ID :1234567</Typography>
+                <Typography variant="subtitle1">
+                  Phone : +91 9876543210
+                </Typography>
+                <Typography variant="subtitle1">Email : </Typography>
+                <Typography variant="subtitle1">Address : </Typography>
+              </div>
+            </div>
+          </div>
+        </List>
+        </Grid><Grid item xs={12} md={6} lg={4}>
+        {/* {clients.length > 0 ? ( */}
+        <List>
+          <div className="clientsContainer">
+            <div className="client-list">
+              <div className="client-img">
+                <img src="ds" alt="img" />
+              </div>
+              <div className="client-detail">
+                <Typography variant="h6">Client Name</Typography>
+                <Typography variant="subtitle1">ID :1234567</Typography>
+                <Typography variant="subtitle1">
+                  Phone : +91 9876543210
+                </Typography>
+                <Typography variant="subtitle1">Email : </Typography>
+                <Typography variant="subtitle1">Address : </Typography>
+              </div>
+            </div>
+          </div>
+        </List>
+        </Grid>
+      </Grid>
+      {/* ) : (
         <Typography variant="subtitle1">No clients available.</Typography>
-      )}
+      )} */}
 
       <div className="add-client-button">
         <Link to="/lawyer/add-client">

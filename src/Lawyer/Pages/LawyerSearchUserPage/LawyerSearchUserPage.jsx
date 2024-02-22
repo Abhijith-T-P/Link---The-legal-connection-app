@@ -6,7 +6,9 @@ import {
   List,
   ListItem,
   ListItemText,
+  Grid,
 } from "@mui/material";
+import "./LawyerSearchUserPage.css";
 
 const LawyerSearchUserPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +38,7 @@ const LawyerSearchUserPage = () => {
   };
 
   return (
-    <div className="LawyerSearchUserPage"style={{ padding: "10px 220px" }}>
+    <div className="LawyerSearchUserPage" style={{ padding: "10px 220px" }}>
       <Typography variant="h4">Search Users</Typography>
 
       <TextField
@@ -78,6 +80,124 @@ const LawyerSearchUserPage = () => {
           </List>
         </div>
       )}
+      <Grid container spacing={2}>
+      <Grid item xs={12} md={6}>
+          <div className="user-container">
+            <div className="user-detail">
+              <Typography variant="h4">User Details</Typography>
+              <Typography variant="subtitle1">Full Name : </Typography>
+              <Typography variant="subtitle1">Email : </Typography>
+              <Typography variant="subtitle1">
+                Phone : +91 9876543210
+              </Typography>
+              <Typography variant="subtitle1">Address : </Typography>
+              <Typography variant="subtitle1">City : </Typography>
+
+              <Typography variant="subtitle1">State : </Typography>
+              <Typography variant="subtitle1">Country : </Typography>
+              <Typography variant="subtitle1">Pincode : </Typography>
+              <Typography variant="subtitle1">Gender : </Typography>
+              <Typography variant="subtitle1">Date of Birth : </Typography>
+              <Typography variant="subtitle1">Nationality : </Typography>
+              <Typography variant="subtitle1">Marital Status : </Typography>
+              <Typography variant="subtitle1">Religion : </Typography>
+              <Typography variant="subtitle1">Education : </Typography>
+            </div>
+          </div>
+        </Grid><Grid item xs={12} md={6}>
+          <div className="user-container">
+            <div className="user-detail">
+              <Typography variant="h4">User Details</Typography>
+              <Typography variant="subtitle1">Full Name : </Typography>
+              <Typography variant="subtitle1">Email : </Typography>
+              <Typography variant="subtitle1">
+                Phone : +91 9876543210
+              </Typography>
+              <Typography variant="subtitle1">Address : </Typography>
+              <Typography variant="subtitle1">City : </Typography>
+
+              <Typography variant="subtitle1">State : </Typography>
+              <Typography variant="subtitle1">Country : </Typography>
+              <Typography variant="subtitle1">Pincode : </Typography>
+              <Typography variant="subtitle1">Gender : </Typography>
+              <Typography variant="subtitle1">Date of Birth : </Typography>
+              <Typography variant="subtitle1">Nationality : </Typography>
+              <Typography variant="subtitle1">Marital Status : </Typography>
+              <Typography variant="subtitle1">Religion : </Typography>
+              <Typography variant="subtitle1">Education : </Typography>
+            </div>
+          </div>
+        </Grid><Grid item xs={12} md={6}>
+          <div className="user-container">
+            <div className="user-detail">
+              <Typography variant="h4">User Details</Typography>
+              <Typography variant="subtitle1">Full Name : </Typography>
+              <Typography variant="subtitle1">Email : </Typography>
+              <Typography variant="subtitle1">
+                Phone : +91 9876543210
+              </Typography>
+              <Typography variant="subtitle1">Address : </Typography>
+              <Typography variant="subtitle1">City : </Typography>
+
+              <Typography variant="subtitle1">State : </Typography>
+              <Typography variant="subtitle1">Country : </Typography>
+              <Typography variant="subtitle1">Pincode : </Typography>
+              <Typography variant="subtitle1">Gender : </Typography>
+              <Typography variant="subtitle1">Date of Birth : </Typography>
+              <Typography variant="subtitle1">Nationality : </Typography>
+              <Typography variant="subtitle1">Marital Status : </Typography>
+              <Typography variant="subtitle1">Religion : </Typography>
+              <Typography variant="subtitle1">Education : </Typography>
+            </div>
+          </div>
+        </Grid><Grid item xs={12} md={6}>
+          <div className="user-container">
+            <div className="user-detail">
+              <Typography variant="h4">User Details</Typography>
+              <Typography variant="subtitle1">Full Name : </Typography>
+              <Typography variant="subtitle1">Email : </Typography>
+              <Typography variant="subtitle1">
+                Phone : +91 9876543210
+              </Typography>
+              <Typography variant="subtitle1">Address : </Typography>
+              <Typography variant="subtitle1">City : </Typography>
+
+              <Typography variant="subtitle1">State : </Typography>
+              <Typography variant="subtitle1">Country : </Typography>
+              <Typography variant="subtitle1">Pincode : </Typography>
+              <Typography variant="subtitle1">Gender : </Typography>
+              <Typography variant="subtitle1">Date of Birth : </Typography>
+              <Typography variant="subtitle1">Nationality : </Typography>
+              <Typography variant="subtitle1">Marital Status : </Typography>
+              <Typography variant="subtitle1">Religion : </Typography>
+              <Typography variant="subtitle1">Education : </Typography>
+            </div>
+          </div>
+        </Grid><Grid item xs={12} md={6}>
+          <div className="user-container">
+            <div className="user-detail">
+              <Typography variant="h4">User Details</Typography>
+              <Typography variant="subtitle1">Full Name : </Typography>
+              <Typography variant="subtitle1">Email : </Typography>
+              <Typography variant="subtitle1">
+                Phone : +91 9876543210
+              </Typography>
+              <Typography variant="subtitle1">Address : </Typography>
+              <Typography variant="subtitle1">City : </Typography>
+
+              <Typography variant="subtitle1">State : </Typography>
+              <Typography variant="subtitle1">Country : </Typography>
+              <Typography variant="subtitle1">Pincode : </Typography>
+              <Typography variant="subtitle1">Gender : </Typography>
+              <Typography variant="subtitle1">Date of Birth : </Typography>
+              <Typography variant="subtitle1">Nationality : </Typography>
+              <Typography variant="subtitle1">Marital Status : </Typography>
+              <Typography variant="subtitle1">Religion : </Typography>
+              <Typography variant="subtitle1">Education : </Typography>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };
