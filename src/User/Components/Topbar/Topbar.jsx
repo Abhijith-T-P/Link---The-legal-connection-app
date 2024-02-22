@@ -41,6 +41,9 @@ const Topbar = () => {
             <div className="containerBottom"></div>
           </div>
           <nav>
+          <div className="nav">
+              <Link to="">My Cases</Link>
+            </div>
             <div className="nav">
               <Link to="./PolicePage">POLICE</Link>
             </div>
@@ -51,7 +54,6 @@ const Topbar = () => {
               <Link to="">Home</Link>
             </div>
                      
-                     njuhhhhhh
           </nav>
         </div>
         <div className="UserContainer">
