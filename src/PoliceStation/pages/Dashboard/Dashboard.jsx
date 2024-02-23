@@ -1,100 +1,142 @@
 import "./dashboard.css";
-import hbg1 from "../../assets/images/police.jpg";
 import bgp1 from "../../assets/images/policebg.mp4";
 import ser1 from "../../assets/icon/alert-em.png";
-import ser2 from "../../assets/icon/pasport.png";
-import ser3 from "../../assets/icon/fileCase.png";
-import ser4 from "../../assets/icon/fine.png";
-import ser5 from "../../assets/icon/lawyer.png";
+import ser2 from "../../assets/icon/fine.png";
+import ser4 from "../../assets/icon/searchUser.png";
+import ser5 from "../../assets/icon/message.png";
+
 import ser6 from "../../assets/icon/missing.png";
 import ser7 from "../../assets/icon/permit.png";
 import ser8 from "../../assets/icon/calender.png";
-import ser9 from "../../assets/icon/policeStation.png";
-import { Typography } from "@mui/material";
-import { Link, Route, Routes } from "react-router-dom";
-import CaseDashboard from "../CaseDashboard/CaseDashboard";
-
+import { Grid, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
- 
   return (
     <div className="Dashboard">
       <div className="hero">
         <div className="left">
           <div className="heroText">
-            <h4>STREAMLINE </h4>
-            <h1>LEGAL</h1>
-            <h5>COLABRATION</h5>
+            <Typography variant="h4">STREAMLINE</Typography>
+            <Typography variant="h1">LEGAL</Typography>
+            <Typography variant="h5">COLLABRATION</Typography>
           </div>
         </div>
         <div className="right">
-        <video src={bgp1} type="video/mp4" playsinline="playsinline" autoPlay muted loop
-  style={{
-    
-  }}
-></video>
+          <video
+            src={bgp1}
+            type="video/mp4"
+            playsInline="playsinline"
+            autoPlay
+            muted
+            loop
+            style={{}}
+          ></video>
         </div>
       </div>
       <main>
         <div className="services">
-          <Link to= "./CaseDashboard">
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} lg={4}>
+              <Link to="./CaseDashboard" className="service">
+                <div class="card-client">
+                  <div class="Service-picture">
+                    <img src={ser6} alt="img" />
+                  </div>
+                  <Typography variant="subtitle1" class="name-client">
+                    CASE DASHBOARD
+                  </Typography>
+                </div>
+              </Link>
+            </Grid>
 
-          <div className="service">
-            <div class="card-client">
-              <div class="Service-picture">
-                <img src={ser6} alt="img" />
-              </div>
-              <p class="name-client"> CASE DASHBOARD</p>
-            </div>
-          </div>
-          </Link>
-         
-         
-          <Link to="./Passport">
+            <Grid item xs={12} md={6} lg={4}>
+              <Link to="./PermitApprovalPage" className="service">
+                <div class="card-client">
+                  <div class="Service-picture">
+                    <img src={ser7} alt="img" />
+                  </div>
+                  <Typography variant="subtitle1" class="name-client">
+                    Permit Request
+                  </Typography>
+                </div>
+              </Link>
+            </Grid>
 
-          <div className="service">
-            <div class="card-client">
-              <div class="Service-picture">
-                <img src={ser2} alt="img" />
-              </div>
-              <p class="name-client"> Pasport verification</p>
-            </div>
-          </div>
-          </Link>
-          <div className="service">
-          <Link to="./PermitApprovalPage">
+            <Grid item xs={12} md={6} lg={4}>
+              <Link to="./MessageUser">
+                <div className="service">
+                  <div class="card-client">
+                    <div class="Service-picture">
+                      <img src={ser5} alt="img" />
+                    </div>
+                    <Typography variant="subtitle1" class="name-client">
+                      Notify User
+                    </Typography>
+                  </div>
+                </div>
+              </Link>
+            </Grid>
 
-            <div class="card-client">
-              <div class="Service-picture">
-                <img src={ser7} alt="img" />
-              </div>
-              <p class="name-client"> Permit Request</p>
-            </div>
-          </Link>
-          </div>
-          <div className="service">
-            <div class="card-client">
-              <div class="Service-picture">
-                <img src={ser8} alt="img" />
-              </div>
-              <p class="name-client"> Upcoming events</p>
-            </div>
-          </div>
-          <Link to="./PoliceEmergencyRequestsPage">
+            <Grid item xs={12} md={6} lg={4}>
+              <Link to="./PoliceEmergencyRequestsPage"className="service" >
+                <div class="card-client">
+                  <div class="Service-picture">
+                    <img src={ser2} alt="img" />
+                  </div>
+                  <Typography variant="subtitle1" class="name-client">
+                    Fine{" "}
+                  </Typography>
+                </div>
+              </Link>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <div className="service">
+                <Link to="./SearchUserPage">
 
-          <div className="service">
-            <div class="card-client">
-              <div class="Service-picture">
-                <img src={ser1} alt="img" />
+              
+                <div class="card-client">
+                  <div class="Service-picture">
+                    <img src={ser4} alt="img" />
+                  </div>
+                  <Typography variant="subtitle1" class="name-client">
+                    Search User
+                  </Typography>
+                </div>
+                </Link>
               </div>
-              <p class="name-client"> Emergency Request</p>
-            </div>
-          </div>
-          </Link>
+            </Grid>
+
+            <Grid item xs={12} md={6} lg={4}>
+              <Link to="./PoliceEmergencyRequestsPage" className="service">
+                <div class="card-client">
+                  <div class="Service-picture">
+                    <img src={ser1} alt="img" />
+                  </div>
+                  <Typography variant="subtitle1" class="name-client">
+                    Emergency Request
+                  </Typography>
+                </div>
+              </Link>
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+            <Link to="./UpcomingEventsPage" >
+
+              <div className="service">
+                <div class="card-client">
+                  <div class="Service-picture">
+                    <img src={ser8} alt="img" />
+                  </div>
+                  <Typography variant="subtitle1" class="name-client">
+                    Events
+                  </Typography>
+                </div>
+              </div>
+              </Link>
+            </Grid>
+          </Grid>
         </div>
       </main>
-      
-        
     </div>
   );
 };

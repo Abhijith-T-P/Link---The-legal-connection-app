@@ -36,13 +36,10 @@
   padding: 10px 20px;
   background-color: aquamarine;
   display: flex;
-  justify-content: space-evenly ;
-  flex-wrap: wrap;
   padding: 20px 220px;
 }
 
 .Dashboard main .services .service {
-  padding: 30px;
   display: flex;
   justify-content: center;
 }
