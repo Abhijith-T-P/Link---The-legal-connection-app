@@ -13,7 +13,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import { db, storage } from "../../../config/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 import "./PoliceComplaintPage.css";
 import PhoneInput from "react-phone-number-input";
@@ -53,38 +53,26 @@ const PoliceComplaintPage = () => {
     }
   };
 
-  const getSubCat = async () => {
-    const SubCat = await getDocs(collection(db, "SubCaseType"));
-    const filteredSubCat = SubCat.docs.map((subcat) => ({
-      ...subcat.data(),
-      CID: subcat.id,
-    }));
-    setDisplaySubcat(filteredSubCat);
-    console.log("Subcat:", filteredSubCat);
+  const getSubCat = async (Id) => {
+    setCaseCategory(Id);
+    try {
+      const querysub = await query(
+        collection(db, "SubCaseType"),
+        where("CaseCategory", "==", Id)
+      );
+      const data = await getDocs(querysub);
+      const datamapped = data.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setDisplaySubcat(datamapped);
+    } catch (error) {
+      console.error("Error fetching sub-case categories:", error.message);
+    }
   };
 
-  // const handleCaseCategoryChange = async () => {
-  //   try {
-
-  //     console.log(caseCategory);
-
-  //     const querysub = await query(
-  //       collection(db, "SubCaseType"),
-  //       where("CaseCategory", "==", caseCategory)
-  //     );
-  //     const data = await getDocs(querysub);
-  //     const datamapped = data.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setDisplaySubcat(datamapped);
-  //   } catch (error) {
-  //     console.error("Error fetching sub-case categories:", error.message);
-  //   }
-  // };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
       var documentURLs = "";
@@ -158,9 +146,7 @@ const PoliceComplaintPage = () => {
             id="case-category"
             value={caseCategory}
             label="Case Category"
-            onChange={(e) => {
-              setCaseCategory(e.target.value);
-            }}
+            onChange={(event) => getSubCat(event.target.value)}
           >
             {showCaseCategory.map((row, key) => (
               <MenuItem key={key} value={row.id}>
@@ -179,7 +165,7 @@ const PoliceComplaintPage = () => {
             id="sub-case-category"
             value={subCaseCategory}
             label="Sub Case Category"
-            onChange={(e) => setSubCaseCategory(e.target.value)}
+            onChange={(event) => setSubCaseCategory(event.target.value)}
           >
             {displaySubcat.map((row, key) => (
               <MenuItem key={key} value={row.id}>
@@ -198,7 +184,7 @@ const PoliceComplaintPage = () => {
           rows={4}
           margin="normal"
           value={complaintDescription}
-          onChange={(e) => setComplaintDescription(e.target.value)}
+          onChange={(event) => setComplaintDescription(event.target.value)}
         />
 
         <input
