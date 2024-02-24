@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./Topbar.css";
-import { Link, useNavigate,  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 
 const Topbar = () => {
-
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
-  // const userData = async () => {
-  //   const id = sessionStorage.getItem("SessionId");
-  //   console.log(id);
-  //   const docRef = doc(db, "collection_user", id);
-  //   const docSnapUser = await getDoc(docRef);
-  //   const userData = {
-  //     ...docSnapUser.data(),
-  //     id: docSnapUser.id,
-  //   };
-  //   setUser(userData);
-  // };
+  const [lawyer, setLawyer] = useState(null);
 
-  // const Logout = () => {
-  //   //clear sessionid
-  //   sessionStorage.removeItem("SessionId");
-  //   navigate("../../Login");
-  // };
+  useEffect(() => {
+    const userData = async () => {
+      const lid = sessionStorage.getItem("lid");
+      if (!lid) {
+        navigate("../login");
+        return;
+      }
+      const docRef = doc(db, "lawyer_collection", lid);
+      const docSnapUser = await getDoc(docRef);
+      const userData = {
+        ...docSnapUser.data(),
+        id: docSnapUser.id,
+      };
+      setLawyer(userData);
+    };
 
-  // useEffect(() => {
-  //   userData();
-  // }, []);
+    userData();
+  }, [navigate]);
+
   return (
     <div className="Topbar">
       <div className="container">
@@ -42,32 +40,35 @@ const Topbar = () => {
           </div>
           <nav>
             <div className="nav">
-              <Link to="./#">notset</Link>{" "}
+              <Link to="/product">Product</Link>{" "}
             </div>
             <div className="nav">
-              <Link to="./">Home</Link>{" "}
+              <Link to="/">Home</Link>{" "}
             </div>
             <div className="nav">
-              <Link to="./CaseRequests">Requests</Link>{" "}
+              <Link to="/">Home</Link>{" "}
             </div>
           </nav>
         </div>
         <div className="UserContainer">
-            <Link to="./LawyerProfile">
-          <div className="Lawyer">
-
+          <div className="User">
             <div className="Detail">
               <div className="userName">
-                <Typography variant="subtitle1">{user.user_name}</Typography>
-                <Typography variant="subtitle2">Lawyer</Typography>
+                {lawyer ? (
+                  <>
+                    <Typography variant="subtitle1">{lawyer.full_name
+}</Typography>
+                    <Typography variant="subtitle2">Lawyer</Typography>
+                  </>
+                ) : null}
               </div>
             </div>
-            <div className="logo" >
-              <img src="https://source.unsplash.com/random" alt="logo" />
+            <div className="logo">
+              {lawyer ? (
+                <img src="https://source.unsplash.com/random" alt="logo" />
+              ) : null}
             </div>
           </div>
-          </Link>
-
         </div>
       </div>
     </div>

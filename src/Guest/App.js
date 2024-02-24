@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Register from "./Pages/Register/Register";
 import LawyerRegister from "./Pages/LawyerRegister/LawyerRegister";
 import LoginTemplate from "./Pages/Home/Template";
+import PoliceStationRegister from "./Pages/StationRegister/StationRegister";
+import Index from "./Pages/index/Index";
 
 
 
@@ -10,12 +12,14 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/Login" element={<LoginTemplate />} />
+      <Route path="/*" element={<LoginTemplate />} />
+        <Route path="/Index" element={<Index />} />
+        
+
       
         
 
-        <Route path="/Register" element={<Register />} />
-        <Route path="/LawyerRegister" element={<LawyerRegister />} />
+       
 
       </Routes>
     </div>

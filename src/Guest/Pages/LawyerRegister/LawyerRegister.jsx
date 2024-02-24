@@ -17,6 +17,7 @@ import "./register.css";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -67,6 +68,13 @@ const LawyerRegister = () => {
     return () => {};
   }, [cleared]);
 
+  const generateRandomId = () => {
+    // Generate an 8-digit random number
+    const randomId = Math.floor(10000000 + Math.random() * 90000000);
+
+    return randomId.toString(); // Convert to string
+  };
+
   const handleGenderChange = (event) => {
     setGender(event.target.value);
   };
@@ -112,16 +120,27 @@ const LawyerRegister = () => {
   }, []);
 
   const handleSubmit = async () => {
+    alert("Registration successful!");
     try {
-      console.log(email);
+      const randomId = generateRandomId();
+
+      // Check if the generated ID already exists in the database
+      let userRef = doc(db, "lawyer_collection", randomId);
+      let userSnapshot = await getDoc(userRef); // Import getDoc from firebase/firestore
+
+      // If the generated ID already exists, generate a new one until it's unique
+      while (userSnapshot.exists()) {
+        const newRandomId = generateRandomId();
+        userRef = doc(db, "lawyer_collection", newRandomId);
+        userSnapshot = await getDoc(userRef); // Import getDoc from firebase/firestore
+      }
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
       const userId = userCredential.user.uid;
-      console.log(userId);
-      console.log(userCredential);
 
       const licensePhotoMetadata = {
         contentType: licensePhoto.type,
@@ -149,6 +168,7 @@ const LawyerRegister = () => {
       const idProofUrl = await getDownloadURL(idProofStorageRef);
 
       await setDoc(doc(db, "lawyer_collection", userId), {
+        userId: randomId,
         license_photo: licenseUrl,
         id_proof: idProofUrl,
         full_name: firstName + " " + lastName,
@@ -159,6 +179,23 @@ const LawyerRegister = () => {
         place: selectedPlace,
         dob: dob,
       });
+      // Clear all fields
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setMobile("");
+    setAddress("");
+    setGender("");
+    setSelectedDistrict("");
+    setSelectedPlace("");
+    setDob("");
+    setLicensePhoto(null);
+    setIdProofPhoto(null);
+
+    // Redirect to ../login
+    window.location.href = "../login";
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

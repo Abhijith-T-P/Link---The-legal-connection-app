@@ -25,10 +25,11 @@ const LoginTemplate = () => {
           </div>
           <div className="registerRight">
             <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/r" element={<Register />} />
-              <Route path="/l" element={<LawyerRegister />} />
-              <Route path="/p" element={<PoliceStationRegister />} />
+
+              <Route path="/login" element={<Login />} />
+              <Route path="/Register" element={<Register />} />
+        <Route path="/PoliceStationRegister" element={<PoliceStationRegister />} />
+        <Route path="/LawyerRegister" element={<LawyerRegister />} />
             </Routes>
           </div>
         </div>

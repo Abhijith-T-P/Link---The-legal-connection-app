@@ -32,14 +32,21 @@ const Login = () => {
       const docRefPS = doc(db, "police_station_collection", id);
       const docSnapPS = await getDoc(docRefPS);
 
-      sessionStorage.setItem("SessionId", id);
       if (docSnapUser.exists()) {
+      sessionStorage.setItem("uid", id);
+
         navigate("../../../User/");
       } else if (docSnapAdmin.exists()) {
+      sessionStorage.setItem("aid", id);
+
         navigate("../../../Admin/");
       } else if (docSnapLawyer.exists()) {
+      sessionStorage.setItem("lid", id);
+
         navigate("../../../Lawyer/");
       } else if (docSnapPS.exists()) {
+      sessionStorage.setItem("pid", id);
+
         navigate("../../police");
       } else {
         return;
@@ -124,7 +131,7 @@ const Login = () => {
             <Typography variant="subtitle2">Dont have an account .</Typography>{" "}
             <div className="change">
               <span>
-                <Link to="../r">Join Now</Link>{" "}
+                <Link to="../../Register">Join Now</Link>{" "}
               </span>{" "}
             </div>
           </div>

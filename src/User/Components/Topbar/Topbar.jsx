@@ -10,8 +10,13 @@ const Topbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const userData = async () => {
-    const id = sessionStorage.getItem("SessionId");
-    console.log(id);
+    
+    const id = sessionStorage.getItem("uid");
+    if (!id) {
+      // If id is null or undefined, navigate to the login page
+      navigate("../../Login");
+      return; // Exit the function early
+    }    console.log(id);
     const docRef = doc(db, "collection_user", id);
     const docSnapUser = await getDoc(docRef);
     const userData = {
@@ -23,7 +28,7 @@ const Topbar = () => {
 
   const Logout = () => {
     //clear sessionid
-    sessionStorage.removeItem("SessionId");
+    sessionStorage.removeItem("uid");
     navigate("../../Login");
   };
 
