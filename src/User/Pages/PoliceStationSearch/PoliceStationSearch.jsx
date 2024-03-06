@@ -1,64 +1,70 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
-
-import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import { db } from "../../../config/Firebase";
-import "../mainpadding.css"
+import "../mainpadding.css";
 
 const PoliceStationSearch = () => {
-  const [districts, setDistricts] = useState([]);
+  const [distList, setDistList] = useState([]);
+  const [dist, setDist] = useState("");
+  const [placesList, setPlacesList] = useState([]);
   const [places, setPlaces] = useState([]);
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedPlace, setSelectedPlace] = useState("");
-  const [policeStations, setPoliceStations] = useState([]);
+  const [station, setStation] = useState([]);
 
   useEffect(() => {
-    // Fetch the list of districts from the database
-    const fetchDistricts = async () => {
-      const districtsRef = collection(db, "districts");
-      const districtsSnapshot = await getDocs(districtsRef);
-      const districtsList = districtsSnapshot.docs.map((doc) => doc.data().name);
-      setDistricts(districtsList);
-    };
-
-    fetchDistricts();
+    district();
   }, []);
 
-  const fetchPlaces = async (district) => {
-    const placesRef = collection(db, "places");
-    const placesQuery = query(placesRef, where("district", "==", district));
-    const placesSnapshot = await getDocs(placesQuery);
-    const placesList = placesSnapshot.docs.map((doc) => doc.data().name);
-    setPlaces(placesList);
+  const district = async () => {
+    const getDist = await getDocs(collection(db, "districts"));
+    const filteredDist = getDist.docs.map((dist) => ({
+      ...dist.data(),
+      did: dist.id,
+    }));
+    console.log(filteredDist);
+    setDistList(filteredDist);
   };
 
-  const fetchPoliceStations = async () => {
-    // Perform a query to fetch police stations based on selected district and place
-    // Adjust this part based on your database structure
-    const policeStationsRef = collection(db, "police_stations");
-    const queryRef = query(
-      policeStationsRef,
-      where("district", "==", selectedDistrict),
-      where("place", "==", selectedPlace)
-    );
-
-    const policeStationsSnapshot = await getDocs(queryRef);
-    const stationsList = policeStationsSnapshot.docs.map((doc) => doc.data().name);
-    setPoliceStations(stationsList);
+  const place = async (dist) => {
+    setDist(dist);
+    // Clear placesList when district changes
+    setPlacesList([]);
+  console.log("did ",dist);
+    const queryplace = query(collection(db, "Place"), where("District", "==", dist));
+    
+    const placedata = await getDocs(queryplace);
+    const filteredPlace = placedata.docs.map((place, key) => ({
+      pid: place.id,
+      ...place.data(),
+    }));
+    console.log("Places list ",filteredPlace);
+    setPlacesList(filteredPlace);
   };
-
+  
   useEffect(() => {
-    if (selectedDistrict) {
-      fetchPlaces(selectedDistrict);
+    if (places.length > 0) {
+      getPoliceStation();
     }
-  }, [selectedDistrict]);
-
-  useEffect(() => {
-    if (selectedDistrict && selectedPlace) {
-      fetchPoliceStations();
-    }
-  }, []);
-
+  }, [places]); // Only call getPoliceStation when places state changes
+  
+  const getPoliceStation = async () => {
+    console.log("place id :" ,places);
+    const queryPolice = query(collection(db, "PoliceStationPoliceStation"), where("placeId", "==", places));
+    const stationList = await getDocs(queryPolice);
+    const filteredStation = stationList.docs.map((station, key) => ({
+      ...station.data(),
+      sid: station.id,
+    }));
+    console.log("Ps : ",filteredStation);
+    setStation(filteredStation);
+  };
+  
   return (
     <div className="maincontainer">
       <Typography variant="h4">Search Police Station</Typography>
@@ -68,51 +74,42 @@ const PoliceStationSearch = () => {
         <Select
           labelId="district-label"
           id="district-select"
-          value={selectedDistrict}
-          onChange={(e) => setSelectedDistrict(e.target.value)}
+          value={dist}
+          onChange={(e) => place(e.target.value)}
           label="Select District"
         >
-          {districts.map((district) => (
-            <MenuItem key={district} value={district}>
-              {district}
+          {distList.map((row, key) => (
+            <MenuItem key={key} value={row.did}>
+              {row.district}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-
-      {selectedDistrict && (
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="place-label">Select Place</InputLabel>
-          <Select
-            labelId="place-label"
-            id="place-select"
-            value={selectedPlace}
-            onChange={(e) => setSelectedPlace(e.target.value)}
-            label="Select Place"
-          >
-            {places.map((place) => (
-              <MenuItem key={place} value={place}>
-                {place}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-
-      {selectedDistrict && selectedPlace && (
-        <div>
-          <Typography variant="h5">Police Stations in {selectedPlace}, {selectedDistrict}</Typography>
-          {policeStations.length === 0 ? (
-            <Typography>No police stations found.</Typography>
-          ) : (
-            <ul>
-              {policeStations.map((station) => (
-                <li key={station}>{station}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="district-label">Select Place</InputLabel>
+        <Select
+          labelId="Place-label"
+          id="Place-select"
+          value={places}
+          onChange={(e) => setPlaces(e.target.value)}
+          label="Select Place"
+        >
+          {placesList.map((row, key) => (
+            <MenuItem key={key} value={row.pid}>
+              {row.Place}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <div className="policeStation">
+  {station.map((stationData, key) => (
+    <div key={key}>
+      <Typography variant="h6">{stationData.stationName}</Typography>
+      <Typography>{stationData.address}</Typography>
+      <Typography>Phone: {stationData.phone}</Typography>
+    </div>
+  ))}
+</div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Topbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 
@@ -28,6 +28,11 @@ const Topbar = () => {
     userData();
   }, [navigate]);
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("lid");
+    navigate("/");
+  };
+
   return (
     <div className="Topbar">
       <div className="container">
@@ -46,7 +51,7 @@ const Topbar = () => {
               <Link to="/">Home</Link>{" "}
             </div>
             <div className="nav">
-              <Link to="/">Home</Link>{" "}
+              <Button onClick={handleLogout}>Logout</Button>
             </div>
           </nav>
         </div>
@@ -56,8 +61,7 @@ const Topbar = () => {
               <div className="userName">
                 {lawyer ? (
                   <>
-                    <Typography variant="subtitle1">{lawyer.full_name
-}</Typography>
+                    <Typography variant="subtitle1">{lawyer.full_name}</Typography>
                     <Typography variant="subtitle2">Lawyer</Typography>
                   </>
                 ) : null}
@@ -65,7 +69,7 @@ const Topbar = () => {
             </div>
             <div className="logo">
               {lawyer ? (
-                <img src="https://source.unsplash.com/random" alt="logo" />
+                <img src={lawyer.profile_picture ? lawyer.profile_picture : "https://source.unsplash.com/random"} alt="logo" />
               ) : null}
             </div>
           </div>

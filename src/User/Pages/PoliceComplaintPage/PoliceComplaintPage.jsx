@@ -90,12 +90,14 @@ const PoliceComplaintPage = () => {
         documentURLs = await getDownloadURL(fileStorageRef);
       }
       // Add police complaint to the database
-      const uid = sessionStorage.getItem("SessionId");
+      const Uid = sessionStorage.getItem("uid");
       await addDoc(collection(db, "PoliceComplaint"), {
-        UserID: uid,
+        Uid,
         complainantName,
         contactNumber,
         documentURLs,
+        subCaseCategory,
+        caseCategory,
         vStatus: 0,
         complaintDescription,
         timestamp: new Date(),
@@ -106,6 +108,8 @@ const PoliceComplaintPage = () => {
       setContactNumber("");
       setComplaintDescription("");
       setDocuments(null);
+      setCaseCategory("");
+    setSubCaseCategory("");
 
       alert("Police complaint filed successfully!");
     } catch (error) {
@@ -134,6 +138,7 @@ const PoliceComplaintPage = () => {
 
         <PhoneInput
           placeholder="enter phone number"
+          required
           defaultCountry="IN"
           value={contactNumber}
           onChange={setContactNumber}
@@ -142,6 +147,7 @@ const PoliceComplaintPage = () => {
         <FormControl fullWidth>
           <InputLabel id="case-category-label">Case Category</InputLabel>
           <Select
+          required
             labelId="case-category-label"
             id="case-category"
             value={caseCategory}
@@ -161,6 +167,7 @@ const PoliceComplaintPage = () => {
             Sub Case Category
           </InputLabel>
           <Select
+          required
             labelId="sub-case-category-label"
             id="sub-case-category"
             value={subCaseCategory}

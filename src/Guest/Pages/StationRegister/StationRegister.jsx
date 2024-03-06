@@ -127,7 +127,6 @@ const PoliceStationRegister = () => {
       const fileUrl = await getDownloadURL(fileStorageRef);
 
       await setDoc(doc(db, "police_station_collection", userId), {
-        district: district,
         place: place,
         station_name: stationName,
         house_officer: houseOfficer,

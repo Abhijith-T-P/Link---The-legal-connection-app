@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { storage, auth, db } from "../../../config/Firebase";
-
 import {
   Button,
   FormControl,
@@ -25,6 +24,7 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import PhoneInput from "react-phone-number-input";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -39,12 +39,12 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const LawyerRegister = () => {
-  const [cleared, setCleared] = React.useState(false);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [licensePhoto, setLicensePhoto] = useState(null);
+  const [idProofPhoto, setIdProofPhoto] = useState(null);
+  const [cleared, setCleared] = useState(false);
   const [districtOptions, setDistrictOptions] = useState([]);
   const [placeOptions, setPlaceOptions] = useState([]);
-  const [licensePhoto, setLicensePhoto] = useState([]);
-  const [idProofPhoto, setIdProofPhoto] = useState([]);
-
   const [gender, setGender] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
@@ -56,8 +56,12 @@ const LawyerRegister = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
+  const [error, setError] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [specializationOptions, setSpecializationOptions] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (cleared) {
       const timeout = setTimeout(() => {
         setCleared(false);
@@ -69,10 +73,8 @@ const LawyerRegister = () => {
   }, [cleared]);
 
   const generateRandomId = () => {
-    // Generate an 8-digit random number
     const randomId = Math.floor(10000000 + Math.random() * 90000000);
-
-    return randomId.toString(); // Convert to string
+    return randomId.toString();
   };
 
   const handleGenderChange = (event) => {
@@ -90,10 +92,7 @@ const LawyerRegister = () => {
 
   const fetchPlaceOptions = async (districtId) => {
     const placeRef = collection(db, "Place");
-
-    // Create a query against the collection.
     const q = query(placeRef, where("District", "==", districtId));
-
     const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc, key) => ({
       id: key + 1,
@@ -101,7 +100,6 @@ const LawyerRegister = () => {
       ...doc.data(),
     }));
     setPlaceOptions(data);
-    console.log(data);
   };
 
   const fetchDistrictOptions = async () => {
@@ -112,27 +110,65 @@ const LawyerRegister = () => {
       ...doc.data(),
     }));
     setDistrictOptions(data);
-    console.log(data);
+  };
+
+  const fetchSpecializationOptions = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "Lawyer_Category"));
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        categoryName: doc.data().categoryName,
+      }));
+      setSpecializationOptions(data);
+    } catch (error) {
+      console.error("Error fetching specialization options:", error);
+    }
   };
 
   useEffect(() => {
     fetchDistrictOptions();
+    fetchSpecializationOptions();
   }, []);
 
   const handleSubmit = async () => {
-    alert("Registration successful!");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    // Check if any required field is empty
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !mobile ||
+      !address ||
+      !gender ||
+      !selectedPlace ||
+      !dob ||
+      !licensePhoto ||
+      !idProofPhoto ||
+      !specialization ||
+      !qualification
+    ) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
     try {
       const randomId = generateRandomId();
 
       // Check if the generated ID already exists in the database
       let userRef = doc(db, "lawyer_collection", randomId);
-      let userSnapshot = await getDoc(userRef); // Import getDoc from firebase/firestore
+      let userSnapshot = await getDoc(userRef);
 
       // If the generated ID already exists, generate a new one until it's unique
       while (userSnapshot.exists()) {
         const newRandomId = generateRandomId();
         userRef = doc(db, "lawyer_collection", newRandomId);
-        userSnapshot = await getDoc(userRef); // Import getDoc from firebase/firestore
+        userSnapshot = await getDoc(userRef);
       }
 
       const userCredential = await createUserWithEmailAndPassword(
@@ -142,35 +178,50 @@ const LawyerRegister = () => {
       );
       const userId = userCredential.user.uid;
 
+      let profilePictureUrl = "";
+      if (profilePicture) {
+        const profilePictureMetadata = {
+          contentType: profilePicture.type,
+        };
+        const profilePictureStorageRef = ref(
+          storage,
+          "profilePictures/" + profilePicture.name
+        );
+        await uploadBytesResumable(
+          profilePictureStorageRef,
+          profilePicture,
+          profilePictureMetadata
+        );
+        profilePictureUrl = await getDownloadURL(profilePictureStorageRef);
+      }
+
       const licensePhotoMetadata = {
         contentType: licensePhoto.type,
       };
-      const idProofPhotoMetadata = {
-        contentType: idProofPhoto.type,
-      };
-
       const licenseStorageRef = ref(storage, "license/" + licensePhoto.name);
       await uploadBytesResumable(
         licenseStorageRef,
         licensePhoto,
         licensePhotoMetadata
       );
+      const licensePhotoUrl = await getDownloadURL(licenseStorageRef);
 
-      const licenseUrl = await getDownloadURL(licenseStorageRef);
-
+      const idProofPhotoMetadata = {
+        contentType: idProofPhoto.type,
+      };
       const idProofStorageRef = ref(storage, "idProof/" + idProofPhoto.name);
       await uploadBytesResumable(
         idProofStorageRef,
         idProofPhoto,
         idProofPhotoMetadata
       );
-
-      const idProofUrl = await getDownloadURL(idProofStorageRef);
+      const idProofPhotoUrl = await getDownloadURL(idProofStorageRef);
 
       await setDoc(doc(db, "lawyer_collection", userId), {
         userId: randomId,
-        license_photo: licenseUrl,
-        id_proof: idProofUrl,
+        license_photo: licensePhotoUrl,
+        id_proof: idProofPhotoUrl,
+        profile_picture: profilePictureUrl,
         full_name: firstName + " " + lastName,
         email: email,
         mobile: mobile,
@@ -178,31 +229,40 @@ const LawyerRegister = () => {
         gender: gender,
         place: selectedPlace,
         dob: dob,
+        specialization: specialization,
+        qualification: qualification,
       });
-      // Clear all fields
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setMobile("");
-    setAddress("");
-    setGender("");
-    setSelectedDistrict("");
-    setSelectedPlace("");
-    setDob("");
-    setLicensePhoto(null);
-    setIdProofPhoto(null);
 
-    // Redirect to ../login
-    window.location.href = "../login";
+      alert("Registration successful!");
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setMobile("");
+      setAddress("");
+      setGender("");
+      setSelectedDistrict("");
+      setSelectedPlace("");
+      setDob("");
+      setProfilePicture(null);
+      setLicensePhoto(null);
+      setIdProofPhoto(null);
+      setSpecialization("");
+      setQualification("");
+      setError("");
+      setCleared(true);
+
+      window.location.href = "../login";
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
-      alert(errorCode);
+      console.error("Error registering:", error);
+      alert("Error registering. Please try again.");
     }
+  };
+
+  const handleSpecializationChange = (event) => {
+    setSpecialization(event.target.value);
   };
 
   return (
@@ -224,6 +284,7 @@ const LawyerRegister = () => {
               width: "45%",
               justifyContent: "flex-end",
             }}
+            required
           />
 
           <TextField
@@ -236,16 +297,16 @@ const LawyerRegister = () => {
             }}
             variant="standard"
             type="text"
+            required
           />
         </div>
         <div className="input">
-          <TextField
-            id="standard-basic"
-            label="Phone number"
-            onChange={(e) => setMobile(e.target.value)}
-            variant="standard"
-            type="number"
-            style={{ width: "100%" }}
+          <PhoneInput
+            placeholder="enter phone number"
+            required
+            defaultCountry="IN"
+            value={mobile}
+            onChange={setMobile}
           />
         </div>
         <div className="input">
@@ -256,6 +317,7 @@ const LawyerRegister = () => {
             variant="standard"
             type="email"
             style={{ width: "100%" }}
+            required
           />
         </div>
         <div className="input">
@@ -268,10 +330,11 @@ const LawyerRegister = () => {
             onChange={(e) => setAddress(e.target.value)}
             variant="standard"
             style={{ width: "100%" }}
+            required
           />
         </div>
         <div className="input">
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }}>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 80 }} required>
             <InputLabel id="demo-simple-select-standard-label">
               Gender
             </InputLabel>
@@ -295,11 +358,12 @@ const LawyerRegister = () => {
             onChange={(e) => setDob(e.target.value)}
             variant="standard"
             style={{ width: "100%" }}
+            required
           />
         </div>
 
         <div className="input">
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }} required>
             <InputLabel id="demo-simple-select-standard-label">
               District
             </InputLabel>
@@ -317,7 +381,7 @@ const LawyerRegister = () => {
               ))}
             </Select>
           </FormControl>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }}>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }} required>
             <InputLabel id="demo-simple-select-standard-label">
               Place
             </InputLabel>
@@ -338,26 +402,84 @@ const LawyerRegister = () => {
         </div>
 
         <div className="input">
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 170 }} required>
+            <InputLabel id="specialization-label">Specialization</InputLabel>
+            <Select
+              labelId="specialization-label"
+              id="specialization-select"
+              value={specialization}
+              onChange={handleSpecializationChange}
+              label="Specialization"
+            >
+              {specializationOptions.map((specialization) => (
+                <MenuItem key={specialization.id} value={specialization.id}>
+                  {specialization.categoryName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            id="standard-basic"
+            label="Qualification"
+            onChange={(e) => setQualification(e.target.value)}
+            variant="standard"
+            type="text"
+            style={{ width: "100%" }}
+            required
+          />
+        </div>
+
+        <div className="input">
           <Button
             sx={{ m: 1, Width: " 80%" }}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
+            style={{
+              backgroundColor: profilePicture ? "#4caf50" : "",
+              color: profilePicture ? "white" : "",
+            }}
+          >
+            Upload your Profile Picture
+            <VisuallyHiddenInput
+              type="file"
+              onChange={(event) => setProfilePicture(event.target.files[0])}
+            />
+          </Button>
+          <Button
+            sx={{ m: 1, Width: " 80%" }}
+            component="label"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+            style={{
+              backgroundColor: licensePhoto ? "#4caf50" : "",
+              color: licensePhoto ? "white" : "",
+            }}
+            required
           >
             Upload your License
             <VisuallyHiddenInput
               type="file"
               onChange={(event) => setLicensePhoto(event.target.files[0])}
+              required
             />
           </Button>
           <Button
             component="label"
             variant="contained"
-            onChange={(event) => setIdProofPhoto(event.target.files[0])}
             startIcon={<CloudUploadIcon />}
+            style={{
+              backgroundColor: idProofPhoto ? "#4caf50" : "",
+              color: idProofPhoto ? "white" : "",
+            }}
+            required
           >
             Upload ID proof
-            <VisuallyHiddenInput type="file" />
+            <VisuallyHiddenInput
+              type="file"
+              onChange={(event) => setIdProofPhoto(event.target.files[0])}
+              required
+            />
           </Button>
         </div>
         <div className="input">
@@ -368,6 +490,7 @@ const LawyerRegister = () => {
             variant="standard"
             type="password"
             style={{ width: "100%" }}
+            required
           />
         </div>
         <div className="input">
@@ -378,10 +501,15 @@ const LawyerRegister = () => {
             variant="standard"
             type="password"
             style={{ width: "100%" }}
+            required
           />
         </div>
+        {error && (
+          <Typography variant="subtitle2" style={{ color: "red" }}>
+            {error}
+          </Typography>
+        )}
 
-        <div className="otherLogin"></div>
         <div className="button">
           <Button variant="outlined" onClick={handleSubmit}>
             Register

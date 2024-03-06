@@ -30,7 +30,7 @@ const ExistingCase = () => {
       <h1>Existing Case</h1>
       <div className="caseContainer">
         {caseDisp.map((row, key) => (
-          <div className="case" key={key}>
+          <div className="case" key={key} >
             <div className="name">Complaint Name: {row.complainantName}</div>
             <div className="description">
               Description: {row.complaintDescription}
@@ -42,6 +42,8 @@ const ExistingCase = () => {
               <Link to={`../ViewCase/${row.id}`}>
                 <Button variant="contained">View</Button>
               </Link>
+              <div className="cStatus" ></div>
+
             </div>
           </div>
         ))}

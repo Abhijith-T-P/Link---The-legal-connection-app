@@ -84,10 +84,10 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
         await uploadBytesResumable(fileStorageRef, documents, documentMetadata);
         documentURLs = await getDownloadURL(fileStorageRef);
       }
-      const uid = sessionStorage.getItem("SessionId");
+      const Pid = sessionStorage.getItem("pid");
 
       await addDoc(collection(db, "PoliceComplaint"), {
-        Pid: uid,
+        Pid,
         complainantName,
         contactNumber,
         documentURLs,
@@ -102,6 +102,8 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
       setContactNumber("");
       setComplaintDescription("");
       setDocuments(null);
+      setCaseCategory("");
+    setSubCaseCategory("");
 
       alert("Police complaint filed successfully!");
     } catch (error) {
@@ -138,7 +140,7 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
         <Typography variant="h4">File a Police Complaint</Typography>
 
         <TextField
-          label="Your Name"
+          label="Complainte Name"
           variant="outlined"
           fullWidth
           required
@@ -151,13 +153,16 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
           placeholder="enter phone number"
           defaultCountry="IN"
           value={contactNumber}
+          
+          required
           onChange={setContactNumber}
         />
         <FormControl fullWidth>
           <InputLabel id="case-category-label">Case Category</InputLabel>
           <Select
             labelId="case-category-label"
-            id="case-category"
+          required
+          id="case-category"
             value={caseCategory}
             label="Case Category"
             onChange={(e)=>{setCaseCategory(e.target.value);handleCaseCategoryChange()}}
@@ -175,6 +180,7 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
             Sub Case Category
           </InputLabel>
           <Select
+          required
             labelId="sub-case-category-label"
             id="sub-case-category"
             value={subCaseCategory}
