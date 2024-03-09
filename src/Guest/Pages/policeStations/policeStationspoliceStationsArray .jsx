@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import { auth, db, storage } from "../../../config/Firebase";
+import { auth, db } from "../../../config/Firebase";
+import { deleteUser } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 
 const RegisterPoliceStations = () => {
   useEffect(() => {
@@ -10,1096 +12,947 @@ const RegisterPoliceStations = () => {
 
   const districtPlaces = [
     {
-        placeId: "krl4XFu2Fq9V4Qoym2Pi",
-        stationName: "Kochi PS",
+        address: "Harippad, Alappuzha",
+        email: "harippadalappuzha@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kochi, Ernakulam",
+        houseOfficerId: null,
+        password: "harippad@1234",
         phone: 123456789,
-        email: "kochips@gmail.com",
-        password: "kochi@1234",
-        houseOfficerId: "null"
+        placeId: "MYHP9DKFW7Jvt6KADIDw",
+        stationName: "Harippad PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "663GlFo2W0NSd6e0X2Qm",
-        stationName: "Ambalavayal PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Ambalavayal, Wayanad",
-        phone: 123456789,
-        email: "ambalavayalps@gmail.com",
-        password: "ambalavayal@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "0iWOAYBcrNR9nZhdtLud",
-        stationName: "Adoor PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Adoor, Pathanamthitta",
-        phone: 123456789,
-        email: "adoorps@gmail.com",
-        password: "adoor@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "0zukPv2teuhFzHt1edMI",
-        stationName: "Koyilandy PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Koyilandy, Kozhikode",
-        phone: 123456789,
-        email: "koyilandyps@gmail.com",
-        password: "koyilandy@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "1WFW43RaYgvDG7TdBm",
-        stationName: "Peerumade PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Peerumade, Idukki",
-        phone: 123456789,
-        email: "peerumadeps@gmail.com",
-        password: "peerumade@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "2JdeKgcn05d9e2jI5Y62",
-        stationName: "Punalur PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Punalur, Kollam",
-        phone: 123456789,
-        email: "punalurps@gmail.com",
-        password: "punalur@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "36S0p11Zb7nzrfUHUsaS",
-        stationName: "Tirur PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Tirur, Malappuram",
-        phone: 123456789,
-        email: "tirurps@gmail.com",
-        password: "tirur@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "37jsIbQ6dtrRF8lWPqsd",
-        stationName: "Kattappana PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kattappana, Idukki",
-        phone: 123456789,
-        email: "kattappanaps@gmail.com",
-        password: "kattappana@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "3K2pbes8ybgji0qqGflo",
-        stationName: "Mananthavady PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Mananthavady, Wayanad",
-        phone: 123456789,
-        email: "mananthavadyps@gmail.com",
-        password: "mananthavady@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "4q9SJbQ2XDYwsqkrPAUu",
-        stationName: "Kottarakkara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kottarakkara, Kollam",
-        phone: 123456789,
-        email: "kottarakkaraps@gmail.com",
-        password: "kottarakkara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "5wLCV5VA5ivq7N0zw6Ca",
-        stationName: "Uppala PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Uppala, Kasaragod",
-        phone: 123456789,
-        email: "uppalaps@gmail.com",
-        password: "uppala@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "6fl0p9WzbRRzdL5iutyz",
-        stationName: "Iritty PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Iritty, Kannur",
-        phone: 123456789,
-        email: "irittyps@gmail.com",
-        password: "iritty@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "76UWaCt572PGPIe0h2DS",
-        stationName: "Kottayam City PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kottayam City, Kottayam",
-        phone: 123456789,
-        email: "kottayamcityps@gmail.com",
-        password: "kottayamcity@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "87dqF3osOzC5deihLYJJ",
-        stationName: "Pandalam PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Pandalam, Pathanamthitta",
-        phone: 123456789,
-        email: "pandalamps@gmail.com",
-        password: "pandalam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "8w7zFJc9wmlIH4ZQhy5s",
-        stationName: "Ramanattukara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Ramanattukara, Kozhikode",
-        phone: 123456789,
-        email: "ramanattukaraps@gmail.com",
-        password: "ramanattukara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "9fD5RpjfMYcA2uX2RnOh",
-        stationName: "Vadakara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vadakara, Kozhikode",
-        phone: 123456789,
-        email: "vadakaraps@gmail.com",
-        password: "vadakara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "A1b9EsNWgbY93ZJcVu",
-        stationName: "Mavelikara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Mavelikara, Alappuzha",
-        phone: 123456789,
-        email: "mavelikaraps@gmail.com",
-        password: "mavelikara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "az4vjXnNrghq8FHzMj8G",
-        stationName: "Vandiperiyar PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vandiperiyar, Idukki",
-        phone: 123456789,
-        email: "vandiperiyarps@gmail.com",
-        password: "vandiperiyar@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "BqYd70hw1U80GJhYQeAQ",
-        stationName: "Muvattupuzha PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Muvattupuzha, Ernakulam",
-        phone: 123456789,
-        email: "muvattupuzhaps@gmail.com",
-        password: "muvattupuzha@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "cGqdbFvuwzb0RiXSSGtP",
-        stationName: "Thiruvalla PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thiruvalla, Pathanamthitta",
-        phone: 123456789,
-        email: "thiruvallaps@gmail.com",
-        password: "thiruvalla@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "D3iUXB4H6HPcAf1y6Jjz",
-        stationName: "Nedumangad PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Nedumangad, Thiruvananthapuram",
-        phone: 123456789,
-        email: "nedumangadps@gmail.com",
-        password: "nedumangad@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "dMPvHXVQaXfzQ5XVJLmB",
-        stationName: "Nenmara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Nenmara, Palakkad",
-        phone: 123456789,
-        email: "nenmaraps@gmail.com",
-        password: "nenmara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "dXhdVsNN8mXEdz8Ww1PA",
-        stationName: "Thrissur East PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thrissur East, Thrissur",
-        phone: 123456789,
-        email: "thrissureastps@gmail.com",
-        password: "thrissureast@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "eAfc7wNVaHnAWsONL9Q4",
-        stationName: "Vadasserikara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vadasserikara, Pathanamthitta",
-        phone: 123456789,
-        email: "vadasserikaraps@gmail.com",
-        password: "vadasserikara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "EiCwbgVfxqz0lWh4rN7J",
-        stationName: "Pattambi PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Pattambi, Palakkad",
-        phone: 123456789,
-        email: "pattambips@gmail.com",
-        password: "pattambi@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "fRfAFq7kHwamD7B7jIuM",
-        stationName: "Cherthala PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Cherthala, Alappuzha",
-        phone: 123456789,
-        email: "cherthalaps@gmail.com",
-        password: "cherthala@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "FwjzFXm5ivR7qAl3Pr7a",
-        stationName: "Mananthala PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Mananthala, Thiruvananthapuram",
-        phone: 123456789,
-        email: "mananthalaps@gmail.com",
-        password: "mananthala@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "gLOmcR00I5A0rjJd0AJW",
-        stationName: "Varkala PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Varkala, Thiruvananthapuram",
-        phone: 123456789,
-        email: "varkalaps@gmail.com",
-        password: "varkala@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "H5XZ0ndnqKcvyL9SHyHW",
-        stationName: "Manjeswaram PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Manjeswaram, Kasaragod",
-        phone: 123456789,
-        email: "manjeswaramps@gmail.com",
-        password: "manjeswaram@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "HecZXX2MwpuH4Gwdq3iN",
-        stationName: "Vaikom PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vaikom, Kottayam",
-        phone: 123456789,
-        email: "vaikomps@gmail.com",
-        password: "vaikom@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "hk4jVi53DswvqwOehC4e",
-        stationName: "Mankada PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Mankada, Malappuram",
-        phone: 123456789,
-        email: "mankadaps@gmail.com",
-        password: "mankada@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "HWB8IZDyLmXbYr6c0M3b",
-        stationName: "Vythiri PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vythiri, Wayanad",
-        phone: 123456789,
-        email: "vythirips@gmail.com",
-        password: "vythiri@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "iHnmLBlAmD4y0cMgkm1s",
-        stationName: "Aluva PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Aluva, Ernakulam",
-        phone: 123456789,
-        email: "aluvaps@gmail.com",
-        password: "aluva@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "IQG4WjJNUiW7sCt6G2sT",
-        stationName: "Sulthan Bathery PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Sulthan Bathery, Wayanad",
-        phone: 123456789,
-        email: "sulthanbatheryps@gmail.com",
-        password: "sulthanbathery@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "J05POAgF5e3B0EohZTnp",
-        stationName: "Kundara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kundara, Kollam",
-        phone: 123456789,
-        email: "kundaraps@gmail.com",
-        password: "kundara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "JcE0e6XWOk0zq49AYcLq",
-        stationName: "Piravom PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Piravom, Ernakulam",
-        phone: 123456789,
-        email: "piravomps@gmail.com",
-        password: "piravom@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "JMmXqPF0cB2rWl9i6MdT",
-        stationName: "Perumbavoor PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Perumbavoor, Ernakulam",
-        phone: 123456789,
-        email: "perumbavoorps@gmail.com",
-        password: "perumbavoor@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "jVLHrJ1MkS68lfhMF7Hf",
-        stationName: "Karunagappally PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Karunagappally, Kollam",
-        phone: 123456789,
-        email: "karunagappallyps@gmail.com",
-        password: "karunagappally@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "k44I0G1HdWkPBgcT0rBZ",
-        stationName: "Kunnamkulam PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kunnamkulam, Thrissur",
-        phone: 123456789,
-        email: "kunnamkulamps@gmail.com",
-        password: "kunnamkulam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "K5RbmXtnpzHPyv9qjcrX",
-        stationName: "Changanassery PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Changanassery, Kottayam",
-        phone: 123456789,
-        email: "changanasseryps@gmail.com",
-        password: "changanassery@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "kgXzNq5Uj3BBkL1EBQwW",
-        stationName: "Kunnamangalam PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kunnamangalam, Kozhikode",
-        phone: 123456789,
-        email: "kunnamangalamps@gmail.com",
-        password: "kunnamangalam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "KoFQ7FQtfUKo0wFToPrp",
-        stationName: "Malappuram Town PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Malappuram Town, Malappuram",
-        phone: 123456789,
-        email: "malappuramtownps@gmail.com",
-        password: "malappuramtown@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "l0lCnozq5m7vWOrU40Yv",
-        stationName: "Chelakkara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Chelakkara, Thrissur",
-        phone: 123456789,
-        email: "chelakkaraps@gmail.com",
-        password: "chelakkara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "LQRFnftpgJME94uUs0rB",
-        stationName: "Pala PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Pala, Kottayam",
-        phone: 123456789,
-        email: "palaps@gmail.com",
-        password: "pala@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "lrAe8eG3HchpQFmXsNeT",
-        stationName: "Palakkad Town PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Palakkad Town, Palakkad",
-        phone: 123456789,
-        email: "palakkadtownps@gmail.com",
-        password: "palakkadtown@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "LsOlSmXGJQ1Xl0bzWwck",
-        stationName: "Neyyattinkara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Neyyattinkara, Thiruvananthapuram",
-        phone: 123456789,
-        email: "neyyattinkaraps@gmail.com",
-        password: "neyyattinkara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "N4FsZOhQVxXUfVr4Z8ne",
-        stationName: "Palai PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Palai, Kottayam",
-        phone: 123456789,
-        email: "palaips@gmail.com",
-        password: "palai@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "NGYDQPlm3ML6EC4bq1P6",
-        stationName: "Nilambur PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Nilambur, Malappuram",
-        phone: 123456789,
-        email: "nilamburps@gmail.com",
-        password: "nilambur@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "NhGBcr23pEtk2fiYBKK8",
-        stationName: "Perumbadappu PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Perumbadappu, Kottayam",
-        phone: 123456789,
-        email: "perumbadappups@gmail.com",
-        password: "perumbadappu@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "O3X0oNSWplFus4QWrG4Z",
-        stationName: "Kanjirappally PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kanjirappally, Kottayam",
-        phone: 123456789,
-        email: "kanjirappallyps@gmail.com",
-        password: "kanjirappally@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "o9dKur43RgkNF8CM6I8p",
-        stationName: "Peravoor PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Peravoor, Kannur",
-        phone: 123456789,
-        email: "peravoorps@gmail.com",
-        password: "peravoor@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "oqht6XWzowWJhGakltYs",
-        stationName: "Chalakudy PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Chalakudy, Thrissur",
-        phone: 123456789,
-        email: "chalakudy@gmail.com",
-        password: "chalakudy@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "P9kXLRr2HATN0RDSZJQz",
-        stationName: "Thodupuzha PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thodupuzha, Idukki",
-        phone: 123456789,
-        email: "thodupuzhaps@gmail.com",
-        password: "thodupuzha@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "pK0ueJLRZJbY4KiNl6RZ",
-        stationName: "Payyannur PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Payyannur, Kannur",
-        phone: 123456789,
-        email: "payyannurps@gmail.com",
-        password: "payyannur@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "Q7K3i6Ht7wULeVYeSh7B",
-        stationName: "Kalamassery PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kalamassery, Ernakulam",
-        phone: 123456789,
-        email: "kalamasseryps@gmail.com",
-        password: "kalamassery@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "q7sS5kdrYB5HZ6BtBc4c",
-        stationName: "Thalassery PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thalassery, Kannur",
-        phone: 123456789,
-        email: "thalasseryps@gmail.com",
-        password: "thalassery@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "QegSdPwXedj0u8ej2V2I",
-        stationName: "Kalpetta PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kalpetta, Wayanad",
-        phone: 123456789,
-        email: "kalpettaps@gmail.com",
-        password: "kalpetta@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "QfMYa9r34HclhXpDp2Fj",
-        stationName: "Pathanamthitta PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Pathanamthitta, Pathanamthitta",
-        phone: 123456789,
-        email: "pathanamthittaps@gmail.com",
-        password: "pathanamthitta@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "qymY3QZEx0Kg8eBlcJtD",
-        stationName: "Kottakkal PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kottakkal, Malappuram",
-        phone: 123456789,
-        email: "kottakkalps@gmail.com",
-        password: "kottakkal@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "R2T94Rb5NtfOJmhrzNmT",
-        stationName: "Puthuppally PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Puthuppally, Kottayam",
-        phone: 123456789,
-        email: "puthupallyps@gmail.com",
-        password: "puthuppally@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "rI1ImUbLgfJ1vM8UyTzN",
-        stationName: "Kottiyam PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kottiyam, Kollam",
-        phone: 123456789,
-        email: "kottiyamps@gmail.com",
-        password: "kottiyam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "rNEoVrNdqYWp2fAFKkZx",
-        stationName: "Kanjikkuzhy PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kanjikkuzhy, Alappuzha",
-        phone: 123456789,
-        email: "kanjikkuzhy@gmail.com",
-        password: "kanjikkuzhy@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "rRcJJH4MXIqDCoY2uKry",
-        stationName: "Vadakkencherry PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vadakkencherry, Palakkad",
-        phone: 123456789,
-        email: "vadakkencherry@gmail.com",
-        password: "vadakkencherry@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "ru4E1GqU7uqFRl6NK8sF",
-        stationName: "Mukkam PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Mukkam, Kozhikode",
-        phone: 123456789,
-        email: "mukkam@gmail.com",
-        password: "mukkam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "rYBb7Ei69e1LBYtAGPpp",
-        stationName: "Thamarassery PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thamarassery, Kozhikode",
-        phone: 123456789,
-        email: "thamarasseryps@gmail.com",
-        password: "thamarassery@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "SbjIRUbz59oJyGbrpUJI",
-        stationName: "Thiruvanvandoor PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thiruvanvandoor, Alappuzha",
-        phone: 123456789,
-        email: "thiruvanvandoorps@gmail.com",
-        password: "thiruvanvandoor@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "SiFtDGl7Y62J1x0exhsA",
-        stationName: "Palode PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Palode, Thiruvananthapuram",
-        phone: 123456789,
-        email: "palodeps@gmail.com",
-        password: "palode@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "SsVv5LeIlMzYZPdXY7gj",
-        stationName: "Thrikkakara PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thrikkakara, Ernakulam",
-        phone: 123456789,
-        email: "thrikkakaraps@gmail.com",
-        password: "thrikkakara@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "t2rQbiVXxLP8F6wPq6Hd",
-        stationName: "Cherpu PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Cherpu, Thrissur",
-        phone: 123456789,
-        email: "cherpups@gmail.com",
-        password: "cherpu@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "T8X2ibKwhYqOK3Ac5TrI",
-        stationName: "Thamarakulam PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Thamarakulam, Alappuzha",
-        phone: 123456789,
-        email: "thamarakulam@gmail.com",
-        password: "thamarakulam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "tKZu3hjtBNNQLq4zC6jY",
-        stationName: "Kayamkulam PS",
-        houseOfficer: "Kutten Pilla",
         address: "Kayamkulam, Alappuzha",
-        phone: 123456789,
-        email: "kayamkulamps@gmail.com",
+        email: "kayamkulamalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
         password: "kayamkulam@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "Tq0ng8AcJm2r5X5DvWdM",
-        stationName: "Kottakkal PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Kottakkal, Malappuram",
         phone: 123456789,
-        email: "kottakkalps@gmail.com",
-        password: "kottakkal@1234",
-        houseOfficerId: "null"
+        placeId: "SSyP0uZH2oaLnIMAq0BQ",
+        stationName: "Kayamkulam PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "TvX6yvO1kqIzQlSsoBFa",
-        stationName: "Vandannoor PS",
+        address: "Mavelikkara, Alappuzha",
+        email: "mavelikkaraalappuzha@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Vandannoor, Kollam",
+        houseOfficerId: null,
+        password: "mavelikkara@1234",
         phone: 123456789,
-        email: "vandannoorps@gmail.com",
-        password: "vandannoor@1234",
-        houseOfficerId: "null"
+        placeId: "aObdJ6qDKZqbQl4r0Qyu",
+        stationName: "Mavelikkara PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "U5tqXh0h7zRPt4IgYGdp",
-        stationName: "Chengannur PS",
+        address: "Ambalappuzha, Alappuzha",
+        email: "ambalappuzhaalappuzha@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Chengannur, Alappuzha",
+        houseOfficerId: null,
+        password: "ambalappuzha@1234",
         phone: 123456789,
-        email: "chengannurps@gmail.com",
-        password: "chengannur@1234",
-        houseOfficerId: "null"
+        placeId: "cgWVwv7CfU3uOz9DlIds",
+        stationName: "Ambalappuzha PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "uB0BVoWEr3VmYQ3bb90D",
-        stationName: "Vellarada PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Vellarada, Thiruvananthapuram",
-        phone: 123456789,
-        email: "vellaradaps@gmail.com",
-        password: "vellarada@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "UvHfGrdLl7JxSqrfQl6h",
-        stationName: "Cherthala PS",
-        houseOfficer: "Kutten Pilla",
         address: "Cherthala, Alappuzha",
-        phone: 123456789,
-        email: "cherthalaps@gmail.com",
+        email: "cherthalaalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
         password: "cherthala@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "uyk52p2q5k1FQrEjj5mA",
-        stationName: "Peringathur PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Peringathur, Kannur",
         phone: 123456789,
-        email: "peringathurps@gmail.com",
-        password: "peringathur@1234",
-        houseOfficerId: "null"
+        placeId: "m3TJpbJHjhXhEoT0BGa7",
+        stationName: "Cherthala PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "UZBXNYc21XgBcGl0vG1Y",
-        stationName: "Kodungallur PS",
+        address: "Alappuzha City, Alappuzha",
+        email: "alappuzhaalappuzha@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kodungallur, Thrissur",
+        houseOfficerId: null,
+        password: "alappuzha@1234",
         phone: 123456789,
-        email: "kodungallurps@gmail.com",
-        password: "kodungallur@1234",
-        houseOfficerId: "null"
+        placeId: "xXaHGxbCZiQRwhcySaYY",
+        stationName: "Alappuzha City PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "vGKReDgFhZFCNNpXqW8b",
-        stationName: "Kottarakkara PS",
+        address: "Chengannur, Alappuzha",
+        email: "chengannuralappuzha@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kottarakkara, Kollam",
+        houseOfficerId: null,
+        password: "chengannur@1234",
         phone: 123456789,
-        email: "kottarakkaraps@gmail.com",
-        password: "kottarakkara@1234",
-        houseOfficerId: "null"
+        placeId: "z1qykCFL1kn15yHvgZfX",
+        stationName: "Chengannur PS",
+        districtId: "XuftjG2a2Sf98U2uKoxj"
     },
     {
-        placeId: "vJA3WAh6Y7XbJgB7sy9J",
-        stationName: "Muthalakkodam PS",
+        address: "Angamaly, Ernakulam",
+        email: "angamalyernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Muthalakkodam, Idukki",
+        houseOfficerId: null,
+        password: "angamaly@1234",
         phone: 123456789,
-        email: "muthalakkodam@gmail.com",
-        password: "muthalakkodam@1234",
-        houseOfficerId: "null"
+        placeId: "OYqP5t9L3c1fG6v4Ul1l",
+        stationName: "Angamaly PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "vW0rBhNn1KZxdtx2nKbm",
-        stationName: "Vamanapuram PS",
+        address: "Kochi, Ernakulam",
+        email: "kochiernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Vamanapuram, Thiruvananthapuram",
+        houseOfficerId: null,
+        password: "kochi@1234",
         phone: 123456789,
-        email: "vamanapuramps@gmail.com",
-        password: "vamanapuram@1234",
-        houseOfficerId: "null"
+        placeId: "QDUFHd5uXM50NEHxdSZZ",
+        stationName: "Kochi PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "W8D0o2fAKoLT1uXqXKbC",
-        stationName: "Punalur PS",
+        address: "Tripunithura, Ernakulam",
+        email: "tripunithuraernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Punalur, Kollam",
+        houseOfficerId: null,
+        password: "tripunithura@1234",
         phone: 123456789,
-        email: "punalurps@gmail.com",
-        password: "punalur@1234",
-        houseOfficerId: "null"
+        placeId: "bEXihsB6j67xN16Y3wZL",
+        stationName: "Tripunithura PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "w9vHsgWy4jj0s20fsFzB",
-        stationName: "Vadasserikkara PS",
+        address: "Perumbavoor, Ernakulam",
+        email: "perumbavoorernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Vadasserikkara, Pathanamthitta",
+        houseOfficerId: null,
+        password: "perumbavoor@1234",
         phone: 123456789,
-        email: "vadasserikaraps@gmail.com",
-        password: "vadasserikara@1234",
-        houseOfficerId: "null"
+        placeId: "jUYvqjBDlTiyB5Zsy4y5",
+        stationName: "Perumbavoor PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "WlpGt8bgc5UwOAlVJW5v",
-        stationName: "Pampady PS",
+        address: "Aluva, Ernakulam",
+        email: "aluvaernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Pampady, Kottayam",
+        houseOfficerId: null,
+        password: "aluva@1234",
         phone: 123456789,
-        email: "pampadyps@gmail.com",
-        password: "pampady@1234",
-        houseOfficerId: "null"
+        placeId: "opmLsXgrAZsmbuapwXyB",
+        stationName: "Aluva PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "WzYcVsga0mJiobhLQWpM",
-        stationName: "Kothamangalam PS",
+        address: "Muvattupuzha, Ernakulam",
+        email: "muvattupuzhaernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kothamangalam, Ernakulam",
+        houseOfficerId: null,
+        password: "muvattupuzha@1234",
         phone: 123456789,
-        email: "kothamangalam@gmail.com",
-        password: "kothamangalam@1234",
-        houseOfficerId: "null"
+        placeId: "pQd8xgQGzLrF88DxWeNt",
+        stationName: "Muvattupuzha PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "XaIaiASyqYtHKNgfhbKK",
-        stationName: "Pathanapuram PS",
+        address: "North Paravoor, Ernakulam",
+        email: "northparavoorernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Pathanapuram, Kollam",
+        houseOfficerId: null,
+        password: "northparavoor@1234",
         phone: 123456789,
-        email: "pathanapuram@gmail.com",
-        password: "pathanapuram@1234",
-        houseOfficerId: "null"
+        placeId: "sS1kcU8DbbdXNgO09bL5",
+        stationName: "North Paravoor PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "xKxFGwVEnjMHtgxQkC9V",
-        stationName: "Thiruvalla East PS",
+        address: "Ernakulam City, Ernakulam",
+        email: "ernakulamernakulam@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Thiruvalla East, Pathanamthitta",
+        houseOfficerId: null,
+        password: "ernakulam@1234",
         phone: 123456789,
-        email: "thiruvallaeastps@gmail.com",
-        password: "thiruvallaeast@1234",
-        houseOfficerId: "null"
+        placeId: "w3kR6nY7NZ84QF8K5sZP",
+        stationName: "Ernakulam City PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
     },
     {
-        placeId: "XnL0uFvp6kFv6PrIew9n",
-        stationName: "Koduvally PS",
+        address: "Vaikom, Kottayam",
+        email: "vaikomkottayam@gmail.com",
         houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "vaikom@1234",
+        phone: 123456789,
+        placeId: "1rq9ZflU4B9DMHZ0TOb4",
+        stationName: "Vaikom PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Pala, Kottayam",
+        email: "palakottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "pala@1234",
+        phone: 123456789,
+        placeId: "5pwnEElhA9XXpsT4a9q1",
+        stationName: "Pala PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kanjirappally, Kottayam",
+        email: "kanjirappallykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kanjirappally@1234",
+        phone: 123456789,
+        placeId: "7F0gBXhvoBGKGTu5pvKn",
+        stationName: "Kanjirappally PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Changanassery, Kottayam",
+        email: "changanasserykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "changanassery@1234",
+        phone: 123456789,
+        placeId: "Anmxlf2YVgfy6P6xFyTz",
+        stationName: "Changanassery PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kottayam City, Kottayam",
+        email: "kottayamkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kottayam@1234",
+        phone: 123456789,
+        placeId: "GUJzhXYPBdOpY7C0dXiR",
+        stationName: "Kottayam City PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Vaikom, Kottayam",
+        email: "vaikomkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "vaikom@1234",
+        phone: 123456789,
+        placeId: "GnOLpWwC2Q6b2W0ONMDg",
+        stationName: "Vaikom PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Thalayolaparambu, Kottayam",
+        email: "thalayolaparambukottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "thalayolaparambu@1234",
+        phone: 123456789,
+        placeId: "QIb08BWGLqCJ3QwkhCIv",
+        stationName: "Thalayolaparambu PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kanjikuzhy, Kottayam",
+        email: "kanjikuzhykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kanjikuzhy@1234",
+        phone: 123456789,
+        placeId: "ROxFTlW7C4fW9a84WjDN",
+        stationName: "Kanjikuzhy PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kaduthuruthy, Kottayam",
+        email: "kaduthuruthykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kaduthuruthy@1234",
+        phone: 123456789,
+        placeId: "g0r1t4om43kE8XsOvzbd",
+        stationName: "Kaduthuruthy PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Manarcadu, Kottayam",
+        email: "manarcadukottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "manarcadu@1234",
+        phone: 123456789,
+        placeId: "iQ1LhZoWtnwucQyM7O8Y",
+        stationName: "Manarcadu PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kumily, Idukki",
+        email: "kumilyidukki@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kumily@1234",
+        phone: 123456789,
+        placeId: "0uLO73tq5WBRbc7yWwsM",
+        stationName: "Kumily PS",
+        districtId: "rXdsEZ12xPhSLWweRmH9"
+    },
+    {
+        address: "Munnar, Idukki",
+        email: "munnaridukki@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "munnar@1234",
+        phone: 123456789,
+        placeId: "4gCJy3zXdOaPCV0POir4",
+        stationName: "Munnar PS",
+        districtId: "rXdsEZ12xPhSLWweRmH9"
+    },
+    {
+        address: "Thodupuzha, Idukki",
+        email: "thodupuzhaidukki@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "thodupuzha@1234",
+        phone: 123456789,
+        placeId: "6psSXX7zkq50IrwCMZGG",
+        stationName: "Thodupuzha PS",
+        districtId: "rXdsEZ12xPhSLWweRmH9"
+    },
+    {
+        address: "Adimaly, Idukki",
+        email: "adimalyidukki@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "adimaly@1234",
+        phone: 123456789,
+        placeId: "8eqEjufNfrZydACFQspc",
+        stationName: "Adimaly PS",
+        districtId: "rXdsEZ12xPhSLWweRmH9"
+    },
+    {
+        address: "Thripunithura, Ernakulam",
+        email: "thripunithuraernakulam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "thripunithura@1234",
+        phone: 123456789,
+        placeId: "fBhQ1LIGCK8pQfknGTTk",
+        stationName: "Thripunithura PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
+    },
+    {
+        address: "Aluva, Ernakulam",
+        email: "aluvaernakulam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "aluva@1234",
+        phone: 123456789,
+        placeId: "gaFhldhnPSeiyFRpsfh3",
+        stationName: "Aluva PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
+    },
+    {
+        address: "Muvattupuzha, Ernakulam",
+        email: "muvattupuzhaernakulam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "muvattupuzha@1234",
+        phone: 123456789,
+        placeId: "iWBKUbCcKlxYX2MZ6Sgf",
+        stationName: "Muvattupuzha PS",
+        districtId: "UqC0KyhGm6sYnd6iTepi"
+    },
+    {
+        address: "Vadakara, Kozhikode",
+        email: "vadakarakozhikode@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "vadakara@1234",
+        phone: 123456789,
+        placeId: "8XrH1Lsc5KqZzf9fGzGw",
+        stationName: "Vadakara PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
+    },
+    {
+        address: "Koyilandy, Kozhikode",
+        email: "koyilandykozhikode@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "koyilandy@1234",
+        phone: 123456789,
+        placeId: "CmG3kf0E9idpnBFp6FFn",
+        stationName: "Koyilandy PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
+    },
+    {
         address: "Koduvally, Kozhikode",
-        phone: 123456789,
-        email: "koduvallyps@gmail.com",
+        email: "koduvallykozhikode@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
         password: "koduvally@1234",
-        houseOfficerId: "null"
-    },
-    {
-        placeId: "xuFHzYtF9h8cG7dWJzGC",
-        stationName: "Poothotta PS",
-        houseOfficer: "Kutten Pilla",
-        address: "Poothotta, Ernakulam",
         phone: 123456789,
-        email: "poothottaps@gmail.com",
-        password: "poothotta@1234",
-        houseOfficerId: "null"
+        placeId: "E8FiHApRq5X55YRzGZAP",
+        stationName: "Koduvally PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
     },
     {
-        placeId: "Y7eA1flM6GW7K2Mp0hx9",
-        stationName: "Thiruvalla West PS",
+        address: "Kunnamangalam, Kozhikode",
+        email: "kunnamangalamkozhikode@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Thiruvalla West, Pathanamthitta",
+        houseOfficerId: null,
+        password: "kunnamangalam@1234",
         phone: 123456789,
-        email: "thiruvallawestps@gmail.com",
-        password: "thiruvallawest@1234",
-        houseOfficerId: "null"
+        placeId: "G7kLi7hxHNu87Y9UG23j",
+        stationName: "Kunnamangalam PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
     },
     {
-        placeId: "Y8hNadnAbcZmR8aCdmJn",
-        stationName: "Karunapuram PS",
+        address: "Thamarassery, Kozhikode",
+        email: "thamarasserykozhikode@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Karunapuram, Palakkad",
+        houseOfficerId: null,
+        password: "thamarassery@1234",
         phone: 123456789,
-        email: "karunapuram@gmail.com",
-        password: "karunapuram@1234",
-        houseOfficerId: "null"
+        placeId: "JpoyJ4DgPh6Z4a0KRRKS",
+        stationName: "Thamarassery PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
     },
     {
-        placeId: "ycQFTb4V2pDs3I6fX8t8",
-        stationName: "Kuthuparamba PS",
+        address: "Perambra, Kozhikode",
+        email: "perambrakozhikode@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kuthuparamba, Kannur",
+        houseOfficerId: null,
+        password: "perambra@1234",
         phone: 123456789,
-        email: "kuthuparambaps@gmail.com",
-        password: "kuthuparamba@1234",
-        houseOfficerId: "null"
+        placeId: "KN6PhJfqoHAtH4g1s2Kk",
+        stationName: "Perambra PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
     },
     {
-        placeId: "YRlZqfYmLNFd0AB5U27y",
-        stationName: "Mannarkkad PS",
+        address: "Nadapuram, Kozhikode",
+        email: "nadapuramkozhikode@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Mannarkkad, Palakkad",
+        houseOfficerId: null,
+        password: "nadapuram@1234",
         phone: 123456789,
-        email: "mannarkkadps@gmail.com",
-        password: "mannarkkad@1234",
-        houseOfficerId: "null"
+        placeId: "MYs0T39wuxrRukJorLCd",
+        stationName: "Nadapuram PS",
+        districtId: "VqhylatW0r62ROZkP9h8"
     },
     {
-        placeId: "z8JyTfXvA0kKk4AxrP5c",
-        stationName: "Thiruvankulam PS",
+        address: "Thalassery, Kannur",
+        email: "thalasserykannur@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Thiruvankulam, Ernakulam",
+        houseOfficerId: null,
+        password: "thalassery@1234",
         phone: 123456789,
-        email: "thiruvankulamps@gmail.com",
-        password: "thiruvankulam@1234",
-        houseOfficerId: "null"
+        placeId: "c9bHBY04k0SN1Z9pucKd",
+        stationName: "Thalassery PS",
+        districtId: "cKQWi5hGSBCUfCxIr08P"
     },
     {
-        placeId: "zBEpIopL79ZFgEuP6oNa",
-        stationName: "Thaliparamba PS",
+        address: "Kannur City, Kannur",
+        email: "kannurkannur@gmail.com",
         houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kannur@1234",
+        phone: 123456789,
+        placeId: "hbOlAatNIzlaNv67DDt8",
+        stationName: "Kannur City PS",
+        districtId: "cKQWi5hGSBCUfCxIr08P"
+    },
+    {
         address: "Thaliparamba, Kannur",
-        phone: 123456789,
-        email: "thaliparambaps@gmail.com",
+        email: "thaliparambakannur@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
         password: "thaliparamba@1234",
-        houseOfficerId: "null"
+        phone: 123456789,
+        placeId: "hy5bUcPz2s40yadM26F8",
+        stationName: "Thaliparamba PS",
+        districtId: "cKQWi5hGSBCUfCxIr08P"
     },
     {
-        placeId: "zfB1yGx4fWgvEFBiSsHt",
-        stationName: "Puthenvelikkara PS",
+        address: "Iritty, Kannur",
+        email: "irittykannur@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Puthenvelikkara, Ernakulam",
+        houseOfficerId: null,
+        password: "iritty@1234",
         phone: 123456789,
-        email: "puthenvelikkaraps@gmail.com",
-        password: "puthenvelikkara@1234",
-        houseOfficerId: "null"
+        placeId: "mNufQ4khm0M3FlQAC3Qb",
+        stationName: "Iritty PS",
+        districtId: "cKQWi5hGSBCUfCxIr08P"
     },
     {
-        placeId: "ZGJniGNX5DroJQRtWHEh",
-        stationName: "Kattappana PS",
+        address: "Payyannur, Kannur",
+        email: "payyannurkannur@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kattappana, Idukki",
+        houseOfficerId: null,
+        password: "payyannur@1234",
         phone: 123456789,
-        email: "kattappanaps@gmail.com",
-        password: "kattappana@1234",
-        houseOfficerId: "null"
+        placeId: "qEH5YDiDvfiabgC5WNFi",
+        stationName: "Payyannur PS",
+        districtId: "cKQWi5hGSBCUfCxIr08P"
     },
     {
-        placeId: "ZgmwDYlF64q8obQd85bA",
-        stationName: "Vattappara PS",
+        address: "Mattannur, Kannur",
+        email: "mattannurkannur@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Vattappara, Thiruvananthapuram",
+        houseOfficerId: null,
+        password: "mattannur@1234",
         phone: 123456789,
-        email: "vattapparaps@gmail.com",
-        password: "vattappara@1234",
-        houseOfficerId: "null"
+        placeId: "sVl7cDZ7UoBqIqB9ypHd",
+        stationName: "Mattannur PS",
+        districtId: "cKQWi5hGSBCUfCxIr08P"
     },
     {
-        placeId: "zS7rBbIhJt3JENgBYrMu",
-        stationName: "Vithura PS",
+        address: "Kasaragod, Kasaragod",
+        email: "kasaragodkasaragod@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Vithura, Thiruvananthapuram",
+        houseOfficerId: null,
+        password: "kasaragod@1234",
         phone: 123456789,
-        email: "vithuraps@gmail.com",
-        password: "vithura@1234",
-        houseOfficerId: "null"
+        placeId: "02M7RGlntdm18wQ7JcW8",
+        stationName: "Kasaragod PS",
+        districtId: "eDOzGPkKmDF6ilQX7sZm"
     },
     {
-        placeId: "zS9iIWJ2DMQvSItYvKOF",
-        stationName: "Palluruthy PS",
+        address: "Kanhangad, Kasaragod",
+        email: "kanhangadkasaragod@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Palluruthy, Ernakulam",
+        houseOfficerId: null,
+        password: "kanhangad@1234",
         phone: 123456789,
-        email: "palluruthyps@gmail.com",
-        password: "palluruthy@1234",
-        houseOfficerId: "null"
+        placeId: "4Y0FD3g9W5b2s8juMOrG",
+        stationName: "Kanhangad PS",
+        districtId: "eDOzGPkKmDF6ilQX7sZm"
     },
     {
-        placeId: "ZULrXl0YXTDLm0QePG6V",
-        stationName: "Kanjirapally PS",
+        address: "Hosdurg, Kasaragod",
+        email: "hosdurgkasaragod@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Kanjirapally, Kottayam",
+        houseOfficerId: null,
+        password: "hosdurg@1234",
         phone: 123456789,
-        email: "kanjirapallyps@gmail.com",
-        password: "kanjirapally@1234",
-        houseOfficerId: "null"
+        placeId: "D7Ys0Rd4qR0MNYv2gExb",
+        stationName: "Hosdurg PS",
+        districtId: "eDOzGPkKmDF6ilQX7sZm"
     },
     {
-        placeId: "zvhA3q22fGi7Ixy6kO51",
-        stationName: "Perumpavur PS",
+        address: "Nileshwaram, Kasaragod",
+        email: "nileshwaramkasaragod@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Perumpavur, Ernakulam",
+        houseOfficerId: null,
+        password: "nileshwaram@1234",
         phone: 123456789,
-        email: "perumpavurps@gmail.com",
-        password: "perumpavur@1234",
-        houseOfficerId: "null"
+        placeId: "L5BoDpSWPZRXJRTDfRkq",
+        stationName: "Nileshwaram PS",
+        districtId: "eDOzGPkKmDF6ilQX7sZm"
     },
     {
-        placeId: "zwLFLVgZ4DtsZKWY2ONm",
-        stationName: "Wadakkanchery PS",
+        address: "Thrikarippur, Kasaragod",
+        email: "thrikarippurkasaragod@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Wadakkanchery, Thrissur",
+        houseOfficerId: null,
+        password: "thrikarippur@1234",
         phone: 123456789,
-        email: "wadakkancheryps@gmail.com",
-        password: "wadakkanchery@1234",
-        houseOfficerId: "null"
+        placeId: "P9vPKU9DKtITm4a5IbZW",
+        stationName: "Thrikarippur PS",
+        districtId: "eDOzGPkKmDF6ilQX7sZm"
     },
     {
-        placeId: "ZWqOzGTlXAf6es3WabxY",
-        stationName: "Koothattukulam PS",
+        address: "Manjeshwaram, Kasaragod",
+        email: "manjeshwaramkasaragod@gmail.com",
         houseOfficer: "Kutten Pilla",
-        address: "Koothattukulam, Ernakulam",
+        houseOfficerId: null,
+        password: "manjeshwaram@1234",
         phone: 123456789,
-        email: "koothattukulamps@gmail.com",
-        password: "koothattukulam@1234",
-        houseOfficerId: "null"
+        placeId: "UR4x6JNDYGZw9L9ZkV5H",
+        stationName: "Manjeshwaram PS",
+        districtId: "eDOzGPkKmDF6ilQX7sZm"
+    },
+    {
+        address: "Kottayam, Kottayam",
+        email: "kottayamkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kottayam@1234",
+        phone: 123456789,
+        placeId: "mstITEDb23ZN4d91ZWm2",
+        stationName: "Kottayam PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Ponkunnam, Kottayam",
+        email: "ponkunnamkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "ponkunnam@1234",
+        phone: 123456789,
+        placeId: "BQtnxuf3GYM4IQfXzTyN",
+        stationName: "Ponkunnam PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Ettumanoor, Kottayam",
+        email: "ettumanoorkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "ettumanoor@1234",
+        phone: 123456789,
+        placeId: "9gCpeSgs98Fw2yTIRXn8",
+        stationName: "Ettumanoor PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Ayarkunnam, Kottayam",
+        email: "ayarkunnamkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "ayarkunnam@1234",
+        phone: 123456789,
+        placeId: "MLnv2eK0Hm8SdLv8UMlm",
+        stationName: "Ayarkunnam PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Vakathanam, Kottayam",
+        email: "vakathanamkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "vakathanam@1234",
+        phone: 123456789,
+        placeId: "qDkoySli6R7ERUQvXkxt",
+        stationName: "Vakathanam PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Melukavu, Kottayam",
+        email: "melukavukottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "melukavu@1234",
+        phone: 123456789,
+        placeId: "r1GSJlRRikrPEAcd9Cxh",
+        stationName: "Melukavu PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kaduthuruthy, Kottayam",
+        email: "kaduthuruthykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kaduthuruthy@1234",
+        phone: 123456789,
+        placeId: "CszqAxWDlr03KvV6wTDw",
+        stationName: "Kaduthuruthy PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kuravilangad, Kottayam",
+        email: "kuravilangadkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kuravilangad@1234",
+        phone: 123456789,
+        placeId: "GqHlbdHs5RouVhliFJhP",
+        stationName: "Kuravilangad PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Changanassery, Kottayam",
+        email: "changanasserykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "changanassery@1234",
+        phone: 123456789,
+        placeId: "cLzyNlZjVYXHV4B48VYZ",
+        stationName: "Changanassery PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Palai, Kottayam",
+        email: "palakkadkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "palakkad@1234",
+        phone: 123456789,
+        placeId: "IsmQOeL7fUqEr8dS4txz",
+        stationName: "Palai PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kumarakom, Kottayam",
+        email: "kumarakomkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kumarakom@1234",
+        phone: 123456789,
+        placeId: "2dW9k4nM89vRVD8n9Uf9",
+        stationName: "Kumarakom PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Thalayolaparambu, Kottayam",
+        email: "thalayolaparambukottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "thalayolaparambu@1234",
+        phone: 123456789,
+        placeId: "P0ONvB2cl1YFcFhCZDAJ",
+        stationName: "Thalayolaparambu PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kanjikuzhy, Kottayam",
+        email: "kanjikuzhykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kanjikuzhy@1234",
+        phone: 123456789,
+        placeId: "snKG1PfK7sBOqhdQ4ZIf",
+        stationName: "Kanjikuzhy PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Manarcadu, Kottayam",
+        email: "manarcadukottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "manarcadu@1234",
+        phone: 123456789,
+        placeId: "T5s8cglcBNjbpUYlH16I",
+        stationName: "Manarcadu PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kuravilangad, Kottayam",
+        email: "kuravilangadkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kuravilangad@1234",
+        phone: 123456789,
+        placeId: "sKH9cyJAxrE3fYdpfxf5",
+        stationName: "Kuravilangad PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Changanassery, Kottayam",
+        email: "changanasserykottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "changanassery@1234",
+        phone: 123456789,
+        placeId: "VZ3tV60Vmf3UdcxX40Lh",
+        stationName: "Changanassery PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Palai, Kottayam",
+        email: "palaikottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "palai@1234",
+        phone: 123456789,
+        placeId: "lMJ4aDtPS4qcdR9g4vzV",
+        stationName: "Palai PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kumarakom, Kottayam",
+        email: "kumarakomkottayam@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kumarakom@1234",
+        phone: 123456789,
+        placeId: "6UEjvZ0G3lYpZaN3WzX4",
+        stationName: "Kumarakom PS",
+        districtId: "grr355AflhAF9NLxuVrB"
+    },
+    {
+        address: "Kayamkulam, Alappuzha",
+        email: "kayamkulamalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kayamkulam@1234",
+        phone: 123456789,
+        placeId: "wBiJYw12FUVgIkyx6Smh",
+        stationName: "Kayamkulam PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Mavelikara, Alappuzha",
+        email: "mavelikaraalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "mavelikara@1234",
+        phone: 123456789,
+        placeId: "8aFHDfe3vgsGkm5fdRau",
+        stationName: "Mavelikara PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Chengannur, Alappuzha",
+        email: "chengannuralappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "chengannur@1234",
+        phone: 123456789,
+        placeId: "6DbKgFU3cqgezS4JCbpi",
+        stationName: "Chengannur PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Harippad, Alappuzha",
+        email: "harippadalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "harippad@1234",
+        phone: 123456789,
+        placeId: "nC14JtznsWeUVJLIGzAk",
+        stationName: "Harippad PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Mannar, Alappuzha",
+        email: "mannaralappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "mannar@1234",
+        phone: 123456789,
+        placeId: "h3dXL5DqVbzA0qntoGFD",
+        stationName: "Mannar PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Kayamkulam, Alappuzha",
+        email: "kayamkulamalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "kayamkulam@1234",
+        phone: 123456789,
+        placeId: "mDW2Adm3TqGo82Sw6GHj",
+        stationName: "Kayamkulam PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Mavelikara, Alappuzha",
+        email: "mavelikaraalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "mavelikara@1234",
+        phone: 123456789,
+        placeId: "rQiMzX7vF5zue1x0kfPm",
+        stationName: "Mavelikara PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Chengannur, Alappuzha",
+        email: "chengannuralappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "chengannur@1234",
+        phone: 123456789,
+        placeId: "Q8MReO3Wg7SrePQMCQoZ",
+        stationName: "Chengannur PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Harippad, Alappuzha",
+        email: "harippadalappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "harippad@1234",
+        phone: 123456789,
+        placeId: "UBvcEjm9uMMExaqK3W6n",
+        stationName: "Harippad PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
+    },
+    {
+        address: "Mannar, Alappuzha",
+        email: "mannaralappuzha@gmail.com",
+        houseOfficer: "Kutten Pilla",
+        houseOfficerId: null,
+        password: "mannar@1234",
+        phone: 123456789,
+        placeId: "meeHYo7WYj2l9GSOuRb2",
+        stationName: "Mannar PS",
+        districtId: "ODDGqWlZYObnLki5iBxG"
     }
 ];
 
 
 
-const registerPoliceStations = async () => {
-  try {
-    for (const stationData of districtPlaces) {
-      const { email } = stationData;
+  const registerPoliceStations = async () => {
+    try {
+      for (const stationData of districtPlaces) {
+        const { email } = stationData;
 
-      // Check if police station email already exists before adding data
-      const existingStationQuery = await getDoc(
-        doc(db, "police_station_collection", email)
-      );
+        // Check if police station email already exists before adding data
+        const existingStationQuery = await getDoc(
+          doc(db, "police_station_collection", email)
+        );
 
-      if (existingStationQuery.exists()) {
-        console.log(`Police station with email ${email} already exists, skipping.`);
-      } else {
-        try {
-          // Register user with email and password
-          const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            stationData.password
-          );
+        if (existingStationQuery.exists()) {
+          console.log(`Police station with email ${email} already exists, skipping.`);
+        } else {
+          try {
+            // Register user with email and password
+            const userCredential = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              stationData.password
+            );
 
-          // Get the user's UID
-          const userId = userCredential.user.uid;
+            // Get the user's UID
+            const userId = userCredential.user.uid;
 
-          // Add police station data to Firestore
-          await setDoc(doc(db, "police_station_collection", userId), stationData);
+            // Add police station data to Firestore
+            await setDoc(doc(db, "police_station_collection", userId), stationData);
 
-          console.log(`Police station with email ${email} added successfully!`);
-        } catch (error) {
-          // Handle email-already-in-use error
-          if (error.code === "auth/email-already-in-use") {
-            console.log(`Email ${email} is already in use, skipping registration.`);
-          } else {
-            throw error; // Throw other errors
+            console.log(`Police station with email ${email} added successfully!`);
+          } catch (error) {
+            // Handle email-already-in-use error
+            if (error.code === "auth/email-already-in-use") {
+              console.log(`Email ${email} is already in use, skipping registration.`);
+            } else {
+              throw error; // Throw other errors
+            }
           }
         }
       }
+    } catch (error) {
+      console.error("Error registering police stations:", error);
     }
-  } catch (error) {
-    console.error("Error registering police stations:", error);
-  }
-};
+  };
+  const deletePoliceStations = async () => {
+    try {
+      for (const stationData of districtPlaces) {
+        const { email, password } = stationData;
+  
+        // Sign in with email and password
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const userId = userCredential.user.uid;
+  
+        // Delete the user from authentication
+        await userCredential.user.delete();
+  
+        // Delete police station data from Firestore
+        await deleteDoc(doc(db, "police_station_collection", userId));
+  
+        console.log(`Police station with email ${email} deleted successfully!`);
+      }
+    } catch (error) {
+      console.error("Error deleting police stations:", error);
+    }
+  };
 
 
   return (
     <div>
       <button onClick={registerPoliceStations}>Register Police Stations</button>
+      <button onClick={deletePoliceStations}>Delete Police Stations</button>
     </div>
   );
 };

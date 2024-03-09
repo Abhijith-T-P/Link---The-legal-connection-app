@@ -10,6 +10,7 @@ import LawyerSearchUserPage from "./Pages/LawyerSearchUserPage/LawyerSearchUserP
 import LawyerAcceptDeclineCasePage from "./Pages/LawyerAcceptDeclineCasePage/LawyerAcceptDeclineCasePage";
 import LawyerProfile from "./Pages/LawyerProfile/LawyerProfile";
 import EditLawyerProfile from "./Pages/EditLawyerProfile/EditLawyerProfile";
+import ClientRequestsPage from "./Pages/ClientRequestsPage/ClientRequestsPage";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/CaseRequests" element={<LawyerAcceptDeclineCasePage />} />
           <Route path="/LawyerProfile" element={<LawyerProfile />} />
           <Route path="/EditLawyerProfile" element={<EditLawyerProfile />} />
+          <Route path="/ClientRequestsPage" element={<ClientRequestsPage />} />
           
           
         </Routes>

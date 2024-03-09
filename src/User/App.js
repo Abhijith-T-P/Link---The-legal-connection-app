@@ -18,47 +18,46 @@ import MyCasesPage from "./Pages/MyCasesPage/MyCasesPage";
 import PolicePage from "./Pages/PolicePage/PolicePage";
 import UserRequestLawyerPage from "./Pages/UserRequestLawyer/UserRequestLawyerPage";
 import UpcomingEventsPage from "./Pages/UpcomingEventsPage/UpcomingEventsPage";
+import RequestOrCheck from "./Pages/PermitRequestForm/RequestOrCheck";
+import PermitStatus from "./Pages/PermitRequestForm/PermitStatus";
 const App = () => {
   return (
     <div className="UniqPolice">
       <Topbar />
-        <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/permit" element={<PermitRequestForm />} />
-          <Route path="/EmergencyRequest" element={<EmergencyRequestPage />} />
-          <Route
-            path="/ReportMissingPersonPage"
-            element={<ReportMissingPersonPage />}
-          />
-          <Route path="/PermitRequestForm" element={<PermitRequestForm />} />
-          <Route
-            path="/PoliceComplaintPage"
-            element={<PoliceComplaintPage />}
-          />
-          <Route path="/FinePaymentPage" element={<FinePaymentPage />} />
-          <Route
-            path="/PassportVerificationDates"
-            element={<PassportVerificationDates />}
-          />
-          <Route
-            path="/PoliceStationSearch"
-            element={<PoliceStationSearch />}
-          />
-          <Route path="/LawyerPage" element={<LawyerPage />} />
-          <Route path="/AllLawyersPage" element={<AllLawyersPage />} />
-          <Route path="/MyLawyersPage" element={<MyLawyersPage />} />
-          <Route path="/MyCasesPage" element={<MyCasesPage />} />
-          <Route path="/PolicePage" element={<PolicePage />} />
-          <Route
-            path="/UserRequestLawyerPage"
-            element={<UserRequestLawyerPage />}
-          />
-          <Route path="/UpcomingEvents" element={<UpcomingEventsPage />} />
+      <Routes>
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/permit" element={<PermitRequestForm />} />
+        <Route path="/EmergencyRequest" element={<EmergencyRequestPage />} />
+        <Route
+          path="/ReportMissingPersonPage"
+          element={<ReportMissingPersonPage />}
+        />
+        <Route path="/PermitRequestForm" element={<PermitRequestForm />} />
+        <Route path="/PoliceComplaintPage" element={<PoliceComplaintPage />} />
+        <Route path="/FinePaymentPage" element={<FinePaymentPage />} />
+        <Route
+          path="/PassportVerificationDates"
+          element={<PassportVerificationDates />}
+        />
+        
+        <Route path="/PermitStatus" element={<PermitStatus />} />
+        <Route path="/RequestOrCheck" element={<RequestOrCheck />} />
+        <Route path="/PoliceStationSearch" element={<PoliceStationSearch />} />
+        <Route path="/LawyerPage" element={<LawyerPage />} />
+        <Route path="/AllLawyersPage" element={<AllLawyersPage />} />
+        <Route path="/MyLawyersPage" element={<MyLawyersPage />} />
+        <Route path="/MyCasesPage" element={<MyCasesPage />} />
+        <Route path="/PolicePage" element={<PolicePage />} />
+        <Route
+          path="/UserRequestLawyerPage"
+          element={<UserRequestLawyerPage />}
+        />
+        <Route path="/UpcomingEvents" element={<UpcomingEventsPage />} />
 
-          <Route path="/Topbar" element={<Topbar />} />
-        </Routes>
-      
+        <Route path="/Topbar" element={<Topbar />} />
+      </Routes>
+
       <Footer />
     </div>
   );

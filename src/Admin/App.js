@@ -17,6 +17,10 @@ import Casetype from "./Pages/CaseType/Casetype";
 import Place from "./Pages/Place/Place";
 import Permit from "./Pages/Permit/Permit";
 import SubCaseType from "./Pages/SubCaseType/SubCaseType";
+import UpdatePoliceLocation from "./Pages/UpdatePoliceLocation/UpdatePoliceLocation";
+// import UserList from "./Pages/UserList/UserList";
+import UserManagementPage from "./Pages/UserList/UserList";
+import FineType from "./Pages/FineType/FineType";
 
 
 const App = () => {
@@ -41,6 +45,10 @@ const App = () => {
             <Route path="/File" element={<FileUplaod />} />
             <Route path="/Permit" element={<Permit />} />
             <Route path="/SubCaseType" element={<SubCaseType />} />
+            <Route path="/UpdatePoliceLocation" element={<UpdatePoliceLocation />} />
+            <Route path="/UserList" element={<UserManagementPage />} />
+            <Route path="/FineType" element={<FineType />} />
+            
             
       </Routes>
     </div>

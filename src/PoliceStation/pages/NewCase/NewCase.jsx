@@ -11,65 +11,65 @@ import {
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { db, storage } from "../../../config/Firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import PhoneInput from "react-phone-number-input";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const NewCase = () => {
-  const [complainantName, setComplainantName] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
+  const [userId, setUserId] = useState("");
   const [complaintDescription, setComplaintDescription] = useState("");
   const [documents, setDocuments] = useState(null);
   const [showCasetypes, setShowCasetypes] = useState([]);
   const [caseCategory, setCaseCategory] = useState("");
-  const [subCaseCategory, setSubCaseCategory] = useState(""); // State for selected sub case category
-const [displaySubcat ,setDispalySubcat] = useState([]);
+  const [subCaseCategory, setSubCaseCategory] = useState("");
+  const [showCaseCategory, setShowCaseCategory] = useState([]);
+  
+  const [displaySubcat, setDisplaySubcat] = useState([]);
+  const [isUserIdValid, setIsUserIdValid] = useState(false);
 
   useEffect(() => {
     getCaseCat();
-    handleCaseCategoryChange();
-    
   }, [caseCategory]);
 
   const getCaseCat = async () => {
     try {
-      const data = await getDocs(collection(db, "CaseType"));
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
+      const CaseCat = await getDocs(collection(db, "CaseType"));
+      const filteredCat = CaseCat.docs.map((docs) => ({
+        id: docs.id,
+        ...docs.data(),
       }));
-
-      setShowCasetypes(filteredData);
-      console.log(filteredData);
-
-      const getSubCat = await getDocs(collection(db, "SubCaseType"));
-      const filteredSubCat = getSubCat.docs.map((doc) => ({
-        SubcatId: doc.id,
-        ...doc.data(),
-      }));
-      console.log("subCat: " , filteredSubCat);
-   
-
-    // const joinData = filteredData.map((category)=>({
-    //  ...category,
-    //  subcategory:filteredSubCat.find((subcategory)=>subcategory.CaseCategory === category.id)
-    // }))
-    
-    //  setDispalySubcat(joinData);
-    // console.log("Joindata:",joinData);
-
+      setShowCaseCategory(filteredCat);
+      getSubCat();
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching case categories:", error.message);
     }
   };
 
+  const getSubCat = async (Id) => {
+    if (Id) {
+      setCaseCategory(Id);
+    }
+    try {
+      const querysub = await query(
+        collection(db, "SubCaseType"),
+        where("CaseCategory", "==", Id || caseCategory)
+      );
+      const data = await getDocs(querysub);
+      const datamapped = data.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setDisplaySubcat(datamapped);
+    } catch (error) {
+      console.error("Error fetching sub-case categories:", error.message);
+    }
+  };
+  
   const handleFileChange = (event) => {
     setDocuments(event.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       var documentURLs = "";
       if (documents) {
@@ -88,22 +88,20 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
 
       await addDoc(collection(db, "PoliceComplaint"), {
         Pid,
-        complainantName,
-        contactNumber,
+        userId,
         documentURLs,
         vStatus: 0,
         complaintDescription,
         caseCategory,
-        subCaseCategory, // Add sub case category to the document
+        subCaseCategory,
         timestamp: new Date(),
       });
 
-      setComplainantName("");
-      setContactNumber("");
+      setUserId("");
       setComplaintDescription("");
       setDocuments(null);
       setCaseCategory("");
-    setSubCaseCategory("");
+      setSubCaseCategory("");
 
       alert("Police complaint filed successfully!");
     } catch (error) {
@@ -113,21 +111,47 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
   };
 
   const handleCaseCategoryChange = async () => {
- 
-   console.log(caseCategory);
-    const querysub = query(collection(db,"SubCaseType"),where("CaseCategory","==",caseCategory))
-    const data = await getDocs(querysub)
-     const datamapped = data.docs.map((doc)=>({
-      id:doc.id,
+    const querySub = query(
+      collection(db, "SubCaseType"),
+      where("CaseCategory", "==", caseCategory)
+    );
+    const data = await getDocs(querySub);
+    const datamapped = data.docs.map((doc) => ({
+      id: doc.id,
       ...doc.data(),
-     }))
-     console.log(datamapped)
-     setDispalySubcat(datamapped)
+    }));
+    setDisplaySubcat(datamapped);
   };
 
-  // const handleSubCaseCategoryChange = (event) => {
-  //   setSubCaseCategory(event.target.value);
-  // };
+  const handleUserIdChange = async (event) => {
+    const value = event.target.value;
+    setUserId(value);
+
+    // Check if the user has entered 10 digits
+    if (value.length === 10) {
+      // Perform the check in the database
+      const userQuery = query(
+        collection(db, "collection_user"),
+        where("user_Id", "==", value)
+      );
+      const querySnapshot = await getDocs(userQuery);
+      const isExist = !querySnapshot.empty;
+
+      // Log the result and set the isUserIdValid state
+      console.log("User ID exists:", isExist);
+      setIsUserIdValid(isExist);
+    } else {
+      setIsUserIdValid(false);
+    }
+  };
+
+  const userIdFieldStyle = {
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: isUserIdValid ? "green" : userId.length === 10 ? "orange" : "",
+      },
+    },
+  };
 
   return (
     <Box
@@ -140,34 +164,34 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
         <Typography variant="h4">File a Police Complaint</Typography>
 
         <TextField
-          label="Complainte Name"
+          label="User ID"
           variant="outlined"
           fullWidth
           required
           margin="normal"
-          value={complainantName}
-          onChange={(e) => setComplainantName(e.target.value)}
+          value={userId}
+          onChange={handleUserIdChange}
+          helperText={
+            userId.length === 10 && !isUserIdValid
+              ? "User ID does not exist"
+              : ""
+          }
+          error={userId.length === 10 && !isUserIdValid}
+          sx={userIdFieldStyle}
         />
 
-<PhoneInput
-          placeholder="enter phone number"
-          defaultCountry="IN"
-          value={contactNumber}
-          
-          required
-          onChange={setContactNumber}
-        />
         <FormControl fullWidth>
           <InputLabel id="case-category-label">Case Category</InputLabel>
           <Select
+            required
             labelId="case-category-label"
-          required
-          id="case-category"
+            id="case-category"
             value={caseCategory}
             label="Case Category"
-            onChange={(e)=>{setCaseCategory(e.target.value);handleCaseCategoryChange()}}
+            onChange={(event) => getSubCat(event.target.value)}
+
           >
-            {showCasetypes.map((row,key) => (
+            {showCaseCategory.map((row, key) => (
               <MenuItem key={key} value={row.id}>
                 {row.CaseType}
               </MenuItem>
@@ -175,20 +199,22 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
           </Select>
         </FormControl>
 
-        <FormControl fullWidth style={{paddingTop: "10px"}}>
+        <FormControl fullWidth style={{ marginTop: "10px" }}>
           <InputLabel id="sub-case-category-label">
             Sub Case Category
           </InputLabel>
           <Select
-          required
+            required
             labelId="sub-case-category-label"
             id="sub-case-category"
             value={subCaseCategory}
             label="Sub Case Category"
-            onChange={(e)=>setSubCaseCategory(e.target.value)}
+            onChange={(event) => setSubCaseCategory(event.target.value)}
           >
-            {displaySubcat.map((row,key)=>(
-              <MenuItem key={key} value = {row.id}>{row.SubCaseCategory}</MenuItem>
+            {displaySubcat.map((row, key) => (
+              <MenuItem key={key} value={row.id}>
+                {row.SubCaseCategory}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -224,7 +250,12 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
         </label>
       </div>
       <div className="upload">
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={!isUserIdValid}
+        >
           File Complaint
         </Button>
       </div>
@@ -233,4 +264,3 @@ const [displaySubcat ,setDispalySubcat] = useState([]);
 };
 
 export default NewCase;
-

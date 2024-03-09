@@ -12,19 +12,17 @@
 }
 .caseHeader {
   display: flex;
-  padding: 50px;
+  padding: 30px;
   justify-content: space-between;
 }
 .pIcon img{
     max-height: 200px;
 }
-.pdetails{
-    text-align: center;
-}
+
 .hr{
     background-color: rgb(121, 121, 121);
     height: 0.5px;
-    margin: 0px 30px;
+    margin: 10px 30px;
 }
 .caseDetails{
     margin: 30px;

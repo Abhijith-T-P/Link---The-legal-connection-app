@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import LawyerRegister from "../LawyerRegister/LawyerRegister";
 import PoliceStationRegister from "../StationRegister/StationRegister";
+// import RegisterPoliceStations from "../policeStations/policeStationspoliceStationsArray ";
 
 const LoginTemplate = () => {
   // Add your state and other logic here if needed
@@ -29,6 +30,8 @@ const LoginTemplate = () => {
               <Route path="/Register" element={<Register />} />
               <Route path="/LawyerRegister" element={<LawyerRegister />} />
               <Route path="/PoliceStationRegister" element={<PoliceStationRegister />} />
+              {/* <Route path="/RegisterPoliceStations" element={<RegisterPoliceStations />} /> */}
+              
               
             </Routes>
           </div>

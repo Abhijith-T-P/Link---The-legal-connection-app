@@ -24,6 +24,7 @@
         padding-left: 40px;
         img {
           width: 120px;
+          object-fit: fill;
         }
       }
       nav {

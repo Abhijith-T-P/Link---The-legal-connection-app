@@ -19,6 +19,7 @@ import ClosedCases from "./pages/ClosedCases/ClosedCases";
 import MessageUser from "./pages/MessageUser/MessageUser";
 import UpcomingEventsPage from "./pages/UpcomingEventsPage/UpcomingEventsPage";
 import SearchUserPage from "./pages/UserSearchPage/UserSearchPage";
+import FineUser from "./pages/FineUser/FineUser";
 const App = () => {
   return (
     <div className="app">
@@ -43,6 +44,8 @@ const App = () => {
           <Route path="MessageUser"element={<MessageUser />} />
           <Route path="UpcomingEventsPage"element={<UpcomingEventsPage />} />
           <Route path="SearchUserPage"element={<SearchUserPage />} />
+          <Route path="FineUser"element={<FineUser />} />
+          
           
           
         </Routes>

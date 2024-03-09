@@ -55,6 +55,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
+  const [userId, setUserId] = useState(""); // State for UserId
 
   React.useEffect(() => {
     if (cleared) {
@@ -111,8 +112,33 @@ const Register = () => {
     fetchData();
   }, []);
 
+  const generateUserId = () => {
+    // Generate random 10-digit number
+    const min = 1000000000; // Minimum 10-digit number
+    const max = 9999999999; // Maximum 10-digit number
+    const randomUserId = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomUserId.toString(); // Convert to string
+  };
+
   const handleSubmit = async () => {
     try {
+      // Check if password and confirm password are equal
+      if (password !== confirmPassword) {
+        alert("Password and confirm password do not match.");
+        return;
+      }
+
+      // Generate UserId
+      let newUserId;
+      let isUnique = false;
+      while (!isUnique) {
+        newUserId = generateUserId();
+        const userIdExists = await checkUserIdExists(newUserId);
+        if (!userIdExists) {
+          isUnique = true;
+        }
+      }
+
       console.log(email);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -141,6 +167,7 @@ const Register = () => {
       const adharUrl = await getDownloadURL(AdharStorageRef);
 
       await setDoc(doc(db, "collection_user", user), {
+        user_Id: newUserId,
         user_photo: url,
         user_adhar: adharUrl,
         user_name: fname + " " + lname,
@@ -158,6 +185,15 @@ const Register = () => {
       console.log(errorMessage);
       alert(errorCode);
     }
+  };
+
+  const checkUserIdExists = async (userId) => {
+    const userQuery = query(
+      collection(db, "collection_user"),
+      where("UserId", "==", userId)
+    );
+    const querySnapshot = await getDocs(userQuery);
+    return !querySnapshot.empty;
   };
 
   return (

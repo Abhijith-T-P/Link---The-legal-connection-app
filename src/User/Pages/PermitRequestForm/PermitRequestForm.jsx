@@ -11,46 +11,56 @@ import {
 } from "@mui/material";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
-import "./PermitRequestForm.css"
+import "./PermitRequestForm.css";
+import PhoneInput from "react-phone-number-input";
+
 const PermitRequestForm = () => {
   const [permitType, setPermitType] = useState("");
   const [applicantName, setApplicantName] = useState("");
   const [applicantAddress, setApplicantAddress] = useState("");
   const [reason, setReason] = useState("");
-  const [permit, setPermit] = useState("");
-  const [applicantNumber, setApplicantNumber] = useState([]);
+  const [permit, setPermit] = useState([]);
+  const [eventDateStart, setEventDateStart] = useState("");
+  const [eventDateEnd, setEventDateEnd] = useState("");
+  const [contactNumber, setContactNumber] = useState(""); // State for phone number
 
   const handlePermitTypeChange = (event) => {
     setPermitType(event.target.value);
   };
+
   useEffect(() => {
     getPermit();
   }, []);
 
   const getPermit = async () => {
-    const permitData = await getDocs(collection(db, "Permit"));
-    const filteredPermit = await permitData.docs.map((doc, key) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    setPermit(filteredPermit);
-    console.log(filteredPermit);
+    try {
+      const permitData = await getDocs(collection(db, "Permit"));
+      const filteredPermit = permitData.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setPermit(filteredPermit);
+      console.log(filteredPermit);
+    } catch (error) {
+      console.error("Error fetching permits:", error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const uid = sessionStorage.getItem("SessionId");
+      const uid = sessionStorage.getItem("uid");
 
       // Add the permit request to the database
       const permitRequestRef = await addDoc(collection(db, "permitRequests"), {
         UserID: uid,
-
         permitType,
         applicantName,
-        applicantNumber,
         applicantAddress,
         reason,
+        eventDateStart,
+        eventDateEnd,
+        contactNumber, // Include contactNumber in the permit request data
         timestamp: new Date(),
       });
 
@@ -61,7 +71,9 @@ const PermitRequestForm = () => {
       setApplicantName("");
       setApplicantAddress("");
       setReason("");
-      setApplicantNumber("");
+      setEventDateStart("");
+      setEventDateEnd("");
+      setContactNumber(""); // Clear contactNumber after submission
       getPermit();
     } catch (error) {
       console.error("Error submitting permit request:", error);
@@ -69,13 +81,13 @@ const PermitRequestForm = () => {
   };
 
   return (
-    <Box component={"form"} onSubmit={handleSubmit}className="permitForm">
+    <Box component="form" onSubmit={handleSubmit} className="permitForm">
       <div className="permitContainer">
         <Typography variant="h4">Submit Permit Request</Typography>
 
         <FormControl fullWidth margin="normal">
           <InputLabel id="permit-type-label">Permit Type</InputLabel>
-          {Array.isArray(permit) && permit.length > 0 ? (
+          {permit.length > 0 ? (
             <Select
               labelId="permit-type-label"
               id="permit-type-select"
@@ -85,8 +97,8 @@ const PermitRequestForm = () => {
               onChange={handlePermitTypeChange}
               label="Permit Type"
             >
-              {permit.map((row, key) => (
-                <MenuItem key={key} value={row.id}>
+              {permit.map((row) => (
+                <MenuItem key={row.id} value={row.id}>
                   {row.permit}
                 </MenuItem>
               ))}
@@ -105,16 +117,14 @@ const PermitRequestForm = () => {
           value={applicantName}
           onChange={(e) => setApplicantName(e.target.value)}
         />
-        <TextField
-          label="Applicant Number"
-          variant="standard"
-          required
-          fullWidth
-          margin="normal"
-          value={applicantNumber}
-          onChange={(e) => setApplicantNumber(e.target.value)}
-        />
 
+<PhoneInput
+  placeholder="Enter phone number"
+  required
+  defaultCountry="IN"
+  value={contactNumber}
+  onChange={setContactNumber}
+/>
         <TextField
           label="Applicant Address"
           variant="standard"
@@ -124,8 +134,8 @@ const PermitRequestForm = () => {
           value={applicantAddress}
           onChange={(e) => setApplicantAddress(e.target.value)}
         />
+
         <TextField
-          id="standard-multiline-static"
           label="Detail"
           required
           value={reason}
@@ -135,11 +145,40 @@ const PermitRequestForm = () => {
           onChange={(e) => setReason(e.target.value)}
           variant="standard"
         />
-        <div className="Button">
 
-        <Button variant="contained" color="primary" type="submit">
-          Submit Permit Request
-        </Button>
+        <TextField
+          id="event-date-start"
+          label="Event Date Start"
+          type="date"
+          required
+          fullWidth
+          margin="normal"
+          value={eventDateStart}
+          onChange={(e) => setEventDateStart(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
+        <TextField
+          id="event-date-end"
+          label="Event Date End"
+          type="date"
+          required
+          fullWidth
+          margin="normal"
+          value={eventDateEnd}
+          onChange={(e) => setEventDateEnd(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
+
+        <div className="Button">
+          <Button variant="contained" color="primary" type="submit">
+            Submit Permit Request
+          </Button>
         </div>
       </div>
     </Box>

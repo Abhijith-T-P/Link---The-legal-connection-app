@@ -49,15 +49,13 @@ const Place = () => {
         id: doc.id,
         ...doc.data(),
       }));
-
+  
       const placesnapshot = await getDocs(collection(db, "Place"));
       const placeData = placesnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-
-      console.log(placeData);
-
+  
       const joinData = placeData
         .map((place) => ({
           ...place,
@@ -68,14 +66,25 @@ const Place = () => {
         .filter(
           (place) => place.DistrictInfo && place.DistrictInfo.district
         )
-        
-        setDispayData(joinData);
-        console.log(joinData);
-    } 
-    catch (error) {
+        .sort((a, b) => {
+          const districtA = a.DistrictInfo.district.toUpperCase();
+          const districtB = b.DistrictInfo.district.toUpperCase();
+          if (districtA < districtB) {
+            return -1;
+          }
+          if (districtA > districtB) {
+            return 1;
+          }
+          return 0;
+        });
+  
+      setDispayData(joinData);
+      console.log(joinData);
+    } catch (error) {
       console.error("Error fetching data:", error)
     }
   }
+  
 
 
 //Ading data

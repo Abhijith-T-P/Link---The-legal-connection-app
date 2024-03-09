@@ -91,13 +91,13 @@ const Dashboard = () => {
           </Link>
           </div>
           <div className="service">
-            <Link to ="./PermitRequestForm">
+            <Link to ="./RequestOrCheck">
 
             <div class="card-client">
               <div class="Service-picture">
                 <img src={ser7} alt="img" />
               </div>
-              <p class="name-client"> Permit Request</p>
+              <p class="name-client"> Permit </p>
             </div>
             </Link>
           </div>

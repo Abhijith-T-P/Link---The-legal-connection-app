@@ -23,10 +23,11 @@ const Topbar = () => {
         id: docSnapUser.id,
       };
       setPolice(userData);
+      // console.log(userData);
     };
 
     userData();
-  }, [navigate]);
+  }, []);
 
   return (
     <div className="Topbar">
@@ -56,8 +57,9 @@ const Topbar = () => {
               <div className="userName">
                 {police ? (
                   <>
-                    <Typography variant="subtitle1">{police.house_officer
-}</Typography>
+                    <Typography variant="subtitle1">
+                      {police.stationName}
+                    </Typography>
                     <Typography variant="subtitle2">Police</Typography>
                   </>
                 ) : null}
