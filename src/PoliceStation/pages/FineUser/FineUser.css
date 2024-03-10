@@ -1,6 +1,7 @@
 
 .user{
     display: flex;
+
 }
 .card{
     background-color: rgb(236, 236, 236);
@@ -17,4 +18,10 @@
 .details{
     padding: 20px;
     /* background-color: antiquewhite; */
+}
+.fine_btn{
+    margin: 4px 0px;
+}
+.fields{
+    margin: 10px 0px;
 }

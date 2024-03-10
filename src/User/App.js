@@ -20,6 +20,7 @@ import UserRequestLawyerPage from "./Pages/UserRequestLawyer/UserRequestLawyerPa
 import UpcomingEventsPage from "./Pages/UpcomingEventsPage/UpcomingEventsPage";
 import RequestOrCheck from "./Pages/PermitRequestForm/RequestOrCheck";
 import PermitStatus from "./Pages/PermitRequestForm/PermitStatus";
+import PaymentPage from "./Pages/FinePaymentPage/PaymentPage";
 const App = () => {
   return (
     <div className="UniqPolice">
@@ -28,7 +29,7 @@ const App = () => {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Dashboard />} />
         <Route path="/permit" element={<PermitRequestForm />} />
-        <Route path="/EmergencyRequest" element={<EmergencyRequestPage />} />
+        {/* <Route path="/EmergencyRequest" element={<EmergencyRequestPage />} /> */}
         <Route
           path="/ReportMissingPersonPage"
           element={<ReportMissingPersonPage />}
@@ -40,7 +41,7 @@ const App = () => {
           path="/PassportVerificationDates"
           element={<PassportVerificationDates />}
         />
-        
+
         <Route path="/PermitStatus" element={<PermitStatus />} />
         <Route path="/RequestOrCheck" element={<RequestOrCheck />} />
         <Route path="/PoliceStationSearch" element={<PoliceStationSearch />} />
@@ -56,6 +57,8 @@ const App = () => {
         <Route path="/UpcomingEvents" element={<UpcomingEventsPage />} />
 
         <Route path="/Topbar" element={<Topbar />} />
+        <Route path="/PaymentPage/:id" element={<PaymentPage />} />
+        
       </Routes>
 
       <Footer />

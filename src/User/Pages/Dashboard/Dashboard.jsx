@@ -125,17 +125,17 @@ const Dashboard = () => {
             </div>
             </Link>
           </div>
-          <Link to ="./EmergencyRequest">
+          {/* <Link to ="./EmergencyRequest">
 
           <div className="service">
             <div class="card-client">
               <div class="Service-picture">
-                <img src={ser1} alt="img" />
+                <img src={ser1} alt="img" />  
               </div>
               <p class="name-client"> Emergency Request</p>
             </div>
           </div>
-          </Link>
+          </Link> */}
         </div>
       </main>
       <article>

@@ -16,7 +16,7 @@ const Dashboard = () => {
     <div className="Dashboard">
       <div className="hero">
         <div className="left">
-          <div className="heroText">
+          <div className="PheroText">
             <Typography variant="h4">STREAMLINE</Typography>
             <Typography variant="h1">LEGAL</Typography>
             <Typography variant="h5">COLLABRATION</Typography>
@@ -79,7 +79,7 @@ const Dashboard = () => {
             </Grid>
 
             <Grid item xs={12} md={6} lg={4}>
-              <Link to="./PoliceEmergencyRequestsPage"className="service" >
+              <Link to="./FineUser"className="service" >
                 <div class="card-client">
                   <div class="Service-picture">
                     <img src={ser2} alt="img" />

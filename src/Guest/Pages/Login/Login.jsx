@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, CircularProgress, IconButton, InputAdornment, Snackbar, TextField, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../../config/Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    sessionStorage.clear(); // Clear everything from the session when component mounts
+  }, []);
+
   const handleLogin = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      setLoading(true);
+      setError("");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const id = userCredential.user.uid;
 
       console.log(id);
@@ -33,33 +40,26 @@ const Login = () => {
       const docSnapPS = await getDoc(docRefPS);
 
       if (docSnapUser.exists()) {
-      sessionStorage.setItem("uid", id);
-
+        sessionStorage.setItem("uid", id);
         navigate("../../../User/");
       } else if (docSnapAdmin.exists()) {
-      sessionStorage.setItem("aid", id);
-
+        sessionStorage.setItem("aid", id);
         navigate("../../../Admin/");
       } else if (docSnapLawyer.exists()) {
-      sessionStorage.setItem("lid", id);
-
+        sessionStorage.setItem("lid", id);
         navigate("../../../Lawyer/");
       } else if (docSnapPS.exists()) {
-      sessionStorage.setItem("pid", id);
-
+        sessionStorage.setItem("pid", id);
         navigate("../../police");
       } else {
-        return;
+        setError("Invalid credentials");
       }
-
-      // sessionStorage.setItem("userId", user)
-      // navigate('../../../User/')
       console.log(id);
     } catch (error) {
-      const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+      setError("Incorrect email / password");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,8 +86,6 @@ const Login = () => {
         navigate("../../../Lawyer/");
       } else if (docSnapPS.exists()) {
         navigate("../../police");
-      } else {
-        return;
       }
     }
   };
@@ -96,8 +94,17 @@ const Login = () => {
     CheckAuth();
   }, []);
 
+  const handleCloseAlert = () => {
+    setError("");
+  };
+
   return (
-    <Box className="mainlogin" component="form" onClick={handleLogin}>
+    <Box className="mainlogin" component="form">
+      <Snackbar open={!!error} autoHideDuration={6000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
       <div className="leftContainer">
         <div className="h1input">
           <Typography variant="h1">Login</Typography>
@@ -114,21 +121,30 @@ const Login = () => {
         </div>
         <div className="input">
           <TextField
-            id="standard-basic"
+            id="standard-password-input"
             label="Password...."
             variant="standard"
-            type="password"
+            type={showPassword ? "text" : "password"}
             onChange={(event) => setPassword(event.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </div>
         <div className="button">
-          <Button variant="outlined" type="button">
-            Login
+          <Button variant="outlined" type="button" onClick={handleLogin}>
+            {loading ? <CircularProgress size={24} /> : "Login"}
           </Button>
         </div>
         <div className="linkContainer">
           <div className="link">
-            <Typography variant="subtitle2">Dont have an account .</Typography>{" "}
+            <Typography variant="subtitle2">Don't have an account?</Typography>{" "}
             <div className="change">
               <span>
                 <Link to="../../Register">Join Now</Link>{" "}
