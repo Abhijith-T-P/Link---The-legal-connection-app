@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Typography, CircularProgress } from "@mui/material";
 import { db } from "../../../config/Firebase";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import "./FinePayment.css";
 
 import img1 from "../../assets/icon/Fine/redLight.png";
@@ -22,7 +22,7 @@ const FinePaymentPage = () => {
   }, []);
 
   const [fineDetails, setFineDetails] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   const fineDetail = async () => {
     const fines = collection(db, "collection_UserFine");
@@ -35,17 +35,20 @@ const FinePaymentPage = () => {
       ...doc.data(),
       id: doc.id,
     }));
-    console.log(filteredFineDetails);
-    setFineDetails(filteredFineDetails); 
+  
+    setFineDetails(filteredFineDetails);
     setLoading(false);
   };
 
   const formatDate = (date) => {
-   
+    if (!date) {
+      return ""; // Return an empty string if date is not defined
+    }
+  
     const jsDate = date.toDate();
- 
+  
     const day = jsDate.getDate();
-    const month = jsDate.getMonth() + 1; 
+    const month = jsDate.getMonth() + 1;
     const year = jsDate.getFullYear();
     // Get weekday
     const weekdays = [
@@ -58,12 +61,13 @@ const FinePaymentPage = () => {
       "Saturday",
     ];
     const weekday = weekdays[jsDate.getDay()];
-
+  
     const paddedDay = day < 10 ? `0${day}` : day;
     const paddedMonth = month < 10 ? `0${month}` : month;
-
+  
     return `${paddedDay}/${paddedMonth}/${year} ${weekday}`;
   };
+  
 
   return (
     <div className="payfinecontainer" style={{ padding: "10px 220px " }}>
@@ -71,10 +75,12 @@ const FinePaymentPage = () => {
         <Typography variant="h4">Pay Fine</Typography>
       </div>
       <div className="fines">
-        {loading ? ( 
+        {loading ? (
           <div className="loadingContainer">
             <CircularProgress />
           </div>
+        ) : fineDetails.length === 0 ? (
+          <Typography variant="subtitle1">No fine</Typography>
         ) : (
           <Grid container spacing={2}>
             {fineDetails.map((detail) => (
@@ -104,9 +110,11 @@ const FinePaymentPage = () => {
                       variant="contained"
                       color="primary"
                       component={Link}
-                      to={`../PaymentPage/${detail.id}`} 
+                      to={`../PaymentPage/${detail.id}`}
+                      disabled={detail.paid === 1} // Disable the button if paid is equal to 1
                     >
-                      Pay Fine
+                      {detail.paid === 1 ? "Paid" : "Pay Fine"}{" "}
+                      {/* Render "Paid" if paid is 1, otherwise render "Pay Fine" */}
                     </Button>
                   </div>
                 </div>

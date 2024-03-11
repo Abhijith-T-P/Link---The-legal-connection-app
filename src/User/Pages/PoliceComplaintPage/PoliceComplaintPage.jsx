@@ -13,7 +13,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import { db, storage } from "../../../config/Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 
 import "./PoliceComplaintPage.css";
 import PhoneInput from "react-phone-number-input";
@@ -91,8 +91,12 @@ const PoliceComplaintPage = () => {
       }
       // Add police complaint to the database
       const Uid = sessionStorage.getItem("uid");
+      const getUserID = doc(db, "collection_user",Uid);
+      const userData = await getDoc(getUserID);
+      const userId = userData.data().user_Id;
+
       await addDoc(collection(db, "PoliceComplaint"), {
-        Uid,
+        userId,
         complainantName,
         contactNumber,
         documentURLs,
@@ -109,7 +113,7 @@ const PoliceComplaintPage = () => {
       setComplaintDescription("");
       setDocuments(null);
       setCaseCategory("");
-    setSubCaseCategory("");
+      setSubCaseCategory("");
 
       alert("Police complaint filed successfully!");
     } catch (error) {
@@ -147,7 +151,7 @@ const PoliceComplaintPage = () => {
         <FormControl fullWidth>
           <InputLabel id="case-category-label">Case Category</InputLabel>
           <Select
-          required
+            required
             labelId="case-category-label"
             id="case-category"
             value={caseCategory}
@@ -167,7 +171,7 @@ const PoliceComplaintPage = () => {
             Sub Case Category
           </InputLabel>
           <Select
-          required
+            required
             labelId="sub-case-category-label"
             id="sub-case-category"
             value={subCaseCategory}

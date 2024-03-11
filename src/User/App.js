@@ -21,6 +21,7 @@ import UpcomingEventsPage from "./Pages/UpcomingEventsPage/UpcomingEventsPage";
 import RequestOrCheck from "./Pages/PermitRequestForm/RequestOrCheck";
 import PermitStatus from "./Pages/PermitRequestForm/PermitStatus";
 import PaymentPage from "./Pages/FinePaymentPage/PaymentPage";
+import CaseDetailsPage from "./Pages/MyCasesPage/CaseDetailsPage";
 const App = () => {
   return (
     <div className="UniqPolice">
@@ -58,6 +59,9 @@ const App = () => {
 
         <Route path="/Topbar" element={<Topbar />} />
         <Route path="/PaymentPage/:id" element={<PaymentPage />} />
+        <Route path="/details/:id" element={<CaseDetailsPage />} />
+        
+        CaseDetailsPage
         
       </Routes>
 
