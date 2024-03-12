@@ -101,7 +101,7 @@ const Dashboard = () => {
             </div>
             </Link>
           </div>
-          <div className="service">
+          {/* <div className="service">
           <Link to ="./UpcomingEvents">
 
             <div class="card-client">
@@ -113,7 +113,7 @@ const Dashboard = () => {
             </div>
             </Link>
 
-          </div>
+          </div> */}
           <div className="service">
           <Link to ="./PoliceStationSearch">
 

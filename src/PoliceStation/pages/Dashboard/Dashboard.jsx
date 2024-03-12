@@ -119,7 +119,7 @@ const Dashboard = () => {
                 </div>
               </Link>
             </Grid>
-            <Grid item xs={12} md={12} lg={12}>
+            {/* <Grid item xs={12} md={12} lg={12}>
             <Link to="./UpcomingEventsPage" >
 
               <div className="service">
@@ -133,7 +133,7 @@ const Dashboard = () => {
                 </div>
               </div>
               </Link>
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
       </main>
