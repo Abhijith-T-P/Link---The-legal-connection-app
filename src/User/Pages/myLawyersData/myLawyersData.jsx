@@ -21,12 +21,14 @@ const MyLawyersPage = () => {
       const lawyersCollection = collection(db, "Collection_lawyer_connection");
       const querySnapshot = await getDocs(lawyersCollection);
       const lawyersList = querySnapshot.docs
-        .filter((doc) => doc.data().userID === uid)
+        .filter((doc) => doc.data().userID === uid && doc.data().cStatus === 1)
         .map((doc) => ({
           id: doc.id,
           lawyerID: doc.data().lawyerID,
+          ...doc.data(),
         }));
       console.log(lawyersList);
+      
 
       const lawyerCollection = collection(db, "lawyer_collection");
       const lawyersDetails = [];
