@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, CircularProgress, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { collection, doc, getDoc, getDocs, updateDoc, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 
 const CaseDetailsPage = () => {
@@ -10,6 +10,7 @@ const CaseDetailsPage = () => {
   const [selectedLawyer, setSelectedLawyer] = useState("");
   const [lawyers, setLawyers] = useState([]);
   const [joindata, setJoindata] = useState([]); // State to store joined data
+  const [lawyer, setLawyer] = useState(null); // State to store joined data
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,6 +21,9 @@ const CaseDetailsPage = () => {
         
         if (caseSnapshot.exists()) {
           setCaseDetails({ id: caseSnapshot.id, ...caseSnapshot.data() });
+
+          console.log("Case Details:", caseSnapshot.data());
+          fetchLawyer(caseSnapshot.data().lawyer);
         } else {
           console.log("No such case found!");
         }
@@ -32,6 +36,27 @@ const CaseDetailsPage = () => {
 
     fetchCaseDetails();
   }, [id]);
+
+  const fetchLawyer = async (lid) => {
+    if (lid) {
+      try {
+        const lawyerQuery = query(collection(db, "lawyer_collection"), where("userId", "==", lid));
+        const lawyerSnapshot = await getDocs(lawyerQuery);
+        
+        if (!lawyerSnapshot.empty) {
+          const lawyerDoc = lawyerSnapshot.docs[0];
+          setLawyer(lawyerDoc.data());
+          console.log("Lawyer Details:", lawyerDoc.data());
+        } else {
+          setLawyer(null);
+        }
+      } catch (error) {
+        console.error("Error fetching lawyer:", error.message);
+      }
+    } else {
+      setLawyer(null);
+    }
+  };
 
   const lawyerConnection = async (uid) => {
     try {
@@ -71,6 +96,8 @@ const CaseDetailsPage = () => {
       
       setJoindata(joindata); // Set the joined data in state
       setLawyers(lawyersDetails);
+      console.log("Joined Data:", joindata);
+      console.log("Lawyers Details:", lawyersDetails);
     } catch (error) {
       console.error("Error fetching lawyers:", error);
     } finally {
@@ -88,10 +115,6 @@ const CaseDetailsPage = () => {
     }
   };
   
-  useEffect(() => {
-    console.log("Joindata:", joindata); // Log joindata whenever it changes
-  }, [joindata]);
-
   return (
     <div className="details-container" style={{ padding: "20px" }}>
       <Typography variant="h4">Case Details</Typography>
@@ -105,7 +128,20 @@ const CaseDetailsPage = () => {
             <Typography variant="subtitle1">Contact Number: {caseDetails.contactNumber}</Typography>
             <Typography variant="subtitle1">Complaint Description: {caseDetails.complaintDescription}</Typography>
             {caseDetails.lawyer ? (
-              <Typography variant="subtitle1">Lawyer: {caseDetails.lawyer}</Typography>
+              <div>
+                <Typography variant="subtitle1">Lawyer: {caseDetails.lawyer}</Typography>
+                {lawyer && (
+                  <div>
+                    <Typography variant="subtitle1">Lawyer Details:</Typography>
+                    <img src={lawyer.profile_picture} alt="Lawyer Profile" style={{ width: "100px", height: "100px" }} />
+                    <Typography variant="subtitle1">Name: {lawyer.full_name}</Typography>
+                    <Typography variant="subtitle1">Email: {lawyer.email}</Typography>
+                    <Typography variant="subtitle1">Mobile: {lawyer.mobile}</Typography>
+                    <Typography variant="subtitle1">Address: {lawyer.address}</Typography>
+                    <Typography variant="subtitle1">Qualification: {lawyer.qualification}</Typography>
+                  </div>
+                )}
+              </div>
             ) : (
               <div>
                 <Button variant="outlined" color="primary" onClick={() => lawyerConnection(sessionStorage.getItem("uid"))}>Add Lawyer</Button>

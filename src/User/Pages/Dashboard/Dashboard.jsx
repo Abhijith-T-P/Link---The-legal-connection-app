@@ -78,7 +78,7 @@ const Dashboard = () => {
             </div>
             </Link>
           </div>
-          <div className="service">
+          {/* <div className="service">
           <Link to="./PassportVerificationDates">
 
 
@@ -89,7 +89,7 @@ const Dashboard = () => {
               <p class="name-client"> Pasport verification</p>
             </div>
           </Link>
-          </div>
+          </div> */}
           <div className="service">
             <Link to ="./RequestOrCheck">
 

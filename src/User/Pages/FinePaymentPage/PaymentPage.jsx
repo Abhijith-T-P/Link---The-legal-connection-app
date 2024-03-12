@@ -68,8 +68,8 @@ const PaymentPage = () => {
         name: "",
         focus: "",  
       });
-      window.location.reload(); // Reload the page
       navigate("../FinePaymentPage");
+      window.location.reload(); // Reload the page
     } catch (error) {
       console.error("Error updating document: ", error);
     }
