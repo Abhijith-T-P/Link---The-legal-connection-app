@@ -77,3 +77,20 @@
   min-width: 100px;
   text-align: end;
 }
+.messge{
+ display: flex;
+ position: relative;
+  .count{
+    background-color: aqua;
+    padding: 5px;
+    border-radius: 100px;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    left: 80px;
+    bottom: 10px;
+    display: flex;justify-content: center;align-items: center;
+    
+  }
+}

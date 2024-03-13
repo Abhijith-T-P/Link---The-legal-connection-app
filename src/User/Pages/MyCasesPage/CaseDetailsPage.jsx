@@ -3,7 +3,7 @@ import { Typography, CircularProgress, Button, FormControl, InputLabel, Select, 
 import { useParams } from "react-router-dom";
 import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
-
+import "./case.css"
 const CaseDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [caseDetails, setCaseDetails] = useState(null);
@@ -82,20 +82,10 @@ const CaseDetailsPage = () => {
         lawyersDetails.push(...lawyerDetails);
       }
 
-      const getSpecilisation = collection(db, "Lawyer_Category");
-      const getSpecilisationSnapshot = await getDocs(getSpecilisation);
-      const getSpecilisationList = getSpecilisationSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      const joindata = lawyersDetails.map((item) => ({
-        ...item,
-        catName: getSpecilisationList.find((cat) => cat.id === item.specialization),
-      })).filter((item) => item.catName && item.catName.id);
+     
       
-      setJoindata(joindata); // Set the joined data in state
-      setLawyers(lawyersDetails);
+      
+            setLawyers(lawyersDetails);
       console.log("Joined Data:", joindata);
       console.log("Lawyers Details:", lawyersDetails);
     } catch (error) {
@@ -116,14 +106,20 @@ const CaseDetailsPage = () => {
   };
   
   return (
-    <div className="details-container" style={{ padding: "20px" }}>
-      <Typography variant="h4">Case Details</Typography>
+    <div className="details-container" style={{ padding: "10px 220px" }}>
+      <Typography variant="h4" sx={{padding:"10px"}}>Case Details</Typography>
       {loading ? (
         <CircularProgress />
       ) : (
         caseDetails && (
+          <div sx={{display: "flex", flexDirection: "column"}}>
+
+          
+            <div className="heading-case">
+
+            <Typography variant="h5">Case ID: {caseDetails.id}</Typography>
+            </div>
           <div className="case-details">
-            <Typography variant="subtitle1">Case ID: {caseDetails.id}</Typography>
             <Typography variant="subtitle1">Complainant Name: {caseDetails.complainantName}</Typography>
             <Typography variant="subtitle1">Contact Number: {caseDetails.contactNumber}</Typography>
             <Typography variant="subtitle1">Complaint Description: {caseDetails.complaintDescription}</Typography>
@@ -132,8 +128,9 @@ const CaseDetailsPage = () => {
                 <Typography variant="subtitle1">Lawyer: {caseDetails.lawyer}</Typography>
                 {lawyer && (
                   <div>
-                    <Typography variant="subtitle1">Lawyer Details:</Typography>
-                    <img src={lawyer.profile_picture} alt="Lawyer Profile" style={{ width: "100px", height: "100px" }} />
+                    <div className="hr"></div>
+                    <Typography variant="h6" sx={{padding:"10px"}}>Lawyer Details</Typography>
+                    <img src={lawyer.profile_picture} alt="Lawyer Profile" style={{ width: "150px"}} />
                     <Typography variant="subtitle1">Name: {lawyer.full_name}</Typography>
                     <Typography variant="subtitle1">Email: {lawyer.email}</Typography>
                     <Typography variant="subtitle1">Mobile: {lawyer.mobile}</Typography>
@@ -169,6 +166,7 @@ const CaseDetailsPage = () => {
               </div>
             )}
           </div>
+      </div>
         )
       )}
     </div>

@@ -38,7 +38,7 @@ const Topbar = () => {
       <div className="container">
         <div className="items">
           <div className="logo">
-            <img src="" alt="logo" />
+            <Typography variant="h3" sx={{fontWeight:"900"}}>Link</Typography>
           </div>
           <div className="mid">
             <div className="containerBottom"></div>

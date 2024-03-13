@@ -61,9 +61,22 @@ const ClientRequestsPage = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setRequests(requestsData);
+
+      const userDeatil = collection(db, "collection_user");
+      const userData = await getDocs(userDeatil);
+      const userDetailData = userData.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log("userDetailData:", userDetailData);
+      const joinData = requestsData.map((doc) => ({
+        ...doc,
+        userDetail: userDetailData.find((user) => user.id === doc.userID),
+      }));
+
+      console.log("joinData:", joinData);
+      setRequests(joinData);
       setLoading(false); // Set loading to false after fetching data
-      console.log("Requests fetched successfully!", requestsData);
     } catch (error) {
       console.error("Error fetching client requests:", error);
       setLoading(false); // Set loading to false in case of error
@@ -103,13 +116,18 @@ const ClientRequestsPage = () => {
             <Grid item key={request.id} xs={12} md={6} lg={4}>
               <div className="finebody">
                 <div className="fineHeading">
-                  <Typography variant="h6">
-                    Client ID: {request.userID}
+                  <Typography variant="subtitle1">
+                    Client ID: {request.userDetail.user_Id}
                   </Typography>
                 </div>
                 <div className="fineContainer">
+                  <img src={request.userDetail.user_photo} alt="user Profile" style={{ height: "150px"}} />                  
                   <Typography variant="subtitle1">
-                    Request ID: {request.id}
+                    Name: {request.userDetail.user_name}
+                  </Typography>
+                  
+                  <Typography variant="subtitle1">
+                    Name: {request.userDetail.user_email}
                   </Typography>
                   <Typography variant="subtitle1">
                     Status: {request.cStatus === 0 ? "Pending" : "Accepted"}

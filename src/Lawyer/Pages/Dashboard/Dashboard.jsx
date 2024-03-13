@@ -4,7 +4,7 @@ import bgv from "../../assets/lawyerHero.mp4";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import img1 from "../../assets/icons/appoinment.png"
+import img1 from "../../assets/icons/connection.png"
 import img2 from "../../assets/icons/backgroundCheck.png"
 import img3 from "../../assets/icons/case.png"
 import img4 from "../../assets/icons/client.png"
@@ -53,16 +53,16 @@ const Dashboard = () => {
             </Link>
           </div>
           <div className="service">
-            <Link to="./appiontments">
+            <Link to="./ClientRequestsPage">
               <div class="card-client">
                 <div class="Service-picture">
                   <img src={img1} alt="img" />
                 </div>
-                <p class="name-client"> Appionments</p>
+                <p class="name-client">client Requests</p>
               </div>
             </Link>
           </div>
-          <div className="service">
+          {/* <div className="service">
             <Link to="./Search">
               <div class="card-client">
                 <div class="Service-picture">
@@ -71,7 +71,7 @@ const Dashboard = () => {
                 <p class="name-client"> Search user</p>
               </div>
             </Link>
-          </div>
+          </div> */}
         </div>
       </main>
       <article>

@@ -1,92 +1,104 @@
 import React, { useState, useEffect } from "react";
-import { Typography, List, ListItem, ListItemText, Grid } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../../config/Firebase";
 import "./LawyerAcceptedCasesPage.css";
-const LawyerAcceptedCasesPage = ({ lawyerId }) => {
-  // Assume you have a function to fetch the lawyer's accepted cases
-  const fetchAcceptedCases = async () => {
-    // Your logic to fetch accepted cases from the database based on the lawyerId
-    // Example: const acceptedCases = await getLawyerAcceptedCases(lawyerId);
-    // Set the acceptedCases state with the fetched data
-    // setAcceptedCases(acceptedCases);
-  };
+
+const LawyerAcceptedCasesPage = () => {
+  const [acceptedCases, setAcceptedCases] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch lawyer's accepted cases when the component mounts
-    fetchAcceptedCases();
+    const lid = sessionStorage.getItem("lid");
+    if (lid) {
+      getLawyerId(lid);
+    } else {
+      console.log("No lawyer ID found in session storage.");
+    }
   }, []);
 
-  // Assume acceptedCases is an array of case objects with properties like caseId and caseTitle
-  const acceptedCases = [
-    { caseId: 1, caseTitle: "Case 1" },
-    { caseId: 2, caseTitle: "Case 2" },
-    { caseId: 3, caseTitle: "Case 3" },
-    // Add more accepted cases as needed
-  ];
+  const getLawyerId = async (lid) => {
+    try {
+      const lawyerDocRef = doc(db, "lawyer_collection", lid);
+      const lawyerDocSnapshot = await getDoc(lawyerDocRef);
+
+      if (lawyerDocSnapshot.exists()) {
+        const lawyerData = lawyerDocSnapshot.data();
+        const userId = lawyerData.userId;
+        console.log("Lawyer userId:", userId);
+        fetchAcceptedCases(userId);
+      } else {
+        console.log("No lawyer found with ID:", lid);
+      }
+    } catch (error) {
+      console.error("Error fetching lawyer userId:", error);
+    }
+  };
+
+  const fetchAcceptedCases = async (lid) => {
+    try {
+      console.log(lid);
+      const casesCollection = collection(db, "PoliceComplaint");
+      const q = query(casesCollection, where("lawyer", "==", lid));
+      const casesSnapshot = await getDocs(q);
+      const acceptedCasesData = casesSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      const subcatIds = new Set(acceptedCasesData.map((caseItem) => caseItem.subCaseCategory));
+      const subcatDocs = Array.from(subcatIds).map((subcatId) => doc(db, "SubCaseType", subcatId));
+      const subcatSnapshots = await Promise.all(subcatDocs.map((subcatDoc) => getDoc(subcatDoc)));
+      const subcatData = subcatSnapshots.reduce((acc, subcatSnapshot) => {
+        const subcatId = subcatSnapshot.id;
+        const subcat = subcatSnapshot.data();
+        acc[subcatId] = subcat;
+        return acc;
+      }, {});
+
+      const joinedData = acceptedCasesData.map((caseItem) => ({
+        ...caseItem,
+        subcategory: subcatData[caseItem.subCaseCategory] || "Unknown",
+      }));
+
+      console.log("Joined data:", joinedData);
+      setAcceptedCases(joinedData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching accepted cases:", error);
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="LawyerAcceptedCasesPage" style={{ padding: "10px 220px" ,paddingBottom:"50px" }}>
+    <div className="LawyerAcceptedCasesPage" style={{ padding: "10px 220px", paddingBottom: "50px" }}>
       <div className="Title">
-
-      <Typography variant="h4">Accepted Cases</Typography>
+        <Typography variant="h4">Assigned Cases</Typography>
       </div>
 
-      {/* {acceptedCases.length > 0 ? (
-        <List>
-          {acceptedCases.map((caseItem) => (
-            <ListItem key={caseItem.caseId}>
-              <ListItemText primary={caseItem.caseTitle} />
-            </ListItem>
-          ))}
-        </List>
+      {loading ? (
+        <div>Loading...</div>
+      ) : acceptedCases.length === 0 ? (
+        <Typography variant="subtitle1" className="no-cases-message">No accepted cases found.</Typography>
       ) : (
-        <Typography variant="subtitle1">No accepted cases available.</Typography>
-      )} */}
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={4}>
-          <div className="acepted-cases">
-            <div className="acepted-cases-list">
-              <Typography variant="h6">Client Name</Typography>
-              <Typography variant="subtitle1">Case ID : 123456789</Typography>
-              <Typography variant="subtitle1">Category</Typography>
-              <Typography variant="subtitle1">Subcategory</Typography>
-              <Typography variant="subtitle1">View more</Typography>
-            </div>
-          </div>
+        <Grid container spacing={2}>
+          {acceptedCases.map((caseItem) => (
+            <Grid item xs={12} md={6} lg={4} key={caseItem.id}>
+              <div className="acepted-cases">
+                <div className="acepted-cases-list">
+                  <Typography variant="h6">{caseItem.complainantName}</Typography>
+                  <Typography variant="subtitle1">Number: {caseItem.contactNumber}</Typography>
+                  <Typography variant="subtitle1">Subcategory: {caseItem.subcategory.SubCaseCategory}</Typography>
+                </div>
+                  <div className="cid">
+
+                  <Typography variant="subtitle1">Case ID : {caseItem.id}</Typography>
+                  </div>
+              </div>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <div className="acepted-cases">
-            <div className="acepted-cases-list">
-              <Typography variant="h6">Client Name</Typography>
-              <Typography variant="subtitle1">Case ID : 123456789</Typography>
-              <Typography variant="subtitle1">Category</Typography>
-              <Typography variant="subtitle1">Subcategory</Typography>
-              <Typography variant="subtitle1">View more</Typography>
-            </div>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <div className="acepted-cases">
-            <div className="acepted-cases-list">
-              <Typography variant="h6">Client Name</Typography>
-              <Typography variant="subtitle1">Case ID : 123456789</Typography>
-              <Typography variant="subtitle1">Category</Typography>
-              <Typography variant="subtitle1">Subcategory</Typography>
-              <Typography variant="subtitle1">View more</Typography>
-            </div>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <div className="acepted-cases">
-            <div className="acepted-cases-list">
-              <Typography variant="h6">Client Name</Typography>
-              <Typography variant="subtitle1">Case ID : 123456789</Typography>
-              <Typography variant="subtitle1">Category</Typography>
-              <Typography variant="subtitle1">Subcategory</Typography>
-              <Typography variant="subtitle1">View more</Typography>
-            </div>
-          </div>
-        </Grid>
-      </Grid>
+      )}
     </div>
   );
 };
