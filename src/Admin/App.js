@@ -21,6 +21,7 @@ import UpdatePoliceLocation from "./Pages/UpdatePoliceLocation/UpdatePoliceLocat
 // import UserList from "./Pages/UserList/UserList";
 import UserManagementPage from "./Pages/UserList/UserList";
 import FineType from "./Pages/FineType/FineType";
+import AllPages from "./Pages/All Pages/AllPages";
 
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
   
         
      
-            <Route path="/" element={<Category />} />
+            <Route path="/Category" element={<Category />} />
             <Route path="/CaseType" element={<Casetype />} />
             <Route path="/District" element={<District />} />
             <Route path="/Jurisdiction" element={<Jurisdiction />} />
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/UpdatePoliceLocation" element={<UpdatePoliceLocation />} />
             <Route path="/UserList" element={<UserManagementPage />} />
             <Route path="/FineType" element={<FineType />} />
+            <Route path="/" element={<AllPages />} />
             
             
       </Routes>

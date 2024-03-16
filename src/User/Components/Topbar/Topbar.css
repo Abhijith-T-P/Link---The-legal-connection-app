@@ -26,11 +26,11 @@
           width: 120px;
         }
       }
-      nav {
+      nav  {
         display: flex;
         align-items: center;
         padding: 10px;
-        .nav {
+        .nav ,.messge{
           padding: 5px 15px;
           &:hover {
             background-color: #e1e2de;

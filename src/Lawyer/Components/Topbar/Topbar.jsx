@@ -44,11 +44,9 @@ const Topbar = () => {
             <div className="containerBottom"></div>
           </div>
           <nav>
+              
             <div className="nav">
-              <Link to="/product">Product</Link>{" "}
-            </div>
-            <div className="nav">
-              <Link to="/">Home</Link>{" "}
+              <Link to="./Lawyer">Home</Link>{" "}
             </div>
             <div className="nav">
               <Button onClick={handleLogout}>Logout</Button>

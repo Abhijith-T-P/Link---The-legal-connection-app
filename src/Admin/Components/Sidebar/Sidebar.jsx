@@ -27,8 +27,8 @@ const Sidebar = () => {
       </div>
 
       <div className="middle">
-      <div className="card">
-          <div className="cardcontent ">
+      {/* <div className="card"> */}
+          {/* <div className="cardcontent ">
             <div className="logo">
               <AcUnitOutlinedIcon />
             </div>
@@ -72,10 +72,10 @@ const Sidebar = () => {
               <NavigateNextOutlinedIcon />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="bottom">
-        <div className="card">
+        {/* <div className="card">
           <div className="cardTop">
             <img src="" alt="logo" />
           </div>
@@ -85,7 +85,7 @@ const Sidebar = () => {
               amet consectetur.
             </Typography>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import {
   CircularProgress,
   Typography,
 } from "@mui/material";
-import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc, query, orderBy } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 
 const PermitApprovalPage = () => {
@@ -18,7 +18,8 @@ const PermitApprovalPage = () => {
     const fetchPermitRequests = async () => {
       try {
         const permitRequestsRef = collection(db, "permitRequests");
-        const permitRequestsSnapshot = await getDocs(permitRequestsRef);
+        const q = query(permitRequestsRef, orderBy("timestamp", "desc")); // Order by timestamp in descending order
+        const permitRequestsSnapshot = await getDocs(q);
         const permitRequestsList = permitRequestsSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),

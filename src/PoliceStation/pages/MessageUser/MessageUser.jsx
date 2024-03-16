@@ -54,29 +54,33 @@
       };
 
       const handleSubmitMessage = async () => {
+        // Check if the message is not empty
+        if (!message.trim()) {
+          alert("Please enter a message before sending.");
+          return;
+        }
+      
         // Add your message sending logic here
         console.log("Sending message:", message);
-        const sendMessage = collection(db,"collection_police_user_message");
+        const sendMessage = collection(db, "collection_police_user_message");
         const messageData = {
           message: message,
           sent_by: sessionStorage.getItem("pid"),
           sent_to: userId,
-          status :0,
+          status: 0,
           sent_at: serverTimestamp(),
         };
         await addDoc(sendMessage, messageData);
         console.log("Message sent!");
         alert("Message sent!");
-
-      window.location.reload();
-
-        
+      
+        window.location.reload();
+      
         setMessage("");
         setShowMessageInput(false);
         setUserId("");
-      
       };
-
+      
       return (
         <div className="MessageUserPage" style={{ padding: "10px 220px" }}>
           <div className="heading">

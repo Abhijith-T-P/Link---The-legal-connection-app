@@ -41,14 +41,13 @@ const Topbar = () => {
             <div className="containerBottom"></div>
           </div>
           <nav>
+            
             <div className="nav">
-              <Link to="/product">Product</Link>{" "}
+              <Link to="/police">Home</Link>{" "}
             </div>
-            <div className="nav">
-              <Link to="/">Home</Link>{" "}
-            </div>
-            <div className="nav">
-              <Link to="/">Home</Link>{" "}
+
+             <div className="nav">
+              <Link to="/">logout</Link>{" "}
             </div>
           </nav>
         </div>

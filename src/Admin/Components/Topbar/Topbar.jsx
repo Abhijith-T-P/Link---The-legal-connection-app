@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Topbar.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Link } from "react-router-dom";
-import logo from "../../../Assets/Images/Logo/LinkLogo2.svg"
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../../Assets/Images/Logo/LinkLogo2.svg";
 
 const Topbar = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const aid = sessionStorage.getItem("aid");
+    if (!aid || aid !== "admin") {
+      navigate("/Login");
+    }
+  }, [navigate]);
+
   return (
     <div className="AdminTopbar">
       <div className="container">
@@ -13,9 +22,13 @@ const Topbar = () => {
             <img src={logo} alt="logo" />
           </div>
           <nav>
-            <div className="nav"><Link to="/Product">Product</Link>  </div>
-            <div className="nav"><Link to="/">Home</Link> </div>
-            <div className="nav">Home</div>
+            <div className="nav">
+              <Link to="/">Logout</Link>
+            </div>
+            <div className="nav">
+              <Link to="/Admin">Home</Link>
+            </div>
+           
           </nav>
         </div>
         <div className="searchContainer">
@@ -30,14 +43,14 @@ const Topbar = () => {
         </div>
       </div>
       <div className="containerBottom">
-        <nav>
+        {/* <nav>
           <ul>
             <li>Dashboard</li>
             <li>User</li>
             <li>Police</li>
             <li>Lawyer</li>
           </ul>
-        </nav>
+        </nav> */}
       </div>
     </div>
   );

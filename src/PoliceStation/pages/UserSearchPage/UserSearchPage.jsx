@@ -29,6 +29,7 @@ const SearchUserPage = () => {
         ...doc.data(),
         id: doc.id,
       }));
+      // console.log(userDetail);
       setUserDetails(userDetail);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -70,6 +71,8 @@ const SearchUserPage = () => {
             <div className="card" key={user.id}>
               <div className="user">
                 <div className="details">
+                <img src={user.user_photo} alt="Profile" style={{ height  : "3  00px"}} />
+
                   <Typography variant="h5">{user.user_name}</Typography>
                   <Typography variant="h6">{user.user_dob}</Typography>
                   <Typography variant="h6">{user.user_address}</Typography>

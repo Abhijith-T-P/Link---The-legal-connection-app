@@ -76,22 +76,25 @@
               <div className="containerBottom"></div>
             </div>
             <nav>
-              <div className="nav">
+              {/* <div className="nav">
                 <Link to="./MyCasesPage">My Cases</Link>
-              </div>
-              <div className="nav">
+              </div> */}
+              {/* <div className="nav">
                 <Link to="./PolicePage">POLICE</Link>
-              </div>
-              <div className="nav">
+              </div> */}
+              {/* <div className="nav">
                 <Link to="">LAWYER</Link>
-              </div>
+              </div> */}
               <div className="nav">
-                <Link to="">Home</Link>
+                <Link to="/user">Home</Link>
               </div>
               <div className="messge">
               <Link to="./FetchMessagesPage ">Notification  {}</Link>
               {unreadMessagesCount > 0 && <div className="count">{unreadMessagesCount}</div>}
 
+              </div>
+              <div className="nav" >
+                <Link to="/Login">LogOut</Link>
               </div>
             </nav>
           </div>
@@ -103,7 +106,7 @@
                   <Typography variant="subtitle2">User</Typography>
                 </div>
               </div>
-              <div className="logo" onClick={handleLogout}>
+              <div className="logo" >
                 <img src={userPhoto || "https://source.unsplash.com/random"} alt="logo" />
               </div>
             </div>
